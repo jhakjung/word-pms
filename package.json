@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "loadash": "^1.0.0",
+    "normalize.css": "^8.0.1",
+    "startbootstrap-blog-post": "^5.0.9"
+  }
+}

@@ -7,6 +7,6 @@ function enqueue_custom_scripts() {
   wp_enqueue_style('my-style', get_stylesheet_uri());
 
   wp_enqueue_script('fa-js', '//kit.fontawesome.com/61b7275f5f.js', 'NULL', '5.9.0', false);
-  // wp_enqueue_script('main-js', get_theme_file_uri('/assets/js/app.bundle.js'), 'NULL', '1.0', true);
+  wp_enqueue_script('main-js', get_theme_file_uri('bundled.js'), 'NULL', '1.0', true);
   // wp_enqueue_script('custom-js', get_theme_file_uri('/assets/js/custom.js'), array('jquery'), '1.0', true);
 }

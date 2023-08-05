@@ -13,16 +13,30 @@
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#!">Start Bootstrap</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" href="#">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Contact</a></li>
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Blog</a></li>
-                </ul>
+        <div class="container-xxl d-flex justify-content-between align-content-center">
+            <div class="col-md-3">
+                <a class="navbar-brand text-left" href="#!">위례트램</a>
             </div>
+
+            <div class="col-md-6">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link active" href="#">이슈관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">성과물</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">안전관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">공정관리</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">자료실</a></li>
+                <li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
+                </ul>
+
+            </div>
+
+            <div class="col-md-3">
+                <p>
+                    <?php echo do_shortcode('[ivory-search id="7" title="AJAX Search Form"]'); ?>
+                </p>
+            </div>
+
+
+
         </div>
     </nav>

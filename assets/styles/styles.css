@@ -1,11 +1,5 @@
-body {
-    background-color: greenyellow;
-}
+@import 'normalize.css';
+@import 'base/_global.css';
+@import 'modules/_site-header.css';
 
-$mainBlue: red;
 
-.large-hero {
-    h2 {
-        color: $mainBlue;
-    }
-}

@@ -12,10 +12,10 @@
 
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="site-header navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-xxl d-flex justify-content-between align-content-center">
             <div class="col-md-3">
-                <a class="navbar-brand text-left" href="#!">위례트램</a>
+                <a class="fs-3 navbar-brand text-left" href="#!">위례트램</a>
             </div>
 
             <div class="col-md-6">

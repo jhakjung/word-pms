@@ -1,5 +1,7 @@
 <?php get_header();?>
 
+<div class="large-hero"><h2>Test</h2></div>
+
 <?php
 
   while(have_posts()) {

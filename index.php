@@ -1,5 +1,7 @@
 <?php get_header();?>
 
+<?php get_template_part('template-parts/sections/section', 'doc_cat_list'); ?>
+
 <?php
 
   while(have_posts()) {

@@ -13,7 +13,7 @@
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
     <nav class="site-header navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-xxl d-flex flex-sm-wrap justify-content-between align-content-center">
+        <div class="container d-flex flex-sm-wrap justify-content-between align-content-center">
             <div class="w-auto float-left">
                 <a class="fs-3 navbar-brand text-left" href="#!">위례트램</a>
             </div>
@@ -32,7 +32,7 @@
                 <li class="nav-item"><a class="nav-link" href="#">안전관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">공정관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="#!">자료실</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">로그인</a></li>
+                <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
                 </ul>
             </div>
 

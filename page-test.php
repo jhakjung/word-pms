@@ -1,28 +1,6 @@
 <?php get_header();?>
 
-<div class="container-fluid border-bottom">
-	<div class="d-flex flex-wrap justify-content-center">
-
-    <?php
-// 'project_state' Taxonomy에 속하는 Term들을 가져옴
-$terms = get_terms(array(
-    'taxonomy' => 'project_state',
-    'hide_empty' => false, // 빈 Term도 출력
-));
-
-if (!empty($terms) && !is_wp_error($terms)) {
-    echo '<ul>';
-    foreach ($terms as $term) {
-        echo '<li>' . $term->name . '</li>';
-    }
-    echo '</ul>';
-} else {
-    echo 'No terms found.';
-}
-?>
-
-	</div>
-</div>
+<?php get_template_part('template-parts/sections/section', 'tax_ps_list'); ?>
 
 <?php
 // 'project_state' Taxonomy 중 "ps01" Slug를 가진 Term을 가져옴

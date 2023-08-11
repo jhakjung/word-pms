@@ -1,6 +1,6 @@
 <?php get_header();?>
 
-<?php get_template_part('template-parts/sections/section', 'tax_ps_list'); ?>
+<?php get_template_part('template-parts/sections/section', 'stage_cat_list'); ?>
 <?php get_template_part('template-parts/sections/section', 'tax_title'); ?>
 
 <div id="primary" class="content-area">

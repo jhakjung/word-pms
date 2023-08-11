@@ -15,7 +15,7 @@
     <nav class="site-header navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container d-flex flex-sm-wrap justify-content-between align-content-center">
             <div class="w-auto float-left">
-                <a class="fs-3 navbar-brand text-left" href="#!">위례트램</a>
+                <a class="fs-3 navbar-brand text-left" href="<?php echo esc_url(site_url('/')); ?>"><?php bloginfo('name'); ?></a>
             </div>
 
             <div class="mx-auto w-auto">

@@ -5,7 +5,7 @@
 <div class="main container">
 	<div class="row">
 		<aside class="col-lg-3 border-end">
-			<?php get_template_part('template-parts/sections/section', 'system_cat_list2'); ?>
+			<?php custom_get_tax_list('project_state'); ?>
 
 			<br>
 

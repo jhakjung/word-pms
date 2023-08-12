@@ -1,0 +1,31 @@
+/* 프로젝트 단계 */
+span.badge.bg-secondary a,
+span.badge.bg-info a,
+span.badge.bg-warning a,
+span.badge.bg-primary a {
+    color: #fff !important;
+    text-decoration: none !important;
+}
+
+/* a 태그 */
+span.badge.badge-success a,
+span.badge.badge-secondary a,
+span.badge.badge-warning a,
+span.badge.badge-primary a,
+span.badge.bg-purple a,
+span.badge.badge-info a,
+.post-meta a,
+span.bg-vivid-cyan-blue a,
+span.bg-blulish-gray a,
+span.bg-vivid-purple a,
+span.bg-vivid-orange a,
+span.bg-vivid-red a,
+span.bg-vivid-cyan2 a,
+span.bg-light-dark a,
+span.bg-title1 a,
+span.badge.bg-vivid-cyan-blue a,
+span.badge.bg-vivid-amber a,
+span.badge.badge-danger a {
+  color: #fff !important;
+  text-decoration: none !important;
+}

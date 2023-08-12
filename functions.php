@@ -1,12 +1,12 @@
 <?php
 // Theme resource FIles
-add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 function enqueue_custom_scripts() {
 	wp_enqueue_style('main-css', get_theme_file_uri('/assets/styles/bootstrap.css'));
 	wp_enqueue_script('fa-js', '//kit.fontawesome.com/61b7275f5f.js', 'NULL', '5.9.0', false);
 	wp_enqueue_script('main-js', get_theme_file_uri('bundled.js'), 'NULL', '1.0', true);
 	wp_enqueue_style('my-style', get_stylesheet_uri());
 }
+add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
 // 성과물 포스트 타입 등록
 function document_post_types() {
@@ -88,9 +88,8 @@ function pms_widget() {
 	));
 }
 
-// 택소노미별 리스트를 btn으로 출력
-function custom_get_tax_list($taxonomy) { ?>
-	<section class="d-flex flex-wrap justify-content-center border-bottom">
+// 택소노미별 리스트를 출력
+function custom_get_tax_list($taxonomy, $class) { ?>
 		<?php
 		// 'project_state' Taxonomy에 속하는 Term들을 가져옴
 		$terms = get_terms(array(
@@ -100,19 +99,12 @@ function custom_get_tax_list($taxonomy) { ?>
 			'order' => 'ASC'
 		));
 
-		// $button_class = 'btn-light';
-		// echo '<a href="#" class="btn m-2 border ' . $button_class . '">전체단계</a>';
-
 		foreach ($terms as $term) {
 			if ($term) {
 				$term_name = $term->name;
 				$term_link = get_term_link($term); ?>
 
-				<span class="badge bg-primary m-1"><a href="<?php echo $term_link; ?>" class="badge_a_tag"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
-
-				<!-- // echo '<a href="' . $term_link . '" class="btn m-2 border '">' . $term_name . '</a>'; -->
+				<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
 			<?php }
-		}
-		?>
-	</section>
+		} ?>
 <?php } ?>

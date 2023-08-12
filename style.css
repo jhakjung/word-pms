@@ -4,8 +4,3 @@ Author: JHAK
 Version: 1.0
 */
 
-// a link - white, none
-.badge a {
-    color: #fff !important;
-    text-decoration: none !important;
-}

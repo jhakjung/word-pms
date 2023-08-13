@@ -30,32 +30,6 @@ function document_post_types() {
 }
 add_action('init', 'document_post_types');
 
-// 카테고리명을 출력하는 함수
-function get_all_category_list() {
-	$args = array(
-		'hide_empty' => 0, // 미분류 카테고리를 포함하여 모든 카테고리를 가져오도록 설정
-	);
-	$categories = get_categories($args);
-	return $categories;
-}
-
-// 특정 카테고리의 자식 카테고리를 출력하는 함수
-function custom_get_category_children($parent_cat_name) {
-    $parent_category = get_category_by_slug($parent_cat_name);
-    if ($parent_category) {
-        $args = array(
-            'hide_empty' => 0, // 미분류 카테고리를 포함하여 모든 자식 카테고리를 가져오도록 설정
-            'parent' => $parent_category->term_id, // 부모 카테고리의 ID를 지정하여 자식 카테고리만 가져옴
-            'orderby' => 'slug',
-            'order' => 'ASC'
-        );
-        $children_categories = get_categories($args);
-    } else {
-        $children_categories = array(); // 자식 카테고리가 없는 경우 빈 배열 반환
-    }
-    return $children_categories;
-}
-
 // Register Widgets
 add_action('widgets_init', 'pms_widget');
 function pms_widget() {
@@ -90,21 +64,87 @@ function pms_widget() {
 
 // 택소노미별 리스트를 출력
 function custom_get_tax_list($taxonomy, $class) { ?>
-		<?php
-		// 'project_state' Taxonomy에 속하는 Term들을 가져옴
-		$terms = get_terms(array(
-			'taxonomy' => $taxonomy,
-			'hide_empty' => false, // 빈 Term도 출력
-			'orderby' => 'slug',
-			'order' => 'ASC'
-		));
+	<?php
+	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
+	$terms = get_terms(array(
+		'taxonomy' => $taxonomy,
+		'hide_empty' => false, // 빈 Term도 출력
+		'orderby' => 'slug',
+		'order' => 'ASC'
+	));
 
-		foreach ($terms as $term) {
-			if ($term) {
-				$term_name = $term->name;
-				$term_link = get_term_link($term); ?>
+	foreach ($terms as $term) {
+		if ($term) {
+			$term_name = $term->name;
+			$term_link = get_term_link($term); ?>
 
-				<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
-			<?php }
-		} ?>
-<?php } ?>
+			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
+		<?php }
+	}
+}
+
+// 이슈상태 리스트를 출력
+function custom_get_issue_state_list() { ?>
+	<?php
+	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
+	$terms = get_terms(array(
+		'taxonomy' => 'issue_state',
+		'hide_empty' => false, // 빈 Term도 출력
+		'orderby' => 'slug',
+		'order' => 'ASC'
+	));
+
+	foreach ($terms as $term) {
+		if ($term) {
+			$term_name = $term->name;
+			if ($term_name == "미결") {
+				$class = "badge bg-vivid-red fs-7 m-1";
+			} elseif ($term_name == "해결") {
+				$class = "badge bg-vivid-cyan2 fs-7 m-1";
+			} elseif ($term_name == "종결") {
+				$class = "badge bg-vivid-cyan-blue fs-7 m-1";
+			} else {
+				$class = "badge bg-secondary fs-7 m-1";
+			}
+			$term_link = get_term_link($term); ?>
+
+			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
+		<?php }
+	} ?>
+<?php }
+
+// 카테고리 archive 페이지로 연결해주는 링크 생성 함수
+function custom_cat_archive_link($category_slug) {
+    $category = get_category_by_slug($category_slug);
+    if ($category) {
+        $category_archive_url = get_term_link($category);
+        if (!is_wp_error($category_archive_url)) {
+            return $category_archive_url;
+        }
+    }
+    return '';
+}
+
+// Archive title을 출력해주는 함수 정의 【 전체 글 】 형태 출력
+function custom_get_the_archive_title() {
+	$archive_title = get_the_archive_title();
+	// 현재 페이지가 카테고리 아카이브 페이지인지 확인
+	$archive_title = str_replace(array('[', ']'), '', $archive_title);
+	return $archive_title;
+}
+
+//
+function get_issue_status_archive_link($issue_value) {
+    // $archive_link = get_post_type_archive_link('post');
+    $issue_status_term = get_term_by('name', $issue_value, 'issue_status');
+
+    if ($issue_status_term) {
+        $term_link = get_term_link($issue_status_term);
+        if (!is_wp_error($term_link)) {
+            $archive_link = $term_link;
+        }
+    }
+    return $archive_link;
+}
+
+

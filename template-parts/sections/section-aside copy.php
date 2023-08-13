@@ -41,11 +41,17 @@
             이슈상태
         </div>
         <div class="p-2">
-            <!-- <div class="tag-list d-flex flex-wrap justify-content-center"> -->
-            <div class="card-group">
-                <?php custom_get_issue_state_list(); ?>
+            <div class="tag-list d-flex flex-wrap justify-content-center">
+                <?php
+                // $issue_status = ['해결', '미결', '종결'];
+                $solved = "badge bg-vivid-cyan2 fs-7 m-1";
+                $unsolved = "badge bg-vivid-red fs-7 m-1";
+                $closed = "badge bg-secondary fs-7 m-1";
+                ?>
+                <span class="<?php echo $solved; ?>"><a href="<?php echo get_issue_status_archive_link('해결'); ?>">해결</a></span>
+                <span class="<?php echo $unsolved; ?>"><a href="#">미결</a></span>
+                <span class="<?php echo $closed; ?>"><a href="#">종결</a></span>
             </div>
-            <!-- </div> -->
         </div>
     </div>
 

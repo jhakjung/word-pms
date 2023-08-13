@@ -27,7 +27,7 @@
 
             <div class="w-auto">
             <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link active" href="#">이슈관리</a></li>
+                <li class="nav-item"><a class="nav-link active" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">성과물</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">안전관리</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">공정관리</a></li>

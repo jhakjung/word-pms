@@ -1,3 +1,25 @@
+/* 카드 헤더 */
+.card-header {
+    line-height: 1rem !important;
+    text-align: center !important;
+    /* color: white !important; */
+    font-size: 1.1rem !important;
+    /* background-color: #777 !important; */
+}
+
+/* 카드 그룹 */
+.card-group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+/* 태그 리스트 */
+.tag-list a {
+    color: #333 !important;
+    text-decoration: none !important;
+}
+
 /* 프로젝트 단계 */
 span.badge.bg-secondary a,
 span.badge.bg-info a,

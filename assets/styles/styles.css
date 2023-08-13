@@ -1,21 +1,5 @@
 @import 'normalize.css';
 @import 'base/_global.css';
 @import 'modules/_site-header.css';
-@import 'modules/_project-state.css';
-@import 'modules/_tag-list.css';
-
-/* 카드 헤더 */
-.card-header {
-    line-height: 1rem !important;
-    text-align: center !important;
-    /* color: white !important; */
-    font-size: 1.2rem !important;
-    /* background-color: #777 !important; */
-}
-
-/* 카드 그룹 */
-.card-group {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
+@import 'modules/_page-header.css';
+@import 'modules/_card.css';

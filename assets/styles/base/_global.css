@@ -63,4 +63,7 @@ $dark:          $gray-900;
 .bg-pale-cyan-blue {background-color: #8ed1fc;}
 .bg-vivid-cyan-blue {background-color: #0693e3;}
 .bg-vivid-purple {background-color: #9b51e0;}
+.bg-pg-header {
+    background-color: #e39292;
+  }
 

@@ -1,0 +1,11 @@
+.post-title {
+    font-size: 1.5rem;
+
+    &__slug {
+        font-size: 70%;
+        color: $red;
+        opacity: 0.5;
+        font-weight: 300;
+        float: right;
+    }
+}

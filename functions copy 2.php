@@ -63,8 +63,8 @@ function pms_widget() {
 }
 
 // 택소노미별 리스트를 출력
-function custom_get_tax_list($taxonomy, $class) { ?>
-	<?php
+function custom_get_tax_list($taxonomy) {
+
 	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
 	$terms = get_terms(array(
 		'taxonomy' => $taxonomy,
@@ -73,24 +73,20 @@ function custom_get_tax_list($taxonomy, $class) { ?>
 		'order' => 'ASC'
 	));
 
-	foreach ($terms as $term) {
-		if ($term) {
-			$term_name = $term->name;
-			$term_link = get_term_link($term);
+	// foreach ($terms as $term) {
+	// 	if ($term) {
+	// 		$term_name = $term->name;
+	// 		$term_link = get_term_link($term);
 
-// ACF 필드에서 값을 가져와 출력
-        $acf_field_value = get_field('project', $term); ?>
+	return $terms;
 
-			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $acf_field_value . ')'; ?></a></span>
-		<?php }
 	}
-}
 
 // 이슈상태 리스트를 출력
 function custom_get_issue_state_list() { ?>
 	<?php
 	$terms = get_terms(array(
-		'taxonomy' => 'issue_state',
+		'taxonomy' => 'test',
 		'hide_empty' => false, // 빈 Term도 출력
 		'orderby' => 'slug',
 		'order' => 'ASC'
@@ -98,15 +94,15 @@ function custom_get_issue_state_list() { ?>
 	foreach ($terms as $term) {
 		if ($term) {
 			$term_name = $term->name;
-			// if ($term_name == "미결") {
-			// 	$class = "badge bg-vivid-red fs-7 m-1";
-			// } elseif ($term_name == "해결") {
-			// 	$class = "badge bg-vivid-cyan2 fs-7 m-1";
-			// } elseif ($term_name == "종결") {
-			// 	$class = "badge bg-vivid-cyan-blue fs-7 m-1";
-			// } else {
-			// 	$class = "badge bg-secondary fs-7 m-1";
-			// }
+			if ($term_name == "미결") {
+				$class = "badge bg-vivid-red fs-7 m-1";
+			} elseif ($term_name == "해결") {
+				$class = "badge bg-vivid-cyan2 fs-7 m-1";
+			} elseif ($term_name == "종결") {
+				$class = "badge bg-vivid-cyan-blue fs-7 m-1";
+			} else {
+				$class = "badge bg-secondary fs-7 m-1";
+			}
 			$term_link = get_term_link($term); ?>
 			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
 		<?php }
@@ -155,3 +151,4 @@ function custom_force_default_post_slug( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
+

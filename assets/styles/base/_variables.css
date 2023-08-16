@@ -27,3 +27,10 @@ $warning:       $yellow;
 $danger:        $red;
 $light:         $gray-100;
 $dark:          $gray-900;
+
+/* badge color */
+$my_blue: #0693e3;
+$my_green: #198754;
+$my_dark: #999;
+$my_purple: #9b51e0;
+$my_red: #cf2e2e;

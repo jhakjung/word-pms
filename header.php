@@ -24,20 +24,18 @@
                 </p>
             </div>
 
-
             <div class="w-auto">
-            <ul class="navbar-nav">
-                <li class="nav-item"><a class="nav-link active" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">성과물</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">안전관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">공정관리</a></li>
-                <li class="nav-item"><a class="nav-link" href="#!">자료실</a></li>
-                <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
+                <ul class="navbar-nav d-flex align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#">성과물</a></li>
+                    <li class="nav-item d-flex align-items-center"><span class="text-white">│</span></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('safety'); ?>">안전관리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('progress'); ?>">공정관리</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('library'); ?>">자료실</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('uncategorized'); ?>">기타</a></li>
+                    <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
                 </ul>
             </div>
-
-
-
 
         </div>
     </nav>

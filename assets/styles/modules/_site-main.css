@@ -9,3 +9,17 @@
         float: right;
     }
 }
+
+.post-meta {
+    .meta {
+        color: #ccc;
+        font-size: 0.95rem;
+        padding-right: 5px;
+
+        .badge a {
+            color: #fff !important;
+            font-size: 0.9rem !important;
+        }
+    }
+
+}

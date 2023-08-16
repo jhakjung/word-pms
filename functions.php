@@ -1,4 +1,6 @@
 <?php
+require get_template_directory() . '/inc/post-meta.php';
+
 // Theme resource FIles
 function enqueue_custom_scripts() {
 	wp_enqueue_style('main-css', get_theme_file_uri('/assets/styles/bootstrap.css'));
@@ -72,16 +74,12 @@ function custom_get_tax_list($taxonomy, $class) { ?>
 		'orderby' => 'slug',
 		'order' => 'ASC'
 	));
-
 	foreach ($terms as $term) {
 		if ($term) {
 			$term_name = $term->name;
-			$term_link = get_term_link($term);
-
-// ACF 필드에서 값을 가져와 출력
-        $acf_field_value = get_field('project', $term); ?>
-
-			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $acf_field_value . ')'; ?></a></span>
+			$term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
+			$term_link = get_term_link($term); ?>
+			<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
 		<?php }
 	}
 }
@@ -98,17 +96,17 @@ function custom_get_issue_state_list() { ?>
 	foreach ($terms as $term) {
 		if ($term) {
 			$term_name = $term->name;
-			// if ($term_name == "미결") {
-			// 	$class = "badge bg-vivid-red fs-7 m-1";
-			// } elseif ($term_name == "해결") {
-			// 	$class = "badge bg-vivid-cyan2 fs-7 m-1";
-			// } elseif ($term_name == "종결") {
-			// 	$class = "badge bg-vivid-cyan-blue fs-7 m-1";
-			// } else {
-			// 	$class = "badge bg-secondary fs-7 m-1";
-			// }
+			if ($term_name == "미결") {
+				$class = "badge badge__red fs-7 m-1";
+			} elseif ($term_name == "해결") {
+				$class = "badge badge__green fs-7 m-1";
+			} elseif ($term_name == "종결") {
+				$class = "badge badge__blue fs-7 m-1";
+			} else {
+				$class = "badge badge__dark fs-7 m-1";
+			}
 			$term_link = get_term_link($term); ?>
-			<span class="<?php echo $class; ?>"><a href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
+			<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
 		<?php }
 	} ?>
 <?php }
@@ -155,3 +153,22 @@ function custom_force_default_post_slug( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
+
+// 포스트의 특정 택소노미 값 출력: like get_the_category_list()와 유사
+function custom_get_the_tax_meta($taxonomy) {
+	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
+	$terms = get_the_terms(get_the_ID(), $taxonomy);
+	if ($terms) {
+		foreach ($terms as $term) {
+			if ($term) {
+				$term_name = $term->name;
+				$term_name = preg_replace('/\d{2}_/', '', $term_name); // project_state 조작
+				$term_link = get_term_link($term); ?>
+				<a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name; ?></a>
+			<?php }
+		}
+	} else {
+		echo "-";
+	}
+
+}

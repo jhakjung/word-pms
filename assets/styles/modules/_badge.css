@@ -1,0 +1,28 @@
+.badge {
+
+    &__blue {
+        background-color: $my_blue !important;
+    }
+
+    &__green {
+        background-color: $my_green !important;
+    }
+
+    &__red {
+        background-color: $my_red !important;
+    }
+
+    &__dark {
+        background-color: $my_dark !important;
+    }
+}
+
+a.my_badge {
+    color: white !important;
+    font-size: 0.9rem !important;
+}
+
+.arial a {
+    font-family: "Malgeun Gothic", "Open Sans" !important;
+    font-size: 0.9rem !important;
+}

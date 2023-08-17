@@ -1,32 +1,45 @@
-<?php get_header();?>
+<?php get_header(); ?>
+<div class="site-main container">
 
 <?php
-
-  while(have_posts()) {
-    the_post(); ?>
-    <h2><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
-    <?php the_content(); ?>
-    <hr>
-    <?php
-    // echo get_field('issue_state');
-
-    // ACF 필드 "issue_state"의 ID를 가져옴
-$issue_state_id = get_field("issue_state");
-
-// "issue_state" 택소노미에서 ID를 사용하여 Term 객체를 가져옴
-$issue_state_term = get_term_by("id", $issue_state_id, "issue_state");
-
-// Term 객체에서 이름을 가져와 출력
-if ($issue_state_term) {
-    echo $issue_state_term->name;
-} else {
-    echo "Term not found.";
-}
-
+while(have_posts()) {
+    the_post();
+    $slug = get_post_field('post_name', get_the_ID()); // 슬러그
     ?>
-<?php }
 
+    <div class="post-title">
+        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+        <span class="post-title__slug"><?php echo '#' .$slug; ?></span>
+    </div>
+    <div class="post-meta d-flex my-2">
+        <span class="meta">분류 <span class="badge badge__dark"><?php echo get_the_category_list(',');?></span>
+        <span>
+        <span class="meta">단계 <span class="badge badge__blue"><?php custom_get_the_tax_meta('project_state');?></span>
+        </span>
+        <span class="meta">공종 <span class="badge badge__green"><?php custom_get_the_tax_meta('system_type');?></span></span>
+        <span class="meta">키워드 <span class="badge bg_warning">
+            <?php get_the_tag_list('', ', ', ''); ?></span></span>
+        </span>
+        <span class="meta">이슈</span>
+        <span class="meta">작성</span>
+        <span class="meta">일시</span>
+    </div>
+    <?php
+$tags = get_the_tags();
+if ($tags) {
+    echo '<ul>';
+    foreach ($tags as $tag) {
+        echo '<li><a href="' . get_tag_link($tag->term_id) . '">' . $tag->name . '</a></li>';
+    }
+    echo '</ul>';
+}
 ?>
 
+
+    <?php the_content(); ?>
+<?php } ?>
+
+</div>
+</div>
 
 <?php get_footer(); ?>

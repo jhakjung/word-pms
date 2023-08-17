@@ -1,28 +1,33 @@
-<?php get_header();?>
+<?php get_header(); ?>
+<div class="site-main container">
 
 <?php
+while(have_posts()) {
+    the_post();
+    $slug = get_post_field('post_name', get_the_ID()); // 슬러그
+    ?>
 
-	$terms = get_terms(array(
-        'taxonomy' => "issue_state",
-        'hide_empty' => false,
-        'orderby' => 'slug',
-        'order' => 'ASC'
-    ));
+    <div class="post-title">
+        <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+        <span class="post-title__slug"><?php echo '#' .$slug; ?></span>
+    </div>
+    <div class="post-meta d-flex my-2">
+        <span class="meta">분류 <span class="badge badge__dark"><?php echo get_the_category_list(',');?></span>
+        <span>
+        <span class="meta">단계 <span class="badge badge__blue"><?php custom_get_the_tax_meta('project_state');?></span>
+        </span>
+        <span class="meta">공종 <span class="badge badge__green"><?php custom_get_the_tax_meta('system_type');?></span></span>
+        <span class="meta">키워드 <span class="badge bg_warning"><?php custom_get_the_tag_meta();?></span></span>
+        </span>
+        <span class="meta">이슈</span>
+        <span class="meta">작성</span>
+        <span class="meta">일시</span>
+    </div>
 
-    foreach ($terms as $term) {
-        if ($term) {
-            $term_name = $term->name;
-            $term_link = get_term_link($term);
+    <?php the_content(); ?>
+<?php } ?>
 
-            // ACF 필드에서 값을 가져와 출력
-            $acf_field_value = get_field('issue_state', $term); // 'acf_field_name'은 실제 필드의 이름으로 바꿔야 함
-
-            echo '<span><a href="' . $term_link . '">' . $term_name . ' (' . $acf_field_value . ')' . '</a></span>';
-        }
-    }
-
-?>
-
-
+</div>
+</div>
 
 <?php get_footer(); ?>

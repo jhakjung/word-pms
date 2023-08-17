@@ -1,6 +1,11 @@
 .post-title {
     font-size: 1.5rem;
 
+    a {
+        /* color: $purple !important; */
+        color: #444 !important;
+    }
+
     &__slug {
         font-size: 70%;
         color: $red;
@@ -15,6 +20,7 @@
         color: #ccc;
         font-size: 0.95rem;
         padding-right: 5px;
+        margin-bottom: 10px;
 
         .badge a {
             color: #fff !important;

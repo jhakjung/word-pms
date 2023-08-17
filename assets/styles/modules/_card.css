@@ -15,9 +15,11 @@
         justify-content: center;
     }
 
+    /*
     &__group__tags a {
         color: #333 !important;
         text-decoration: none !important;
     }
+    */
 }
 

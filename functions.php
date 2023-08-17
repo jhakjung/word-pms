@@ -99,11 +99,11 @@ function custom_get_issue_state_list() { ?>
 			if ($term_name == "미결") {
 				$class = "badge badge__red fs-7 m-1";
 			} elseif ($term_name == "해결") {
-				$class = "badge badge__green fs-7 m-1";
+				$class = "badge badge__teal fs-7 m-1";
 			} elseif ($term_name == "종결") {
-				$class = "badge badge__blue fs-7 m-1";
-			} else {
 				$class = "badge badge__dark fs-7 m-1";
+			} else {
+				$class = "badge badge__purple fs-7 m-1";
 			}
 			$term_link = get_term_link($term); ?>
 			<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
@@ -154,21 +154,3 @@ function custom_force_default_post_slug( $data ) {
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
 
-// 포스트의 특정 택소노미 값 출력: like get_the_category_list()와 유사
-function custom_get_the_tax_meta($taxonomy) {
-	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
-	$terms = get_the_terms(get_the_ID(), $taxonomy);
-	if ($terms) {
-		foreach ($terms as $term) {
-			if ($term) {
-				$term_name = $term->name;
-				$term_name = preg_replace('/\d{2}_/', '', $term_name); // project_state 조작
-				$term_link = get_term_link($term); ?>
-				<a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name; ?></a>
-			<?php }
-		}
-	} else {
-		echo "-";
-	}
-
-}

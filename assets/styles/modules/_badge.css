@@ -15,14 +15,34 @@
     &__dark {
         background-color: $my_dark !important;
     }
+
+    &__yellow {
+        background-color: $my_orange !important;
+    }
+
+    &__teal {
+        background-color: $teal !important;
+    }
+
+    &__purple {
+        background-color: $purple !important;
+    }
+
+    &__orange {
+        background-color: $orange !important;
+    }
+
+    &__light {
+        background-color: $gray-500 !important;
+    }
 }
 
-a.my_badge {
+a.my_badge, .my_badge {
     color: white !important;
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
 }
 
 .arial a {
     font-family: "Malgeun Gothic", "Open Sans" !important;
-    font-size: 0.9rem !important;
+    font-size: 0.8rem !important;
 }

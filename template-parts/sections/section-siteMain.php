@@ -13,15 +13,19 @@
                 <span class="post-title__slug"><?php echo '#' .$slug; ?></span>
             </div>
 
-            <div class="post-meta d-flex my-2">
-                <p class="meta">분류 <span class="badge badge__dark">
-                    <?php echo get_the_category_list(',');?></span></p>
-                <p class="meta">단계 <span class="badge badge__blue">
-                    <?php custom_get_the_tax_meta('project_state');?></span></p>
-                <p class="meta">공종 <span class="badge badge__green">
-                    <?php custom_get_the_tax_meta('system_type');?></span></p>
-                <p class="meta">키워드 <span class="badge badge__yellow">
-                    <?php custom_get_the_tag_meta();?></span></p>
+            <div class="post-meta d-flex flex-wrap my-2">
+                <span class="meta">분류
+                    <?php custom_get_the_tax_meta('category', 'badge badge__dark');?></span>
+                <span class="meta">단계
+                    <?php custom_get_the_tax_meta('project_state', 'badge badge__blue');?></span>
+                <span class="meta">공종
+                    <?php custom_get_the_tax_meta('system_type', 'badge badge__green');?></span>
+
+                <span class="meta">키워드<?php custom_get_the_tag_meta();?></span>
+
+
+
+
 
                 <?php
                 // 이슈상태 출력

@@ -1,6 +1,6 @@
 <?php
-// 포스트 메타 taxonomy 출력: like get_the_category_list()와 유사
-function custom_get_the_tax_meta($taxonomy) {
+// 포스트 메타 category 출력: 카테고리별로 badge 태그
+function custom_get_the_tax_meta($taxonomy, $class) {
 	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
 	$terms = get_the_terms(get_the_ID(), $taxonomy);
 	if ($terms) {
@@ -9,7 +9,7 @@ function custom_get_the_tax_meta($taxonomy) {
 				$term_name = $term->name;
 				$term_name = preg_replace('/\d{2}_/', '', $term_name); // project_state 조작
 				$term_link = get_term_link($term); ?>
-				<a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name; ?></a>
+				<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name; ?></a></span>
 			<?php }
 		}
 	} else {
@@ -26,10 +26,10 @@ function custom_get_the_tag_meta() {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<a class="my_badge" href="' . $tag_link . '">' . $tag_name . '</a>';
+                $tag_links[] = '<span class="badge badge__yellow"><a class="my_badge" href="' . $tag_link . '">' . $tag_name . '</a></span>';
             }
         }
-        echo implode(',', $tag_links);
+        echo implode(' ', $tag_links);
     } else {
         echo "-";
     }

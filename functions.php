@@ -1,6 +1,8 @@
 <?php
 require get_template_directory() . '/inc/post-meta.php';
 require get_template_directory() . '/inc/taxonomy-group.php';
+require get_template_directory() . '/inc/pagination.php';
+require get_template_directory() . '/inc/comment-template.php';
 
 // Theme resource FIles
 function enqueue_custom_scripts() {

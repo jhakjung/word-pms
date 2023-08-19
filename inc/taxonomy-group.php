@@ -1,16 +1,16 @@
 <?php
 // 택소노미별 리스트를 출력
-function custom_get_tax_list($taxonomy, $class) { ?>
-	<?php
-	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
+function custom_get_tax_list($taxonomy, $class) {
+	$hide = true;
+	// if ($taxonomy == 'project_state') { $hide = false; }
 	$terms = get_terms(array(
 		'taxonomy' => $taxonomy,
-		'hide_empty' => false, // 빈 Term도 출력
+		'hide_empty' => $hide, // 빈 Term도 출력
 		'orderby' => 'slug',
 		'order' => 'ASC'
 	));
-	foreach ($terms as $term) {
-		if ($term) {
+	if (!empty($terms) && !is_wp_error($terms)) {
+		foreach ($terms as $term) {
 			$term_name = $term->name;
 			$term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
 			$term_link = get_term_link($term); ?>
@@ -34,7 +34,7 @@ function custom_get_issue_state_list() { ?>
 			if ($term_name == "미결") {
 				$class = "badge badge__red fs-7 m-1";
 			} elseif ($term_name == "해결") {
-				$class = "badge badge__teal fs-7 m-1";
+				$class = "badge badge__green fs-7 m-1";
 			} elseif ($term_name == "종결") {
 				$class = "badge badge__dark fs-7 m-1";
 			} else {

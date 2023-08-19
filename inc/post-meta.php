@@ -40,15 +40,6 @@ function custom_get_the_issue_meta() {
     $terms = get_the_terms(get_the_ID(), 'issue_state');
 	if ($terms) {
 		$term_name = $terms[0]->name;
-		// if ($term_name == "미결") {
-		// 	$class = "badge badge__red fs-7 m-1";
-		// } elseif ($term_name == "해결") {
-		// 	$class = "badge badge__teal fs-7 m-1";
-		// } elseif ($term_name == "종결") {
-		// 	$class = "badge badge__dark fs-7 m-1";
-		// } else {
-		// 	$class = "badge badge__purple fs-7 m-1";
-		// }
 		$term_link = get_term_link($terms[0]);
         echo '<a class="my_badge" href="' . $term_link . '">' . $term_name . '</a>';
 	}
@@ -67,9 +58,5 @@ function custom_get_the_time() {
 	$current = current_time('U');
 	$posted = get_the_time('U');
 	$diff = $current - $posted;
-
-	// if($diff > 0 && $diff < 60*60*24*3) {
-	// 	echo sprintf(__('%s 전 게시됨', 'bestmedical'), human_time_diff($posted, $current));
-	// } else {
-		echo the_time('y-m-d');
+	echo the_time('y-m-d');
 }

@@ -1,7 +1,8 @@
 <!-- Footer-->
 <footer class="border-top">
   <div class="container text-center">
-    <h5 class="mt-2">&copy LG유플러스</h5>
+    <?php custom_pagination(); ?>
+    <!-- <small class="text-secondary">&copy LG유플러스</small> -->
   </div>
 </footer>
 

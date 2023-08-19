@@ -10,9 +10,9 @@
             } else {
                 $title = custom_get_the_archive_title();
 			    $title = preg_replace('/\d{2}_/', '', $title); // project_state 조작
-
             }
-        } else {
+        }
+        else {
             echo "not taxonomy page";
         }
         echo "【 ". $title . " 】";

@@ -1,7 +1,7 @@
 <aside class="col-lg-3 aside border-end">
     <div class="card my-3">
         <div class="card-header card__header">
-            프로젝트단계
+        <i class="text-dark text-opacity-50 fas fa-folder"></i>&nbsp;&nbsp;프로젝트단계
         </div>
         <div class="p-3">
             <div class="card__group">
@@ -12,7 +12,7 @@
 
     <div class="card my-3">
         <div class="card-header card__header">
-            공종
+            <i class="text-dark text-opacity-50 fas fa-cube"></i>&nbsp;&nbsp;공종
         </div>
         <div class="p-3">
             <div class="card__group">
@@ -23,23 +23,18 @@
 
     <div class="card my-3">
         <div class="card-header card__header">
-            키워드
+            <i class="text-dark text-opacity-50 fas fa-tag"></i>&nbsp;&nbsp;키워드
         </div>
-        <div class="card__group__tags p-2 pb-3 text-center">
-                <?php
-                // wp_tag_cloud(array(
-                //     'smallest' => 10,
-                //     'largest' => 16,
-                //     'hide_empty' => false
-                // ));
-                ?>
-                <?php dynamic_sidebar('sidebar1'); ?>
+        <div class="p-3">
+            <div class="card__group">
+                <?php custom_get_tax_list('post_tag', 'fs-7 badge badge__yellow m-1'); ?>
+            </div>
         </div>
     </div>
 
     <div class="card my-3">
         <div class="card-header card__header">
-            이슈상태
+            <i class="text-dark text-opacity-50 fas fa-info"></i>&nbsp;&nbsp;이슈상태
         </div>
         <div class="p-3">
             <div class="card__group">

@@ -1,5 +1,5 @@
 .post-title {
-    font-size: 1.5rem;
+    /* font-size: 1.5rem; */
 
     a {
         /* color: $purple !important; */
@@ -19,7 +19,7 @@
     .meta {
         color: #ccc;
         font-size: 0.95rem;
-        padding-right: 5px;
+        padding-right: 7px;
         margin-bottom: 10px;
 
         /*

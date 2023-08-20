@@ -90,3 +90,39 @@ function custom_force_default_post_slug( $data ) {
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
 
+// 한글 문서, 아웃룩 문서 upload 가능하게
+add_filter( 'upload_mimes', function( $existing_mimes ) {
+	$existing_mimes['hwp'] = 'application/hangul';
+	$existing_mimes['hwpx'] = 'application/hangul';
+	$existing_mimes['msg'] = 'application/vnd.ms-outlook';
+	return $existing_mimes;
+  } );
+
+  // 확장자 추가 - 본문 미디어 파일
+function add_extension_to_media_link($content) {
+	$pattern = '/<a(.*?)href=["\'](.*?)["\'](.*?)>(.*?)<\/a>/i';
+	$replacement = '<a$1href="$2" $3>$4</a>';
+	$content = preg_replace_callback($pattern, function ($matches) {
+	  $link_url = $matches[2];
+	  $file_extension = pathinfo($link_url, PATHINFO_EXTENSION);
+	  $link_text = $matches[4] . '.' . $file_extension;
+	  return str_replace($matches[4], $link_text, $matches[0]);
+	}, $content);
+	return $content;
+  }
+  add_filter('the_content', 'add_extension_to_media_link');
+
+  // 확장자 추가 - 첨부 미디어 파일
+  function add_extension_to_media_title($title, $id) {
+	$attachment = get_post($id);
+
+	if ($attachment && $attachment->post_type === 'attachment') {
+	  $file_url = wp_get_attachment_url($id);
+	  $file_extension = pathinfo($file_url, PATHINFO_EXTENSION);
+
+	  $title .= '.' . $file_extension;
+	}
+
+	return $title;
+  }
+  add_filter('the_title', 'add_extension_to_media_title', 10, 2);

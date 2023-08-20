@@ -20,8 +20,8 @@ function bestmedical_comments_list($comment, $args, $depth) { ?>
 
         <!-- 댓글 작성일시 -->
         <span class="text-muted mx-2" >
-          <small><?php comment_date('Y-m-d'); echo ', '; comment_time(); ?></small>
-          <?php edit_comment_link(esc_html__('수정', 'bestmedical'), ' <span class="badge badge__purple">', '</span>');
+          <?php comment_date('Y-m-d'); echo ', '; comment_time(); ?>
+          <?php edit_comment_link(esc_html__('수정', 'bestmedical'), ' <span class="badge badge__light">', '</span>');
           ?>
         </span>
       </h6>
@@ -44,7 +44,7 @@ function bestmedical_comments_list($comment, $args, $depth) { ?>
     </div>
   </div>
   <?php } ?>
-<!-- <hr> -->
+<hr>
 </div>
 <?php }
 
@@ -75,7 +75,7 @@ function bestmedical_comments_template() {
         'author'  => '<div class="row d-none"><div class="col-md-6"><div class="form-group"><label>' . esc_html__('이름', 'bestmedical') . ($req ? '<span class="required">*</span>' : '') . '</label><input type="text" name="author" class="form-control" id="author"' . $aria_req . '></div></div>',
         'email'  => '<div class="col-md-6 d-none"><div class="form-group"><label>' . esc_html__('이메일', 'bestmedical') . ($req ? '<span class="required">*</span>' : '') . '</label><input type="email" name="email" class="form-control" id="email"' . $aria_req . '></div></div></div>',
       )),
-    'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true" placeholder="메일내용 요약 등 관련 이슈의 진행 히스토리를 남겨주세요."></textarea></div></div>',
+    'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true" placeholder="메일내용 요약 등 관련 이슈의 진행 히스토리를 남겨주세요. (※ RE:코멘트 클릭 후 입력하면 대댓글로 등록)"></textarea></div></div>',
     'label_submit' => '코멘트 등록',
   );
 

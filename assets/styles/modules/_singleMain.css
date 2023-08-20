@@ -2,7 +2,7 @@
     display: flex !important;
     align-items: flex-start !important;
 
-    img {
+    img.avatar.avartar-32.photo {
         border-radius: 50% !important;
     }
 }
@@ -33,7 +33,7 @@ p.logged-in-as, p.comment-notes, p.comment-form-cookies-consent {
 
 p.form-submit {
     float: right !important;
-    margin-top: 10px !important;
+    margin-top: 0px !important;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
 }
@@ -46,14 +46,28 @@ p.form-submit {
     margin-top: 0.25rem !important;
 }
 
-.post-content hr {
+.post-content #my_hr {
     background-color: #fff;
     padding: 0;
-    margin: 50px 20px;
+    margin: 50px 5px;
   }
 
-hr.hr-1 {
+#my_hr.hr-1 {
 border: 0;
 height: 1px;
-background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.btn.btn-sm:hover {
+    background-color:$my_purple !important;
+}
+
+/* 설명하는 부분이 박스에 너무 붙어있음 */
+p.comment-form-attachment {
+    margin: 10px 0 0 0 !important;
+}
+
+/* 첨부파일 들여쓰기 */
+.content p > a, p.dco-attachment > a  {
+    padding-left: 0rem !important;
 }

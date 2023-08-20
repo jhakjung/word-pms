@@ -15,7 +15,7 @@
 
             <hr>
 
-            <div class="post-content mt-3 pt-2 px-1">
+            <div class="post-content mt-2 px-1">
                 <!-- 요약글 -->
                 <div class="excerpt border p-3 bg-warning bg-opacity-10">
                     <?php if (has_excerpt()) : ?>
@@ -29,7 +29,7 @@
                     <?php echo the_content(); ?>
                 </div>
 
-                <hr class="mb-4 hr-1">
+                <hr id="my_hr" class="mb-4 hr-1">
 
                 <!-- 댓글 -->
                 <div class="">

@@ -42,3 +42,8 @@ span.badge.badge-danger a {
   color: #fff !important;
   text-decoration: none !important;
 }
+
+.no-bullet {
+    list-style: none;
+    padding-left: 0;
+}

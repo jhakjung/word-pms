@@ -43,7 +43,31 @@
         </div>
     </div>
 
-    <div class="my-3">
-    </div>
+    <div class="card my-3">
+        <div class="card-header card__header">
+            <i class="text-dark text-opacity-50 fas fa-star"></i>&nbsp;&nbsp;즐겨찾기
+        </div>
+        <div class="card-body container">
+            <ul class="favorite">
+                <?php
+                $args = array(
+                    'category_name' => 'favorite',
+                    'posts_per_page' => -1,
+                );
 
+                $favorite_query = new WP_Query($args);
+
+                if ($favorite_query->have_posts()) {
+                    while ($favorite_query->have_posts()) {
+                        $favorite_query->the_post(); ?>
+                        <li><a href="<?php get_permalink(); ?>"><?php the_title(); ?></a></li>
+                    <?php }
+                    wp_reset_postdata();
+                } else {
+                    echo 'No favorite posts found.';
+                }
+                ?>
+            </ul>
+        </div>
+    </div>
 </aside>

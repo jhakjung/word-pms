@@ -7,6 +7,7 @@ function custom_get_the_tax_meta($taxonomy, $class) {
 		foreach ($terms as $term) {
 			if ($term) {
 				$term_name = $term->name;
+				if ($term_name === "즐겨찾기") continue;
 				$term_name = preg_replace('/\d{2}_/', '', $term_name); // project_state 조작
 				$term_link = get_term_link($term); ?>
 				<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name; ?></a></span>

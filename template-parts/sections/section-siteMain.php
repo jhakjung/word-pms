@@ -7,7 +7,7 @@
             $post_count++;
             $slug = get_post_field('post_name', get_the_ID()); // 슬러그
             ?>
-            <div class="article my-4">
+            <div class="article mb-4">
                 <div class="post-title fs-4">
                     <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
                     <span class="post-title__slug"><?php echo '#' .$slug; ?></span>

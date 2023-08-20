@@ -26,7 +26,9 @@
 
             <div class="w-auto">
                 <ul class="navbar-nav d-flex align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#">성과물</a></li>
+
+                    <li class="nav-item <?php if (get_post_type() == 'document' OR is_tax('document_category')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo get_post_type_archive_link('document'); ?>">성과물</a></li>
+
                     <li class="nav-item d-flex align-items-center"><span class="text-secondary">│</span></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('safety'); ?>">안전관리</a></li>
@@ -36,6 +38,5 @@
                     <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
                 </ul>
             </div>
-
         </div>
     </nav>

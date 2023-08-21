@@ -15,13 +15,13 @@ function custom_pagination($pages = '', $range = 5) {
 
 	if(1 != $pages)
 	{
-	    echo '<nav class="pt-3" aria-label="Page navigation" role="navigation">';
+	    echo '<nav class="pt-2" aria-label="Page navigation" role="navigation">';
         // echo '<span class="sr-only">Page navigation</span>';
         echo '<ul class="pagination justify-content-center ft-wpbs">';
 
         // echo '<li class="page-item disabled d-none d-lg-block"><span class="page-link">' . sprintf(__('%d 의 %d 페이지', 'bestmedical'), $paged, $pages) . '</span></li>';
 
-        echo '<li class="page-item disabled d-none d-lg-block"><span class="page-link">' . $paged . ' 의 ' . $pages . ' 페이지</span></li>';
+        echo '<li class="page-item disabled d-none d-md-block"><span class="page-link">' . $paged . ' 의 ' . $pages . ' 페이지</span></li>';
 
 
 	 	if($paged > 2 && $paged > $range+1 && $showitems < $pages)

@@ -1,0 +1,39 @@
+/**************************
+*** 성과물 홈을 위한 CSS ***
+***************************/
+.document-box {
+	max-width: 1500px !important;
+	margin: 10px auto !important;
+	display: grid !important;
+	grid-template-columns: repeat(auto-fit, minmax(calc(33.33% - 1rem), 1fr)) !important;
+	grid-column-gap: 1rem !important;
+	grid-row-gap: 0.5rem !important;
+}
+
+@media (max-width: 768px) {
+  	.document-box {
+    	grid-template-columns: repeat(auto-fit, minmax(calc(50% - 1rem), 1fr)) !important;
+  	}
+}
+
+@media (max-width: 576px) {
+  	.document-box {
+    	grid-template-columns: 1fr !important;
+  	}
+}
+
+
+.document-box .list-group-item a:hover {
+  	color: $blue !important;
+}
+
+
+
+.document-box .card a {
+  	text-decoration: none !important;
+  	color: black !important;
+}
+
+.float-right {
+  	float: right !important;
+}

@@ -19,9 +19,9 @@ function document_post_types() {
 		'show_in_rest' => true,
 		// 'capability_type' => 'document',
 		// 'map_meta_cap'  => true,
-		'supports' => array('title', 'editor', 'comments', 'author', 'tag'),
+		'supports' => array('title', 'editor', 'comments', 'author'),
 		'rewrite' => array('slug' => 'documents'),
-		'taxonomies'  => array('category'),
+		'taxonomies'  => array('project_state'),
 		'has_archive' => true,
 		'public' => true,
 		'labels' => array(
@@ -126,3 +126,17 @@ function add_extension_to_media_link($content) {
 	return $title;
   }
   add_filter('the_title', 'add_extension_to_media_title', 10, 2);
+
+// 성과물의 진도를 표시
+function progress_state($post_id) {
+    $document_progress = get_field('progress_state', $post_id, false);
+    if (empty($document_progress)) {
+        $document_progress = '';
+    } elseif ($document_progress == '완료') {
+        echo '<span class="float-right"><i class="fas fa-check fa-sm text-success"></i>';
+    } elseif ($document_progress == '작성중') {
+        echo '<span class="float-right"><i class="fas fa-hourglass-half fa-sm text-danger"></i></span>';
+    } else { // '해당없음'
+        echo '<span class="float-right"><i class="fas fa-ban fa-sm text-muted"></i></span>';
+    };
+}

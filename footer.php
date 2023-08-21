@@ -1,8 +1,8 @@
 <!-- Footer-->
-<footer class="border-top">
+<footer class="border-top p-2">
   <div class="container text-center">
     <?php custom_pagination(); ?>
-    <!-- <small class="text-secondary">&copy LG유플러스</small> -->
+    <span class="pt-2 text-secondary">&copy LG유플러스</span>
   </div>
 </footer>
 

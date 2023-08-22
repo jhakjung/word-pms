@@ -166,5 +166,31 @@ function progress_state($post_id) {
 //     return false;
 // }
 
+// function custom_query_by_post_type_and_taxonomy($post_type, $taxonomy, $term_slug) {
+//     $args = array(
+//         'post_type' => $post_type,
+//         'tax_query' => array(
+//             array(
+//                 'taxonomy' => $taxonomy,
+//                 'field' => 'slug',
+//                 'terms' => $term_slug,
+//             ),
+//         ),
+//     );
 
+//     $query = new WP_Query($args);
 
+//     return $query;
+// }
+// add_filter('post_type_archive_link', 'custom_post_type_archive_link', 10, 2);
+
+// 포스트 타입에 맞는 택소노미 연결 url 생성 함수
+function generate_tax_archive_link($term_value) {
+    // Replace 'aaa-archive' with the actual archive page slug
+    $archive_url = home_url('/documents/');
+
+    // Append the tax value to the URL query parameters
+    $link = add_query_arg('project_state', $term_value, $archive_url);
+
+    return esc_url($link);
+}

@@ -27,7 +27,7 @@ function custom_term_link($taxonomy, $term, $post_type) {
         foreach ($terms as $term) {
             $term_name = $term->name;
             // 직접 URL을 구성하여 포스트 타입과 분류를 연결합니다.
-            $term_link = custom_term_link($taxonomy, $term, 'document');
+            $term_link = get_term_link($term);
 
             $button_class = '';
             if ($term_name == $current_term_name) {

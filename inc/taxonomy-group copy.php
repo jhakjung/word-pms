@@ -1,39 +1,23 @@
 <?php
 // 택소노미별 리스트를 출력
 function custom_get_tax_list($taxonomy, $class) {
-    $hide = true;
-    // if ($taxonomy == 'project_state') { $hide = false; }
-    $terms = get_terms(array(
-        'taxonomy' => $taxonomy,
-        'hide_empty' => $hide, // 빈 Term도 출력
-        'orderby' => 'slug',
-        'order' => 'ASC'
-    ));
-    if (!empty($terms) && !is_wp_error($terms)) {
-        foreach ($terms as $term) {
-            $term_name = $term->name;
-            $term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
-            $term_link = get_term_link($term);
-
-            // Get the count of 'document' type assigned to the term
-            $args = array(
-                'post_type' => 'post', // Replace with your custom post type slug
-                'tax_query' => array(
-                    array(
-                        'taxonomy' => $taxonomy,
-                        'field' => 'slug',
-                        'terms' => $term->slug,
-                    ),
-                ),
-            );
-            $term_query = new WP_Query($args);
-            $term_count = $term_query->found_posts;
-
-            echo '<span class="' . $class . '"><a class="my_badge" href="' . $term_link . '">' . $term_name . ' (' . $term_count . ')</a></span>';
-        }
-    }
+	$hide = true;
+	// if ($taxonomy == 'project_state') { $hide = false; }
+	$terms = get_terms(array(
+		'taxonomy' => $taxonomy,
+		'hide_empty' => $hide, // 빈 Term도 출력
+		'orderby' => 'slug',
+		'order' => 'ASC'
+	));
+	if (!empty($terms) && !is_wp_error($terms)) {
+		foreach ($terms as $term) {
+			$term_name = $term->name;
+			$term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
+			$term_link = get_term_link($term); ?>
+			<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
+		<?php }
+	}
 }
-
 
 // 이슈상태 리스트를 출력
 function custom_get_issue_state_list() { ?>

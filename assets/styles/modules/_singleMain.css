@@ -19,6 +19,10 @@
     font-size: 0.8rem !important;
 }
 
+.media-body h6 span > a {
+    color: #666 !important;
+}
+
 .media-footer a {
     float: right !important;
 }
@@ -33,7 +37,7 @@ p.logged-in-as, p.comment-notes, p.comment-form-cookies-consent {
 
 p.form-submit {
     float: right !important;
-    margin-top: 0px !important;
+    margin-top: 10px !important;
     margin-bottom: 0px !important;
     padding-bottom: 0px !important;
 }
@@ -69,5 +73,21 @@ p.comment-form-attachment {
 
 /* 첨부파일 들여쓰기 */
 .content p > a, p.dco-attachment > a  {
-    padding-left: 0rem !important;
+    padding-left: 0.5rem !important;
+}
+
+/* 코멘트 등록 버튼을 위로 올리기 */
+.comment-form-attachment,
+.form-submit {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+}
+
+.comment-form-attachment {
+    text-align: left;
+}
+
+.form-submit {
+    text-align: right;
 }

@@ -140,3 +140,31 @@ function progress_state($post_id) {
         echo '<span class="float-right"><i class="fas fa-ban fa-sm text-muted"></i></span>';
     };
 }
+
+// 성과물 & 카테고리
+// function custom_taxonomy_template($template) {
+//     if (is_tax('project_state') && is_post_type_archive('document')) {
+//         // 템플릿 파일 경로를 지정
+//         $custom_template = get_template_directory() . '/taxonomy-project_state_category-document.php';
+
+//         // 해당 템플릿 파일이 존재하면 사용, 그렇지 않으면 기본 템플릿 사용
+//         if (file_exists($custom_template)) {
+//             return $custom_template;
+//         }
+//     }
+//     return $template; // 기본 템플릿 파일 반환
+// }
+// add_filter('template_include', 'custom_taxonomy_template');
+
+// function custom_term_link($taxonomy, $term, $post_type) {
+//     $term_obj = get_term_by('slug', $term, $taxonomy);
+
+//     if ($term_obj) {
+//         return get_post_type_archive_link($post_type) . '?' . $taxonomy . '=' . $term_obj->slug;
+//     }
+
+//     return false;
+// }
+
+
+

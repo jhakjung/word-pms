@@ -17,12 +17,12 @@
 
             <div class="post-content mt-2 px-1">
                 <!-- 요약글 -->
-                <div class="excerpt border p-3 bg-warning bg-opacity-10">
-                    <?php if (has_excerpt()) : ?>
+                <?php if (has_excerpt()) : ?>
+                    <div class="excerpt border p-3 bg-warning bg-opacity-10">
                         <?php echo get_the_excerpt(); ?>
-                    <?php endif; ?>
-                </div>
-                <br>
+                    </div>
+                    <br>
+                <?php endif; ?>
 
                 <!-- 컨텐트 내용 -->
                 <div class="content">

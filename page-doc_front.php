@@ -1,4 +1,5 @@
-<?php get_header(); ?>
+<?php
+get_header(); ?>
 
 <div class="document-box my-3 pb-3 px-3">
 
@@ -48,7 +49,7 @@
                     <?php
                     if ($term_posts->have_posts()) :
                         while ($term_posts->have_posts()) : $term_posts->the_post(); ?>
-                            <li class="bg-light list-group-item">
+                            <li class="list-group-item">
                                 <a href="<?php the_permalink(); ?>" style="color: black;"><?php echo get_the_title(); ?></a>
                                 <?php progress_state(get_the_ID()); ?>
                             </li>

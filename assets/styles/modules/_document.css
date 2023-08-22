@@ -22,12 +22,9 @@
   	}
 }
 
-
 .document-box .list-group-item a:hover {
   	color: $blue !important;
 }
-
-
 
 .document-box .card a {
   	text-decoration: none !important;

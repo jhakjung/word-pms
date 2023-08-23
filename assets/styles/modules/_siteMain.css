@@ -13,6 +13,16 @@
         font-weight: 300;
         float: right;
     }
+
+    &__doc {
+        font-size: 65%;
+        color: #999 !important;
+    }
+
+    &__doc a {
+        color: #999 !important;
+    }
+
 }
 
 .post-meta {

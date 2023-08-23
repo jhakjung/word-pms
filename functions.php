@@ -141,56 +141,10 @@ function progress_state($post_id) {
     };
 }
 
-// 성과물 & 카테고리
-// function custom_taxonomy_template($template) {
-//     if (is_tax('project_state') && is_post_type_archive('document')) {
-//         // 템플릿 파일 경로를 지정
-//         $custom_template = get_template_directory() . '/taxonomy-project_state_category-document.php';
-
-//         // 해당 템플릿 파일이 존재하면 사용, 그렇지 않으면 기본 템플릿 사용
-//         if (file_exists($custom_template)) {
-//             return $custom_template;
-//         }
-//     }
-//     return $template; // 기본 템플릿 파일 반환
-// }
-// add_filter('template_include', 'custom_taxonomy_template');
-
-// function custom_term_link($taxonomy, $term, $post_type) {
-//     $term_obj = get_term_by('slug', $term, $taxonomy);
-
-//     if ($term_obj) {
-//         return get_post_type_archive_link($post_type) . '?' . $taxonomy . '=' . $term_obj->slug;
-//     }
-
-//     return false;
-// }
-
-// function custom_query_by_post_type_and_taxonomy($post_type, $taxonomy, $term_slug) {
-//     $args = array(
-//         'post_type' => $post_type,
-//         'tax_query' => array(
-//             array(
-//                 'taxonomy' => $taxonomy,
-//                 'field' => 'slug',
-//                 'terms' => $term_slug,
-//             ),
-//         ),
-//     );
-
-//     $query = new WP_Query($args);
-
-//     return $query;
-// }
-// add_filter('post_type_archive_link', 'custom_post_type_archive_link', 10, 2);
-
 // 포스트 타입에 맞는 택소노미 연결 url 생성 함수
-function generate_tax_archive_link($term_value) {
-    // Replace 'aaa-archive' with the actual archive page slug
+function generate_tax_archive_link($taxonomy, $term_value) {
     $archive_url = home_url('/documents/');
-
     // Append the tax value to the URL query parameters
-    $link = add_query_arg('project_state', $term_value, $archive_url);
-
+    $link = add_query_arg($taxonomy, $term_value, $archive_url);
     return esc_url($link);
 }

@@ -15,7 +15,8 @@ get_header(); ?>
     $count = 1; // 넘버링을 위한 변수
 
     foreach ($terms as $term) {
-        $term_link = get_term_link($term, $taxonomy);
+        // $term_link = get_term_link($term, $taxonomy);
+        $term_link = generate_tax_archive_link($taxonomy, $term->slug);
         $term_name = preg_replace('/\d{2}_/', '', $term->name); // project_state
         $term_posts = new WP_Query(array(
             'post_type' => 'document',

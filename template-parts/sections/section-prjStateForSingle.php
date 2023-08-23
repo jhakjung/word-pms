@@ -19,12 +19,9 @@ if ($current_term && !is_wp_error($current_term)) {
 
     foreach ($terms as $term) {
         $term_name = $term->name;
-        $term_value = 'ps01';
-        $term_link = generate_tax_archive_link($term_value);
-
+        $term_link = generate_tax_archive_link($taxonomy, $term->slug);
         $button_class = ($term_name == $current_term_name) ? 'btn btn-primary' : 'btn btn-light';
-        $term_name = preg_replace('/\d{2}_/', '', $term->name);
-
+        $term_name = preg_replace('/\d{2}_/', '', $term_name);
         echo '<a href="' . $term_link . '" class="btn m-2 border ' . $button_class . '">' . $term_name . '</a>';
     }
 }

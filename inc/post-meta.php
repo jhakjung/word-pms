@@ -1,7 +1,6 @@
 <?php
 // 포스트 메타 category 출력: 카테고리별로 badge 태그
 function custom_get_the_tax_meta($taxonomy, $class) {
-	// 'project_state' Taxonomy에 속하는 Term들을 가져옴
 	$terms = get_the_terms(get_the_ID(), $taxonomy);
 	if ($terms) {
 		foreach ($terms as $term) {

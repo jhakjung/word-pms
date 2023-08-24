@@ -60,6 +60,6 @@ if ($query->have_posts()) {
     <?php }
     wp_reset_postdata();
 } else {
-    echo '<p>해당 카테고리에 속하는 포스트가 없습니다.</p>';
+    echo '';
 }
 ?>

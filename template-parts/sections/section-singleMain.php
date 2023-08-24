@@ -26,7 +26,7 @@
 
                 <!-- 컨텐트 내용 -->
                 <div class="content">
-                    <?php echo the_content(); ?>
+                    <?php the_content(); ?>
                 </div>
 
                 <hr id="my_hr" class="mb-4 hr-1">

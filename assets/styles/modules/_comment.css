@@ -1,0 +1,101 @@
+.media {
+    display: flex !important;
+    align-items: flex-start !important;
+
+    img.avatar.avartar-32.photo {
+        border-radius: 50% !important;
+    }
+}
+
+.media-body {
+    flex: 1;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0%;
+}
+
+.media-body .badge a {
+    color: white !important;
+    font-size: 0.8rem !important;
+}
+
+.media-body h6 span > a {
+    color: #666 !important;
+}
+
+.media-footer a {
+    float: right !important;
+}
+
+#reply-title {
+    display: none !important;
+}
+
+p.logged-in-as, p.comment-notes, p.comment-form-cookies-consent {
+    display: none !important;
+}
+
+p.form-submit {
+    float: right !important;
+    margin-top: 10px !important;
+}
+
+.leave_cmt {
+    margin-left: 5px !important;
+}
+
+.comment-respond {
+    margin-top: 0.25rem !important;
+}
+
+.post-content #my_hr {
+    background-color: #fff;
+    padding: 0;
+    margin: 50px 5px;
+  }
+
+#my_hr.hr-1 {
+border: 0;
+height: 1px;
+background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(255, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.btn.btn-sm:hover {
+    background-color:$my_purple !important;
+}
+
+/* 설명하는 부분이 박스에 너무 붙어있음 */
+p.comment-form-attachment {
+    margin: 10px 0 0 0 !important;
+    font-size: 1rem !important;
+}
+
+/* 첨부파일 들여쓰기 */
+.content p > a, p.dco-attachment > a  {
+    padding-left: 0.5rem !important;
+}
+
+/* 코멘트 등록 버튼을 위로 올리기 */
+.comment-form-attachment, .form-submit {
+    display: inline-block;
+    flex: 1;
+    text-align: center;
+}
+
+.comment-form-attachment {
+    text-align: left;
+}
+
+p.comment-form-attachment {
+    margin: 10px 0 0 0 !important;
+    font-size: 1rem !important;
+}
+
+.comment p.comment-form-attachment {
+    margin: 20px 0 0 0 !important;
+    font-size: 1rem !important;
+}
+
+.comment  #respond .form-submit {
+    margin-top: 5px 0 0 0 !important;
+}

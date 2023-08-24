@@ -8,7 +8,7 @@ get_template_part('template-parts/sections/section', 'prjStateForSingle'); ?>
 	<div class="row pt-1 pb-4">
 
 		<div class="col-md-3">
-            <?php get_template_part('template-parts/sections/section', 'docListArchive'); ?>
+            <?php get_template_part('template-parts/sections/section', 'docAsideArchive'); ?>
         </div> <!-- col-3 -->
 
         <div class="col-md-9">

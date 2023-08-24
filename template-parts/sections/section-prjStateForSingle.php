@@ -14,8 +14,11 @@ $terms = get_terms(array(
 
 $current_term = get_the_terms(get_the_ID(), $taxonomy);
 
-if ($current_term && !is_wp_error($current_term)) {
+if ($current_term) {
     $current_term_name = $current_term[0]->name;
+} else {
+    $current_term_name = '';
+}
 
     foreach ($terms as $term) {
         $term_name = $term->name;
@@ -23,10 +26,7 @@ if ($current_term && !is_wp_error($current_term)) {
         $button_class = ($term_name == $current_term_name) ? 'btn btn-primary' : 'btn btn-light';
         $term_name = preg_replace('/\d{2}_/', '', $term_name);
         echo '<a href="' . $term_link . '" class="btn m-2 border ' . $button_class . '">' . $term_name . '</a>';
-    }
-}
+    } ?>
 
-
-        ?>
     </div>
 </div>

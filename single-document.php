@@ -44,7 +44,7 @@ get_template_part('template-parts/sections/section', 'prjStateForSingle'); ?>
                     <?php }
                     wp_reset_postdata();
                 } else {
-                    echo '<li class="list-group-item">해당 카테고리에 속하는 포스트가 없습니다.</li>';
+                    echo '<li class="list-group-item">해당 프로젝트 단계에 등록된 성과물이 없습니다.</li>';
                 }
                 ?>
             </ul>

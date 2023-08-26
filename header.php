@@ -13,15 +13,13 @@
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
     <nav class="site-header navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container d-flex flex-sm-wrap justify-content-between align-content-center">
+        <div class="container d-flex flex-sm-wrap justify-content-between align-content-center py-2">
             <div class="w-auto float-left">
                 <a class="fs-3 navbar-brand text-left" href="<?php echo esc_url(site_url('/')); ?>"><?php bloginfo('name'); ?></a>
             </div>
 
             <div class="mx-auto w-auto">
-                <p>
                     <?php echo do_shortcode('[ivory-search id="7" title="AJAX Search Form"]'); ?>
-                </p>
             </div>
 
             <div class="w-auto">

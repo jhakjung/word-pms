@@ -7,9 +7,8 @@
             if (is_category()) {
                 $title = custom_get_the_archive_title();
                 $title = str_replace('카테고리', '분류', $title);
-            } else {
+            }  else {
                 $title = custom_get_the_archive_title();
-			    $title = preg_replace('/\d{2}_/', '', $title); // project_state 조작
             }
         }
         else {

@@ -34,6 +34,14 @@
                     <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('library'); ?>">자료실</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('uncategorized'); ?>">기타</a></li>
                     <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
+                    <li class="nav-item" style="padding-left:10px">
+                        <?php
+                        if(is_user_logged_in()) { ?>
+                            <a href="<?php echo wp_logout_url();  ?>" class="pl-3 my_badge">
+                            <span class="text-warning" style="font-size:0.95rem;font-weight:300">나가기</span>
+                            </a>
+                        <?php } ?>
+                    </li>
                 </ul>
             </div>
         </div>

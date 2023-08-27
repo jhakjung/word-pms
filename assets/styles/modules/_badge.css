@@ -36,6 +36,10 @@
         background-color: $gray-300 !important;
     }
 
+    &__darkOrange {
+        background-color: $darkOrange !important;
+    }
+
 }
 
 a.my_badge, .my_badge {

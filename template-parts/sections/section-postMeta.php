@@ -13,7 +13,7 @@
                 if ($terms) {
                     $term_name = $terms[0]->name;
                     if ($term_name == "미결") {
-                        $class = "badge badge__red";
+                        $class = "badge badge__darkOrange";
                     } elseif ($term_name == "해결") {
                         $class = "badge badge__green";
                     } elseif ($term_name == "종결") {

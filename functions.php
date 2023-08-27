@@ -148,3 +148,73 @@ function generate_tax_archive_link($taxonomy, $term_value) {
     $link = add_query_arg($taxonomy, $term_value, $archive_url);
     return esc_url($link);
 }
+
+// 로그인 페이지 CSS 적용
+function ourLoginCSS() {
+	wp_enqueue_style('main-css', get_theme_file_uri('/assets/styles/bootstrap.css'));
+	wp_enqueue_script('fa-js', '//kit.fontawesome.com/61b7275f5f.js', 'NULL', '5.9.0', false);
+	wp_enqueue_script('main-js', get_theme_file_uri('bundled.js'), 'NULL', '1.0', true);
+	wp_enqueue_style('my-style', get_stylesheet_uri());
+}
+add_action('login_enqueue_scripts', 'ourLoginCSS');
+
+// 로그인 페이지의 로고를 사이트 이름으로 변경
+function ourLoginTitle() {
+	return get_bloginfo('name');
+}
+add_filter('login_headertitle', 'ourLoginTitle');
+
+// 로고를 누르면 홈으로 이동하게
+// function ourHeaderUrl() {
+// 	return esc_url(site_url('/'));
+// }
+// add_filter('login_headerurl', 'ourHeaderUrl');
+
+// 구독자가 로그인하면 홈으로
+function redirectSubsToFrontend() {
+	$ourCurrentUser = wp_get_current_user();
+	if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] == 'subscriber') {
+		wp_redirect(site_url('/'));
+		exit;
+	}
+}
+add_action('admin_init', 'redirectSubsToFrontend');
+
+// 구독자인 경우 어드민바 No Show
+function noSubsAdminBar() {
+	$ourCurrentUser = wp_get_current_user();
+
+	if (count($ourCurrentUser->roles) == 1 && $ourCurrentUser->roles[0] == 'subscriber') {
+	  show_admin_bar(false);
+	}
+}
+add_action('after_setup_theme', 'noSubsAdminBar');
+
+
+// 가입자 등록 확장
+function custom_user_register_fields() {
+	?>
+  <p>
+	<label for="user_bio"><?php _e('사용자 프로필', 'text-domain'); ?><br />
+	  <textarea name="user_bio" id="user_bio" rows="5" cols="34" placeholder="소속과 전화번호 정보를 입력해야 승인됩니다."><?php echo (isset($_POST['user_bio'])) ? esc_textarea($_POST['user_bio']) : ''; ?></textarea>
+	</label>
+  </p>
+  <?php
+	}
+	add_action('register_form', 'custom_user_register_fields');
+
+// 가입자 등록 필드 유효성 검사
+function custom_user_register_fields_validation($errors, $sanitized_user_login, $user_email) {
+	if (empty($_POST['user_bio'])) {
+		$errors->add('user_bio_error', __('사용자 프로필을 입력해주세요.', 'text-domain'));
+	}
+	return $errors;
+}
+add_filter('registration_errors', 'custom_user_register_fields_validation', 10, 3);
+
+// 가입자 등록 정보 저장
+function custom_user_register_fields_save($user_id) {
+	if (!empty($_POST['user_bio'])) {
+		update_user_meta($user_id, 'user_bio', sanitize_textarea_field($_POST['user_bio']));
+	}
+}

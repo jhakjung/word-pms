@@ -48,7 +48,7 @@ function custom_get_issue_state_list() { ?>
 		if ($term) {
 			$term_name = $term->name;
 			if ($term_name == "미결") {
-				$class = "badge badge__red fs-7 m-1";
+				$class = "badge badge__darkOrange fs-7 m-1";
 			} elseif ($term_name == "해결") {
 				$class = "badge badge__green fs-7 m-1";
 			} elseif ($term_name == "종결") {

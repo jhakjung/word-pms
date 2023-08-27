@@ -6,7 +6,7 @@
             ?>
 
             <div class="post-title fs-3 mt-3">
-                <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                <span><?php the_title(); ?></span>
                 <span class="post-title__slug"><?php echo '#' .$slug; ?></span>
             </div>
 

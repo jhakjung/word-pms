@@ -64,7 +64,7 @@
                     <?php }
                     wp_reset_postdata();
                 } else {
-                    echo 'No favorite posts found.';
+                    echo '';
                 }
                 ?>
             </ul>

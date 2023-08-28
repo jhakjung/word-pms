@@ -4,7 +4,7 @@ get_header(); ?>
 <div class="document-box my-3 pb-3 px-3">
 
     <?php
-    $taxonomy = 'project_state';
+    $taxonomy = 'doc_project_state';
     $terms = get_terms(array(
         'taxonomy' => $taxonomy,
         'hide_empty' => false,

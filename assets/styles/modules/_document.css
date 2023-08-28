@@ -34,3 +34,7 @@
 .float-right {
   	float: right !important;
 }
+
+.list-group-item > a {
+	color: #333 !important;
+}

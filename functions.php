@@ -21,7 +21,7 @@ function document_post_types() {
 		// 'map_meta_cap'  => true,
 		'supports' => array('title', 'editor', 'comments', 'author'),
 		'rewrite' => array('slug' => 'documents'),
-		'taxonomies'  => array('project_state'),
+		'taxonomies'  => array('doc_project_state'),
 		'has_archive' => true,
 		'public' => true,
 		'labels' => array(
@@ -69,9 +69,9 @@ function pms_widget() {
 
 // 새로운 포스트의 슬러그를 'YYMM-중복 체크된 연번'로 설정
 function custom_force_default_post_slug( $data ) {
-    if ( empty( $data['post_name'] ) ) {
+    if ( 'post' === $data['post_type'] && empty( $data['post_name'] ) ) {
         global $wpdb;
-        $post_count = $wpdb->get_var( "SELECT MAX(SUBSTRING_INDEX(post_name, '-', -1)) FROM $wpdb->posts WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'trash')" );
+        $post_count = $wpdb->get_var( "SELECT MAX(SUBSTRING_INDEX(post_name, '-', -1)) FROM $wpdb->posts WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'trash') AND post_type = 'post'" );
         $post_count = sprintf( "%03d", intval( $post_count ) + 1 );
 
         $new_post_slug = date('ym') . '-' . $post_count;
@@ -89,6 +89,7 @@ function custom_force_default_post_slug( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
+
 
 // 한글 문서, 아웃룩 문서 upload 가능하게
 add_filter( 'upload_mimes', function( $existing_mimes ) {
@@ -159,16 +160,23 @@ function ourLoginCSS() {
 add_action('login_enqueue_scripts', 'ourLoginCSS');
 
 // 로그인 페이지의 로고를 사이트 이름으로 변경
-function ourLoginTitle() {
-	return get_bloginfo('name');
+/** 아래 코드는 폐기 **/
+// function ourLoginTitle() {
+// 	return get_bloginfo('name');
+// }
+// add_filter('login_headertitle', 'ourLoginTitle');
+/** 아래 코드로 대체 */
+function custom_login_headertext() {
+    echo '<h1 class="login"><a href="' . esc_url( home_url() ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '">' . get_bloginfo( 'name', 'display' ) . '</a></h1>';
 }
-add_filter('login_headertitle', 'ourLoginTitle');
+add_action( 'login_headertext', 'custom_login_headertext' );
+
 
 // 로고를 누르면 홈으로 이동하게
-// function ourHeaderUrl() {
-// 	return esc_url(site_url('/'));
-// }
-// add_filter('login_headerurl', 'ourHeaderUrl');
+function ourHeaderUrl() {
+	return esc_url(site_url('/'));
+}
+add_filter('login_headerurl', 'ourHeaderUrl');
 
 // 구독자가 로그인하면 홈으로
 function redirectSubsToFrontend() {

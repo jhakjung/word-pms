@@ -9,7 +9,7 @@ get_template_part('template-parts/sections/section', 'prjStateForSingle'); ?>
 
 		<div class="col-md-3">
 			<?php
-			$taxonomy = 'project_state';
+			$taxonomy = 'doc_project_state';
 			$term = get_the_terms(get_the_ID(), $taxonomy);
 			$term_name = $term[0]->name;
 			$term_slug = $term[0]->slug;

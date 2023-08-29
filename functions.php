@@ -159,6 +159,7 @@ function ourLoginCSS() {
 add_action('login_enqueue_scripts', 'ourLoginCSS');
 
 // 로그인 페이지의 로고를 사이트 이름으로 변경
+/** 아래 코드로 대체 */
 function custom_login_headertext() {
     echo '<h1 class="login"><a href="' . esc_url( home_url() ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '">' . get_bloginfo( 'name', 'display' ) . '</a></h1>';
 }

@@ -1,6 +1,6 @@
 <?php
 // 택소노미 value 값: 예) ps01
-$taxonomy = 'project_state';
+$taxonomy = 'doc_project_state';
 $term_slug = isset($_GET[$taxonomy]) ? sanitize_text_field($_GET[$taxonomy]) : '';
 $term = get_term_by('slug', $term_slug, $taxonomy);
 $term_name = preg_replace('/\d{2}_/', '', $term->name);
@@ -10,7 +10,7 @@ $args = array(
     'post_type' => 'document', // Replace 'aaa' with your actual post type
     'tax_query' => array(
         array(
-            'taxonomy' => 'project_state',
+            'taxonomy' => $taxonomy,
             'field'    => 'slug',
             'terms'    => $term_slug,
         ),
@@ -24,7 +24,7 @@ $args = array(
     'post_type' => 'document',
     'tax_query' => array(
             array(
-                    'taxonomy' => 'project_state',
+                    'taxonomy' => $taxonomy,
                     'field' => 'slug',
                     'terms' => $term_slug,
             ),

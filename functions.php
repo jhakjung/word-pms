@@ -17,11 +17,11 @@ add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 function document_post_types() {
 	register_post_type('document', array(
 		'show_in_rest' => true,
-		// 'capability_type' => 'document',
-		// 'map_meta_cap'  => true,
+		'capability_type' => 'document',
+		'map_meta_cap'  => true,
 		'supports' => array('title', 'editor', 'comments', 'author'),
 		'rewrite' => array('slug' => 'documents'),
-		'taxonomies'  => array('project_state'),
+		'taxonomies'  => array('doc_project_state'),
 		'has_archive' => true,
 		'public' => true,
 		'labels' => array(
@@ -69,9 +69,9 @@ function pms_widget() {
 
 // 새로운 포스트의 슬러그를 'YYMM-중복 체크된 연번'로 설정
 function custom_force_default_post_slug( $data ) {
-    if ( empty( $data['post_name'] ) ) {
+    if ( 'post' === $data['post_type'] && empty( $data['post_name'] ) ) {
         global $wpdb;
-        $post_count = $wpdb->get_var( "SELECT MAX(SUBSTRING_INDEX(post_name, '-', -1)) FROM $wpdb->posts WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'trash')" );
+        $post_count = $wpdb->get_var( "SELECT MAX(SUBSTRING_INDEX(post_name, '-', -1)) FROM $wpdb->posts WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'trash') AND post_type = 'post'" );
         $post_count = sprintf( "%03d", intval( $post_count ) + 1 );
 
         $new_post_slug = date('ym') . '-' . $post_count;
@@ -89,6 +89,7 @@ function custom_force_default_post_slug( $data ) {
     return $data;
 }
 add_filter( 'wp_insert_post_data', 'custom_force_default_post_slug' );
+
 
 // 한글 문서, 아웃룩 문서 upload 가능하게
 add_filter( 'upload_mimes', function( $existing_mimes ) {
@@ -112,20 +113,19 @@ function add_extension_to_media_link($content) {
   }
   add_filter('the_content', 'add_extension_to_media_link');
 
-  // 확장자 추가 - 첨부 미디어 파일
-  function add_extension_to_media_title($title, $id) {
+// 확장자 추가 - 첨부 미디어 파일
+function add_extension_to_media_title($title, $id) {
 	$attachment = get_post($id);
 
 	if ($attachment && $attachment->post_type === 'attachment') {
-	  $file_url = wp_get_attachment_url($id);
-	  $file_extension = pathinfo($file_url, PATHINFO_EXTENSION);
+		$file_url = wp_get_attachment_url($id);
+		$file_extension = pathinfo($file_url, PATHINFO_EXTENSION);
 
-	  $title .= '.' . $file_extension;
+		$title .= '.' . $file_extension;
 	}
-
 	return $title;
-  }
-  add_filter('the_title', 'add_extension_to_media_title', 10, 2);
+}
+add_filter('the_title', 'add_extension_to_media_title', 10, 2);
 
 // 성과물의 진도를 표시
 function progress_state($post_id) {
@@ -159,16 +159,17 @@ function ourLoginCSS() {
 add_action('login_enqueue_scripts', 'ourLoginCSS');
 
 // 로그인 페이지의 로고를 사이트 이름으로 변경
-function ourLoginTitle() {
-	return get_bloginfo('name');
+function custom_login_headertext() {
+    echo '<h1 class="login"><a href="' . esc_url( home_url() ) . '" title="' . esc_attr( get_bloginfo( 'name', 'display' ) ) . '">' . get_bloginfo( 'name', 'display' ) . '</a></h1>';
 }
-add_filter('login_headertitle', 'ourLoginTitle');
+add_action( 'login_headertext', 'custom_login_headertext' );
+
 
 // 로고를 누르면 홈으로 이동하게
-// function ourHeaderUrl() {
-// 	return esc_url(site_url('/'));
-// }
-// add_filter('login_headerurl', 'ourHeaderUrl');
+function ourHeaderUrl() {
+	return esc_url(site_url('/'));
+}
+add_filter('login_headerurl', 'ourHeaderUrl');
 
 // 구독자가 로그인하면 홈으로
 function redirectSubsToFrontend() {
@@ -181,15 +182,13 @@ function redirectSubsToFrontend() {
 add_action('admin_init', 'redirectSubsToFrontend');
 
 // 구독자인 경우 어드민바 No Show
-function noSubsAdminBar() {
-	$ourCurrentUser = wp_get_current_user();
-
-	if (count($ourCurrentUser->roles) == 1 && $ourCurrentUser->roles[0] == 'subscriber') {
-	  show_admin_bar(false);
+add_action('init', function() {
+	if (current_user_can('pm')) {
+	  show_admin_bar(true);
+	} if (current_user_can('subscriber')) {
+		show_admin_bar(false);
 	}
-}
-add_action('after_setup_theme', 'noSubsAdminBar');
-
+});
 
 // 가입자 등록 확장
 function custom_user_register_fields() {

@@ -1,7 +1,7 @@
 <?php
 // 택소노미별 리스트를 출력
 function custom_get_tax_list($taxonomy, $class) {
-    $hide = false;
+    $hide = true;
     // if ($taxonomy == 'project_state') { $hide = false; }
     $terms = get_terms(array(
         'taxonomy' => $taxonomy,
@@ -11,32 +11,13 @@ function custom_get_tax_list($taxonomy, $class) {
     ));
     if (!empty($terms) && !is_wp_error($terms)) {
         foreach ($terms as $term) {
-            // 게시물이 할당된 텀인지 확인
-            $posts_with_term = get_posts(array(
-            'post_type' => 'post', // 포스트타입 변경 필요시 수정
-            'tax_query' => array(
-                array(
-                    'taxonomy' => $taxonomy,
-                    'field' => 'term_id',
-                    'terms' => $term->term_id,
-                ),
-            ),
-        ));
-
-        if ($posts_with_term) {
-            $term_name = $term->name;
-            $term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
-            $term_link = get_term_link($term); ?>
-            <span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . count($posts_with_term) . ')'; ?></a></span>
-        <?php }
-
             $term_name = $term->name;
             $term_name = preg_replace('/^\d{2}_/', '', $term_name); // project_state 조작
             $term_link = get_term_link($term);
 
             // Get the count of 'document' type assigned to the term
             $args = array(
-                'post_type' => 'post',
+                'post_type' => 'post', // Replace with your custom post type slug
                 'tax_query' => array(
                     array(
                         'taxonomy' => $taxonomy,
@@ -52,7 +33,6 @@ function custom_get_tax_list($taxonomy, $class) {
         }
     }
 }
-
 
 // 이슈상태 리스트를 출력
 function custom_get_issue_state_list() { ?>

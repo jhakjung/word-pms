@@ -28,15 +28,15 @@
                     <li class="nav-item <?php if (get_post_type() == 'document' OR is_page('doc_front')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo site_url('/doc_front'); ?>">성과물</a></li>
 
                     <li class="nav-item d-flex align-items-center"><span class="text-secondary">│</span></li>
-                    <li class="nav-item <?php if (is_category('issue')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('safety'); ?>">안전관리</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('progress'); ?>">공정관리</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('library'); ?>">자료실</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo custom_cat_archive_link('uncategorized'); ?>">기타</a></li>
-                    <li class="nav-item"><a class="nav-link" href="<?php echo esc_url(site_url('/test')); ?>">Test</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('issue')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('issue'); ?>">이슈관리</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('safety')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('safety'); ?>">안전관리</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('progress')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('progress'); ?>">공정관리</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('library')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('library'); ?>">자료실</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('uncategorized')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('uncategorized'); ?>">기타</a></li>
+                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('my_category')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('my_category'); ?>">MY</a></li>
                     <li class="nav-item" style="padding-left:10px">
                         <?php
-                        if(is_user_logged_in()) { ?>
+                        if(is_user_logged_in() AND current_user_can('subscriber')) { ?>
                             <a href="<?php echo wp_logout_url();  ?>" class="pl-3 my_badge">
                             <span class="text-warning" style="font-size:0.95rem;font-weight:300">나가기</span>
                             </a>

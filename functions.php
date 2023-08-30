@@ -96,6 +96,9 @@ add_filter( 'upload_mimes', function( $existing_mimes ) {
 	$existing_mimes['hwp'] = 'application/hangul';
 	$existing_mimes['hwpx'] = 'application/hangul';
 	$existing_mimes['msg'] = 'application/vnd.ms-outlook';
+	$existing_mimes['svg'] = 'application/msedge';
+	$existing_mimes['dat'] = 'application/wordpad';
+	$existing_mimes['dwg'] = 'application/cad';
 	return $existing_mimes;
   } );
 
@@ -218,3 +221,14 @@ function custom_user_register_fields_save($user_id) {
 		update_user_meta($user_id, 'user_bio', sanitize_textarea_field($_POST['user_bio']));
 	}
 }
+
+// a 태그 다음에 라인 추가
+function auto_insert_br_after_a_tags($content) {
+    // 정규식을 사용하여 <a> 태그 다음에 <br> 태그를 추가
+    $pattern = '/<\/a>/i';
+    $replacement = '</a><br>';
+    $content = preg_replace($pattern, $replacement, $content);
+
+    return $content;
+}
+add_filter('the_content', 'auto_insert_br_after_a_tags');

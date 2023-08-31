@@ -232,3 +232,5 @@ function auto_insert_br_after_a_tags($content) {
     return $content;
 }
 add_filter('the_content', 'auto_insert_br_after_a_tags');
+
+

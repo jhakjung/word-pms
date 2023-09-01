@@ -40,6 +40,10 @@
         background-color: $darkOrange !important;
     }
 
+    &__cyan {
+        background-color: #0dcaf0 !important;
+    }
+
 }
 
 a.my_badge, .my_badge {

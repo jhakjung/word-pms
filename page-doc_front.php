@@ -27,6 +27,8 @@ get_header(); ?>
                     'terms' => $term->slug,
                 ),
             ),
+            'orderby' => 'date',
+            'order' => 'ASC',
             'posts_per_page' => -1, // 모든 포스트를 출력하도록 변경
         ));
 

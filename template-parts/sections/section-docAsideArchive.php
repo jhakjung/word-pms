@@ -31,6 +31,8 @@ $args = array(
                         'terms' => $term_slug,
                 ),
         ),
+        'orderby' => 'date',
+        'order' => 'ASC',
         'posts_per_page' => -1
     );
     $query = new WP_Query($args);

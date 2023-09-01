@@ -19,7 +19,7 @@ function document_post_types() {
 		'show_in_rest' => true,
 		'capability_type' => 'document',
 		'map_meta_cap'  => true,
-		'supports' => array('title', 'editor', 'comments', 'author'),
+		'supports' => array('title', 'editor', 'comments', 'author', 'excerpt'),
 		'rewrite' => array('slug' => 'documents'),
 		'taxonomies'  => array('doc_project_state'),
 		'has_archive' => true,

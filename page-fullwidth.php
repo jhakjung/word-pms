@@ -1,13 +1,13 @@
 <?php
 /*
-  Template Name: Full-Width
+  Template Name: Full-width
   Template Post Type: post, page
 */
 get_header();?>
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="single-main container">
+		<div class="single-main container full-width">
 			<?php
 				$slug = get_post_field('post_name', get_the_ID()); // 슬러그
 				?>
@@ -39,7 +39,7 @@ get_header();?>
 					<hr id="my_hr" class="mb-4 hr-1">
 
 					<!-- 댓글 -->
-					<div class="col-8">
+					<div class="mx-auto col-8">
 						<?php comments_template(); ?>
 					</div>
 				</div>

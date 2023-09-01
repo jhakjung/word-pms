@@ -29,6 +29,8 @@ $args = array(
                     'terms' => $term_slug,
             ),
     ),
+    'orderby' => 'date',
+    'order' => 'ASC',
     'posts_per_page' => -1,
 );
 
@@ -42,20 +44,28 @@ if ($query->have_posts()) {
         $post_count++; ?>
 
         <div class="post-title fs-4">
-            <!-- <i class="text-secondary text-opacity-75 fa fa-file fa-sm"></i>&nbsp; -->
             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
             <div class="float-right d-inline-block">
                 <span class="post-title__doc"><?php custom_get_the_author();?></span>
                 <span class="post-title__doc"> | </span>
                 <span class="post-title__doc"><?php custom_get_the_time(); ?></span>
             </div>
+        </div>
 
+        <div class="post-content mt-2 px-1">
+            <!-- 요약글 -->
+            <?php if (has_excerpt()) : ?>
+                <div class="excerpt border p-3 bg-warning bg-opacity-10">
+                    <?php echo get_the_excerpt(); ?>
+                </div>
+            <?php endif; ?>
 
+            <!-- 컨텐트 내용 -->
+            <div class="content mt-2g">
+                <?php the_content(); ?>
+            </div>
 
         </div>
-        <p>
-            <?php the_content(); ?>
-        </p>
         <?php if ($post_count < $query->post_count) { ?><hr><?php } ?>
     <?php }
     wp_reset_postdata();

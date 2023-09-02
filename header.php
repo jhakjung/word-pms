@@ -7,6 +7,8 @@
   	<meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="robots" content="noindex, nofollow">
   	<title><?php wp_title(' | ', 'echo', 'right'); ?><?php bloginfo('name'); ?></title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+
   	<?php wp_head(); ?>
 </head>
 
@@ -33,7 +35,7 @@
                     <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('progress')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('progress'); ?>">공정관리</a></li>
                     <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('library')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('library'); ?>">자료실</a></li>
                     <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('uncategorized')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('uncategorized'); ?>">기타</a></li>
-                    <li class="nav-item <?php if (get_post_type() == 'post' AND is_category('my_category')) { echo 'active'; } ?>"><a class="nav-link" href="<?php echo custom_cat_archive_link('my_category'); ?>">MY</a></li>
+
                     <li class="nav-item" style="padding-left:10px">
                         <?php
                         if(is_user_logged_in() AND current_user_can('subscriber')) { ?>

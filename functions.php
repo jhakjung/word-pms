@@ -233,4 +233,14 @@ function auto_insert_br_after_a_tags($content) {
 }
 add_filter('the_content', 'auto_insert_br_after_a_tags');
 
+// 관리자를 제외하고는 "카테고리" 편집메뉴 No Show
+function hide_category_menu_for_non_admins() {
+    $current_user = wp_get_current_user();
+    $user_roles = $current_user->roles;
+    if (in_array('administrator', $user_roles)) {
+        return;
+    }
+    remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+}
+add_action('admin_menu', 'hide_category_menu_for_non_admins');
 

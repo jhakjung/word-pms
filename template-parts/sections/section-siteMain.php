@@ -21,7 +21,8 @@
                         if (has_excerpt()) {
                             echo get_the_excerpt(); ?>
                         <?php } else {
-                            echo wp_trim_words(get_the_content(), 45);
+                            echo '';
+                            //wp_trim_words(get_the_content(), 45);
                         } ?>
                     </p>
                 </div>

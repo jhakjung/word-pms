@@ -21,7 +21,7 @@ function bestmedical_comments_list($comment, $args, $depth) { ?>
         <!-- 댓글 작성일시 -->
         <span class="text-muted mx-2" >
           <?php comment_date('Y-m-d'); echo ', '; comment_time(); ?>
-          <?php edit_comment_link(esc_html__('수정', 'bestmedical'), ' <span class="badge badge__teal">', '</span>');
+          <?php edit_comment_link(esc_html__('수정', 'bestmedical'), ' <span class="badge badge__green">', '</span>');
           ?>
         </span>
       </h6>

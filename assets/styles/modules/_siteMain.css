@@ -1,9 +1,11 @@
 .post-title {
-    /* font-size: 1.5rem; */
+    font-size: 1.4rem;
+    font-weight: 500;
 
     a {
         /* color: $purple !important; */
-        color: #444 !important;
+        /* color: #444 !important; */
+        color: var(--bs-gray-600)
     }
 
     &__slug {

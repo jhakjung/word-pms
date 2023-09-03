@@ -243,4 +243,3 @@ function hide_category_menu_for_non_admins() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
 }
 add_action('admin_menu', 'hide_category_menu_for_non_admins');
-

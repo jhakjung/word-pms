@@ -17,7 +17,7 @@ function custom_get_the_tax_meta($taxonomy, $class) {
 	}
 }
 
-// 포스트 메타 kewword(태그) 출력
+// 포스트 메타 keyword(태그) 출력
 function custom_get_the_tag_meta() {
     $tags = get_the_tags();
     if ($tags) {

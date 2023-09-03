@@ -1,6 +1,6 @@
 <div class="post-meta d-flex flex-wrap my-2">
                 <span class="meta"><i class="fas fa-sitemap"></i>
-                    <?php custom_get_the_tax_meta('category', 'badge badge__purple');?></span>
+                    <?php custom_get_the_tax_meta('category', 'badge badge__black');?></span>
                 <span class="meta"><i class="fas fa-folder"></i>
                     <?php custom_get_the_tax_meta('project_state', 'badge badge__blue');?></span>
                 <span class="meta"><i class="fas fa-cube"></i>
@@ -24,8 +24,8 @@
                 } ?>
                 <span class="meta"><i class="fas fa-info"></i>&nbsp;<span class="<?php echo $class; ?>">
                     <?php custom_get_the_issue_meta(); ?></span></span>
-                <span class="meta"><i class="fas fa-user"></i>&nbsp;<span class="my_badge badge badge__light">
+                <span class="meta"><i class="fas fa-user"></i>&nbsp;<span class="my_badge badge badge__second">
                     <?php custom_get_the_author(); ?></span></span>
-                <span class="meta"><i class="fas fa-clock"></i>&nbsp;<span class="meta my_badge badge badge__light">
+                <span class="meta"><i class="fas fa-clock"></i>&nbsp;<span class="meta my_badge badge badge__second">
                     <?php custom_get_the_time(); ?></span></span>
             </div>

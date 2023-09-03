@@ -16,6 +16,14 @@
         background-color: $my_dark !important;
     }
 
+    &__black {
+        background-color: $gray-600 !important;
+    }
+
+    &__second {
+        background-color: $gray-400 !important;
+    }
+
     &__yellow {
         background-color: $my_orange !important;
     }

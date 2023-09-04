@@ -5,7 +5,7 @@
     a {
         /* color: $purple !important; */
         /* color: #444 !important; */
-        color: var(--bs-gray-600)
+        color: var(--bs-gray-800)
     }
 
     &__slug {

@@ -96,3 +96,7 @@ p.comment-form-attachment {
     width: 100% !important;
     height: auto !important;
 }
+
+.content > p, p.dco-attachment {
+    margin-bottom: 0rem !important;
+}

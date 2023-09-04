@@ -69,7 +69,8 @@ function pms_widget() {
 
 // 새로운 포스트의 슬러그를 'YYMM-중복 체크된 연번'로 설정
 function custom_force_default_post_slug( $data ) {
-    if ( 'post' === $data['post_type'] && empty( $data['post_name'] ) ) {
+    // if ( 'post' === $data['post_type'] && empty( $data['post_name'] ) ) { : 포스트 뿐만 아니라 페이지도 동일하게 연번 생성
+	if ( empty( $data['post_name'] ) ) {
         global $wpdb;
         $post_count = $wpdb->get_var( "SELECT MAX(SUBSTRING_INDEX(post_name, '-', -1)) FROM $wpdb->posts WHERE post_status IN ('publish', 'draft', 'pending', 'private', 'trash') AND post_type = 'post'" );
         $post_count = sprintf( "%03d", intval( $post_count ) + 1 );
@@ -222,16 +223,16 @@ function custom_user_register_fields_save($user_id) {
 	}
 }
 
-// a 태그 다음에 라인 추가
-function auto_insert_br_after_a_tags($content) {
-    // 정규식을 사용하여 <a> 태그 다음에 <br> 태그를 추가
-    $pattern = '/<\/a>/i';
-    $replacement = '</a><br>';
-    $content = preg_replace($pattern, $replacement, $content);
+// a 태그 다음에 라인 추가 ==> 댓글의 첨부파일에도 적용이 되어 폐기함
+// function auto_insert_br_after_a_tags($content) {
+//     // 정규식을 사용하여 <a> 태그 다음에 <br> 태그를 추가
+//     $pattern = '/<\/a>/i';
+//     $replacement = '</a><br>';
+//     $content = preg_replace($pattern, $replacement, $content);
 
-    return $content;
-}
-add_filter('the_content', 'auto_insert_br_after_a_tags');
+//     return $content;
+// }
+// add_filter('the_content', 'auto_insert_br_after_a_tags');
 
 // 관리자를 제외하고는 "카테고리" 편집메뉴 No Show
 function hide_category_menu_for_non_admins() {

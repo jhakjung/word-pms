@@ -18,10 +18,9 @@
             <div class="post-content mt-2 px-1">
                 <!-- 요약글 -->
                 <?php if (has_excerpt()) : ?>
-                    <div class="excerpt border p-3 bg-warning bg-opacity-10">
+                    <div class="excerpt border p-3 mb-3 bg-warning bg-opacity-10">
                         <?php echo get_the_excerpt(); ?>
                     </div>
-                    <br>
                 <?php endif; ?>
 
                 <!-- 컨텐트 내용 -->
@@ -29,7 +28,7 @@
                     <?php the_content(); ?>
                 </div>
 
-                <hr id="my_hr" class="mb-4 hr-1">
+                <hr id="my_hr" class="my-4 hr-1">
 
                 <!-- 댓글 -->
                 <div class="">

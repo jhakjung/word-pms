@@ -17,7 +17,6 @@ $args = array(
     ),
 ); ?>
 
-
 <?php
 // 현재 카테고리에 해당하는 포스트 목록 가져오기
 $args = array(
@@ -41,21 +40,26 @@ $post_count = 0; // 포스트 카운터 변수 초기화
 if ($query->have_posts()) {
     while ($query->have_posts()) {
         $query->the_post();
-        $post_count++; ?>
+        $post_count++;
+
+        $slug = get_post_field('post_name', get_the_ID()); // 슬러그 ?>
 
         <div class="post-title fs-4">
             <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
             <div class="float-right d-inline-block">
+                <i class="post-title__doc fas fa-user"></i>
                 <span class="post-title__doc"><?php custom_get_the_author();?></span>
-                <span class="post-title__doc"> | </span>
+                <i class="post-title__doc fas fa-clock"></i>
                 <span class="post-title__doc"><?php custom_get_the_time(); ?></span>
+                <span class="post-title__doc"> | </span>
+                <span class="post-title__doc"><?php echo '#' .$slug; ?></span>
             </div>
         </div>
 
         <div class="post-content mt-2 px-1">
             <!-- 요약글 -->
             <?php if (has_excerpt()) : ?>
-                <div class="excerpt border p-3 bg-warning bg-opacity-10">
+                <div class="excerpt border p-3 mb-3 bg-warning bg-opacity-10">
                     <?php echo get_the_excerpt(); ?>
                 </div>
             <?php endif; ?>

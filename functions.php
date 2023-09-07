@@ -244,3 +244,18 @@ function hide_category_menu_for_non_admins() {
     remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
 }
 add_action('admin_menu', 'hide_category_menu_for_non_admins');
+
+// 한글 문서 업로드 가능하게
+function my_custom_mime_types( $mimes ) {
+
+	// New allowed mime types - 새롭게 허용하는 mime 타입
+	$mimes['svg'] = 'image/svg+xml';
+	$mimes['svgz'] = 'image/svg+xml';
+	$mimes['hwp'] = 'application/hangul';
+
+	// Optional. Remove a mime type. - (선택 사항) mime type 제거
+	unset( $mimes['exe'] );
+
+	return $mimes;
+	}
+	add_filter( 'upload_mimes', 'my_custom_mime_types' );

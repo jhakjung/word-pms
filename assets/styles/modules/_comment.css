@@ -99,3 +99,9 @@ p.comment-form-attachment {
 .comment  #respond .form-submit {
     margin-top: 5px 0 0 0 !important;
 }
+
+/* blockquote 처리 */
+.media-body blockquote {
+    border-left: 0.25rem solid #ddd;
+    padding-left: 1rem;
+}

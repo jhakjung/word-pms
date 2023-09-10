@@ -16,7 +16,7 @@
                 <?php get_template_part('template-parts/sections/section', 'postMeta'); ?>
 
                 <div class="post-content">
-                    <p class="card-text">
+                    <p class="card-text pt-1">
                         <?php
                         if (has_excerpt()) {
                             echo get_the_excerpt(); ?>

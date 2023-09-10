@@ -100,3 +100,7 @@ p.comment-form-attachment {
 .content > p, p.dco-attachment {
     margin-bottom: 0rem !important;
 }
+
+.excerpt {
+    line-height: 1.35rem !important;
+}

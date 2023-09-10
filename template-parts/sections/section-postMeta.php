@@ -17,15 +17,21 @@
                     } elseif ($term_name == "해결") {
                         $class = "badge badge__green";
                     } elseif ($term_name == "종결") {
-                        $class = "badge badge__dark";
-                    } else {
                         $class = "badge badge__purple";
+                    } else {
+                        $term_name = "";
+                        $class = "";
                     }
                 } ?>
                 <span class="meta"><i class="fas fa-info"></i>&nbsp;<span class="<?php echo $class; ?>">
                     <?php custom_get_the_issue_meta(); ?></span></span>
-                <span class="meta"><i class="fas fa-user"></i>&nbsp;<span class="my_badge badge badge__second">
+
+                <span class="meta"><i class="fas fa-comments"></i>&nbsp;<span class="badge badge__comment"><?php custom_get_comments_number();?></span></span>
+
+                <span class="meta"><i class="fas fa-user"></i><span class="badge__author">
                     <?php custom_get_the_author(); ?></span></span>
-                <span class="meta"><i class="fas fa-clock"></i>&nbsp;<span class="meta my_badge badge badge__second">
+                <?php // if(is_single()) { ?>
+                    <span class="meta"><i class="fas fa-clock"></i><span class="badge__author">
                     <?php custom_get_the_time(); ?></span></span>
+                <!-- <?php // } ?> -->
             </div>

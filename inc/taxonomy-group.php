@@ -46,20 +46,22 @@ function custom_get_issue_state_list() { ?>
 	foreach ($terms as $term) {
 		if ($term) {
 			$term_name = $term->name;
-			if ($term_name == "미결") {
-				$class = "badge badge__darkOrange fs-7 m-1";
-			} elseif ($term_name == "해결") {
-				$class = "badge badge__green fs-7 m-1";
-			} elseif ($term_name == "종결") {
-				$class = "badge badge__dark fs-7 m-1";
-			} else {
-				$class = "badge badge__purple fs-7 m-1";
-			}
-			$term_link = get_term_link($term); ?>
-			<span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
-		<?php }
-	} ?>
-<?php }
+            if ($term_name != "N/A") {
+                if ($term_name == "미결") {
+                    $class = "badge badge__darkOrange fs-7 m-1";
+                } elseif ($term_name == "해결") {
+                    $class = "badge badge__green fs-7 m-1";
+                } elseif ($term_name == "종결") {
+                    $class = "badge badge__purple fs-7 m-1";
+                } else {
+                    $class = "badge badge__dark fs-7 m-1";
+                }
+                $term_link = get_term_link($term); ?>
+                <span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
+		    <?php }
+	    } ?>
+    <?php }
+}
 
 // 카테고리 archive 페이지로 연결해주는 링크 생성 함수
 function custom_cat_archive_link($category_slug) {

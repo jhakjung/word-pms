@@ -43,3 +43,15 @@
     }
 
 }
+
+/* Paginateion CSS */
+.page-item.active .page-link {
+    background: #eee !important;
+    border-color: #ddd !important;
+  }
+a.page-link {
+    color: #aaa !important;
+}
+span.page-link {
+    color: #999 !important;
+}

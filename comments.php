@@ -6,7 +6,7 @@ if(post_password_required()) {
 <div class="comments">
 	<div class="row">
 		<div class="w-100 mx-auto p-1">
-			<h4 class="text-center text-secondary mb-4">
+			<h4 class="text-center text-secondary mb-5">
 				<i class="fa fa-comments"></i>&nbsp;
 				<?php
 				$comments_number = get_comments_number();

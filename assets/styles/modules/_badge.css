@@ -52,6 +52,16 @@
         background-color: #0dcaf0 !important;
     }
 
+    &__comment {
+        background-color: #68b0b3 !important;
+    }
+
+    &__author {
+        background-color: transparent !important;
+        color: #777 !important;
+        /*font-size: 1rem !important;*/
+    }
+
 }
 
 a.my_badge, .my_badge {

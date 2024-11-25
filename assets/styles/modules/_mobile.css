@@ -1,0 +1,25 @@
+
+@media (max-width: 767px) { /* 모바일 화면 너비에 대한 미디어 쿼리 */
+    .navbar-nav {
+        flex-direction: row; /* 메뉴 항목을 가로로 나열합니다. */
+    }
+
+        /* 3번째 <li> 태그부터 마지막 <li> 태그까지 스타일 적용 */
+    .navbar-nav .nav-item:nth-child(n+3) {
+        padding-left: 5px;
+    }
+
+    span.astm-search-menu {
+        display: none !important;
+    }
+
+    .mx-auto.w-auto {
+        /* 모바일에서 .w-auto 클래스 비활성화 */
+        width: auto !important;
+    }
+    .w-25 {
+        /* 모바일에서 .w-25 클래스 활성화 */
+        width: 25% !important;
+    }
+
+}

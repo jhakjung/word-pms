@@ -1,6 +1,65 @@
 /*
-Theme Name: PMS(23.08)
+Theme Name: wr20(2411)
 Author: JHAK
 Version: 1.0
 */
+
+.container {
+    max-width: 1000px;
+}
+.footer {
+    text-align: center;
+    padding: 20px 0;
+    color: #666;
+}
+.section-title {
+    text-align: center;
+    // margin: 20px 0;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-size: 1.25em;
+    color: #555;
+    font-weight: 500;
+}
+.section-title.document {
+    text-align: center;
+    // margin: 20px 0;
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 1.25em;
+    color: #555;
+    font-weight: 500;
+}
+a {
+    // color: black;
+    text-decoration: none;
+    color: inherit;
+}
+a:hover {
+    color: inherit;
+}
+.success-bg {
+    background-color: var(--bs-success) !important;
+    color: white;
+    font-weight: normal;
+}
+.card-header:hover {
+    color:white;
+    background-color: var(--bs-secondary) !important;
+    font-weight: normal;
+}
+.badge {
+    font-size: 0.95em;
+    font-weight: 100;
+}
+.badge:hover {
+    font-weight: bold;
+}
+.my-list-group-item1 {
+    padding-top: 0.2em !important;
+    padding-bottom: 0.2em !important;
+}
+.my-list-group-item1 a {
+    font-size: 0.95em !important;
+}
 

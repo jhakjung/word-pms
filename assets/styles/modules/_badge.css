@@ -13,7 +13,7 @@
     }
 
     &__dark {
-        background-color: $my_dark !important;
+        background-color: #999 !important;
     }
 
     &__black {

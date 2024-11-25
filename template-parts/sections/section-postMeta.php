@@ -1,11 +1,11 @@
 <div class="post-meta d-flex flex-wrap my-2">
                 <span class="meta"><i class="fas fa-sitemap"></i>
-                    <?php custom_get_the_tax_meta('category', 'badge badge__black');?></span>
+                    <?php custom_get_the_tax_meta('category', 'badge badge__yellow');?></span>
                 <span class="meta"><i class="fas fa-folder"></i>
                     <?php custom_get_the_tax_meta('project_state', 'badge badge__blue');?></span>
                 <span class="meta"><i class="fas fa-cube"></i>
                     <?php custom_get_the_tax_meta('system_type', 'badge badge__green');?></span>
-                <span class="meta"><i class="fas fa-tag"></i><?php custom_get_the_tax_meta('post_tag', 'badge badge__yellow');?></span>
+                <span class="meta"><i class="fas fa-tag"></i><?php custom_get_the_tax_meta('post_tag', 'badge badge__dark');?></span>
 
                 <?php
                 // 이슈상태 출력

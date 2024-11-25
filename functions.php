@@ -9,31 +9,32 @@ function enqueue_custom_scripts() {
 	wp_enqueue_style('main-css', get_theme_file_uri('/assets/styles/bootstrap.css'));
 	wp_enqueue_script('fa-js', '//kit.fontawesome.com/61b7275f5f.js', 'NULL', '5.9.0', false);
 	wp_enqueue_script('main-js', get_theme_file_uri('bundled.js'), 'NULL', '1.0', true);
+	wp_enqueue_script('custom-js', get_theme_file_uri('/assets/scripts/custom.js'), array('jquery'), '1.0', true);
 	wp_enqueue_style('my-style', get_stylesheet_uri());
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
-// 성과물 포스트 타입 등록
-function document_post_types() {
-	register_post_type('document', array(
-		'show_in_rest' => true,
-		'capability_type' => 'document',
-		'map_meta_cap'  => true,
-		'supports' => array('title', 'editor', 'comments', 'author', 'excerpt'),
-		'rewrite' => array('slug' => 'documents'),
-		'taxonomies'  => array('doc_project_state'),
-		'has_archive' => true,
-		'public' => true,
-		'labels' => array(
-			'name' => '성과물',
-			'add_new_item' => '성과물 추가',
-			'edit_item' => '성과물 수정',
-			'all_items' => '성과물 목록',
-			'singular_name' => '성과물' ),
-		'menu_icon' => 'dashicons-media-document'
-	));
-}
-add_action('init', 'document_post_types');
+// // 성과물 포스트 타입 등록
+// function document_post_types() {
+// 	register_post_type('document', array(
+// 		'show_in_rest' => true,
+// 		'capability_type' => 'document',
+// 		'map_meta_cap'  => true,
+// 		'supports' => array('title', 'editor', 'comments', 'author', 'excerpt'),
+// 		'rewrite' => array('slug' => 'documents'),
+// 		'taxonomies'  => array('doc_project_state'),
+// 		'has_archive' => true,
+// 		'public' => true,
+// 		'labels' => array(
+// 			'name' => '성과물',
+// 			'add_new_item' => '성과물 추가',
+// 			'edit_item' => '성과물 수정',
+// 			'all_items' => '성과물 목록',
+// 			'singular_name' => '성과물' ),
+// 		'menu_icon' => 'dashicons-media-document'
+// 	));
+// }
+// add_action('init', 'document_post_types');
 
 // Register Widgets
 add_action('widgets_init', 'pms_widget');
@@ -100,22 +101,66 @@ add_filter( 'upload_mimes', function( $existing_mimes ) {
 	$existing_mimes['svg'] = 'application/msedge';
 	$existing_mimes['dat'] = 'application/wordpad';
 	$existing_mimes['dwg'] = 'application/cad';
+	$existing_mimes['stp'] = 'application/cad';
 	return $existing_mimes;
   } );
 
-  // 확장자 추가 - 본문 미디어 파일
-function add_extension_to_media_link($content) {
-	$pattern = '/<a(.*?)href=["\'](.*?)["\'](.*?)>(.*?)<\/a>/i';
-	$replacement = '<a$1href="$2" $3>$4</a>';
-	$content = preg_replace_callback($pattern, function ($matches) {
-	  $link_url = $matches[2];
-	  $file_extension = pathinfo($link_url, PATHINFO_EXTENSION);
-	  $link_text = $matches[4] . '.' . $file_extension;
-	  return str_replace($matches[4], $link_text, $matches[0]);
-	}, $content);
-	return $content;
-  }
-  add_filter('the_content', 'add_extension_to_media_link');
+// 확장자 추가 - 본문 미디어 파일 (Old)
+// function add_extension_to_media_link($content) {
+// 	$pattern = '/<a(.*?)href=["\'](.*?)["\'](.*?)>(.*?)<\/a>/i';
+// 	$replacement = '<a$1href="$2" $3>$4</a>';
+// 	$content = preg_replace_callback($pattern, function ($matches) {
+// 	  $link_url = $matches[2];
+// 	  $file_extension = pathinfo($link_url, PATHINFO_EXTENSION);
+// 	  $link_text = $matches[4] . '.' . $file_extension;
+// 	  return str_replace($matches[4], $link_text, $matches[0]);
+// 	}, $content);
+// 	return $content;
+//   }
+//   add_filter('the_content', 'add_extension_to_media_link');
+
+
+// 확장자 추가 - 본문 미디어 파일 (New 1.0)
+//  function add_extension_to_media_link_text($content) {
+//    // 정규 표현식을 사용하여 본문 내에서 이미지 링크를 찾습니다.
+//    $pattern = '/<a(.*?)href=[\'|"](.*?)(.[a-zA-Z0-9]+)[\'|"](.*?)>(.*?)<\/a>/i';
+//
+//    // 정규 표현식에 일치하는 모든 이미지 링크를 찾아 함수를 적용합니다.
+//    $content = preg_replace_callback($pattern, function($matches) {
+//        $link = $matches[0]; // 전체 링크 태그
+//        $url = $matches[2]; // 이미지 파일 URL
+//        $extension = $matches[3]; // 확장자
+//
+//        // 이미지 파일의 확장자를 링크 텍스트에 추가합니다.
+//        $new_link = str_replace($link, '<a' . $matches[1] . 'href="' . $url . $extension . '"' . $matches[4] . '>' . $matches[5] . $extension . '</a>', $link);
+//
+//        return $new_link;
+//    }, $content);
+//
+//    return $content;
+//}
+
+// 확장자 추가 - 본문 미디어 파일 (New 1.1)
+function add_extension_to_media_link_text($content) {
+    // 본문에서 모든 링크를 찾습니다.
+    $pattern = '/<a(.*?)href=["\'](https?:\/\/[^"\'\s]+)(\.\w{2,4})([^"\'\s]*)["\'](.*?)>(.*?)<\/a>/i';
+
+    // 정규 표현식에 일치하는 모든 링크를 찾아 함수를 적용합니다.
+    $content = preg_replace_callback($pattern, function($matches) {
+        $url = $matches[2]; // 이미지 파일 URL
+        $extension = $matches[3]; // 확장자
+        $text = $matches[6]; // 링크 텍스트
+
+        // 이미지 파일의 확장자를 링크 텍스트에 추가합니다.
+        $new_link = '<a' . $matches[1] . 'href="' . $url . $extension . $matches[4] . '"' . $matches[5] . '>' . $text . $extension . '</a>';
+
+        return $new_link;
+    }, $content);
+
+    return $content;
+}
+add_filter('the_content', 'add_extension_to_media_link_text');
+
 
 // 확장자 추가 - 첨부 미디어 파일
 function add_extension_to_media_title($title, $id) {
@@ -132,18 +177,18 @@ function add_extension_to_media_title($title, $id) {
 add_filter('the_title', 'add_extension_to_media_title', 10, 2);
 
 // 성과물의 진도를 표시
-function progress_state($post_id) {
-    $document_progress = get_field('progress_state', $post_id, false);
-    if (empty($document_progress)) {
-        $document_progress = '';
-    } elseif ($document_progress == '완료') {
-        echo '<span class="float-right"><i class="fas fa-check fa-sm text-success"></i>';
-    } elseif ($document_progress == '작성중') {
-        echo '<span class="float-right"><i class="fas fa-hourglass-half fa-sm text-danger"></i></span>';
-    } else { // '해당없음'
-        echo '<span class="float-right"><i class="fas fa-ban fa-sm text-muted"></i></span>';
-    };
-}
+// function progress_state($post_id) {
+//     $document_progress = get_field('progress_state', $post_id, false);
+//     if (empty($document_progress)) {
+//         $document_progress = '';
+//     } elseif ($document_progress == '완료') {
+//         echo '<span class="float-right"><i class="fas fa-check fa-sm text-success"></i>';
+//     } elseif ($document_progress == '작성중') {
+//         echo '<span class="float-right"><i class="fas fa-hourglass-half fa-sm text-danger"></i></span>';
+//     } else { // '해당없음'
+//         echo '<span class="float-right"><i class="fas fa-ban fa-sm text-muted"></i></span>';
+//     };
+// }
 
 // 포스트 타입에 맞는 택소노미 연결 url 생성 함수
 function generate_tax_archive_link($taxonomy, $term_value) {
@@ -176,15 +221,18 @@ function ourHeaderUrl() {
 }
 add_filter('login_headerurl', 'ourHeaderUrl');
 
-// 구독자가 로그인하면 홈으로
-function redirectSubsToFrontend() {
-	$ourCurrentUser = wp_get_current_user();
-	if (count($ourCurrentUser->roles) == 1 AND $ourCurrentUser->roles[0] == 'subscriber') {
-		wp_redirect(site_url('/'));
-		exit;
-	}
+//
+function redirect_after_login($username, $user) {
+    $allowed_roles = array('subscriber', 'manager', 'author'); // 원하는 역할 추가
+
+    if (array_intersect($allowed_roles, $user->roles)) {
+        wp_redirect(home_url()); // 원하는 리디렉션 URL로 변경 가능
+        exit();
+    }
 }
-add_action('admin_init', 'redirectSubsToFrontend');
+add_action('wp_login', 'redirect_after_login', 10, 2);
+
+
 
 // 구독자인 경우 어드민바 No Show
 add_action('init', function() {
@@ -192,36 +240,8 @@ add_action('init', function() {
 	  show_admin_bar(true);
 	} if (current_user_can('subscriber')) {
 		show_admin_bar(false);
-	}
-});
+}});
 
-// 가입자 등록 확장
-function custom_user_register_fields() {
-	?>
-  <p>
-	<label for="user_bio"><?php _e('사용자 프로필', 'text-domain'); ?><br />
-	  <textarea name="user_bio" id="user_bio" rows="5" cols="34" placeholder="소속과 전화번호 정보를 입력해야 승인됩니다."><?php echo (isset($_POST['user_bio'])) ? esc_textarea($_POST['user_bio']) : ''; ?></textarea>
-	</label>
-  </p>
-  <?php
-	}
-	add_action('register_form', 'custom_user_register_fields');
-
-// 가입자 등록 필드 유효성 검사
-function custom_user_register_fields_validation($errors, $sanitized_user_login, $user_email) {
-	if (empty($_POST['user_bio'])) {
-		$errors->add('user_bio_error', __('사용자 프로필을 입력해주세요.', 'text-domain'));
-	}
-	return $errors;
-}
-add_filter('registration_errors', 'custom_user_register_fields_validation', 10, 3);
-
-// 가입자 등록 정보 저장
-function custom_user_register_fields_save($user_id) {
-	if (!empty($_POST['user_bio'])) {
-		update_user_meta($user_id, 'user_bio', sanitize_textarea_field($_POST['user_bio']));
-	}
-}
 
 // a 태그 다음에 라인 추가 ==> 댓글의 첨부파일에도 적용이 되어 폐기함
 // function auto_insert_br_after_a_tags($content) {
@@ -257,5 +277,21 @@ function my_custom_mime_types( $mimes ) {
 	unset( $mimes['exe'] );
 
 	return $mimes;
-	}
-	add_filter( 'upload_mimes', 'my_custom_mime_types' );
+}
+add_filter( 'upload_mimes', 'my_custom_mime_types' );
+
+// 에디터 화면에서 카테고리 안 보이게
+function hide_category_metabox() {
+	remove_meta_box('categorydiv', 'post', 'side');
+}
+
+add_action('admin_menu', 'hide_category_metabox');
+
+// 모바일에서 admin bar 숨기기
+function hide_admin_bar_on_mobile() {
+    if (wp_is_mobile()) {
+        add_filter('show_admin_bar', '__return_false');
+    }
+}
+
+add_action('wp_loaded', 'hide_admin_bar_on_mobile');

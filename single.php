@@ -1,5 +1,52 @@
 <?php get_header(); ?>
 
+<div class="main container">
+	<div class="row">
+	<?php get_template_part('template-parts/front/section', 'aside'); ?>
+	</div>
+</div>
+
+<div class="col-lg-9">
+    <div class="single-main container">
+
+        <?php
+            $slug = get_post_field('post_name', get_the_ID()); // 슬러그
+            ?>
+
+            <div class="post-title fs-3 mt-3">
+                <span><?php the_title(); ?></span>
+                <span class="post-title__slug"><?php echo '#' .$slug; ?></span>
+            </div>
+
+            <?php // post-meta 부분 불러오기
+            get_template_part('template-parts/front/section', 'postMeta'); ?>
+
+            <hr>
+
+            <div class="post-content mt-2 px-1">
+                <!-- 요약글 -->
+                <?php if (has_excerpt()) : ?>
+                    <div class="excerpt border py-2 px-3 mb-3 bg-warning bg-opacity-10">
+                        <?php echo get_the_excerpt(); ?>
+                    </div>
+                <?php endif; ?>
+
+                <!-- 컨텐트 내용 -->
+                <div class="content">
+                    <?php the_content(); ?>
+                </div>
+
+                <hr id="my_hr" class="my-4 hr-1">
+
+                <!-- 댓글 -->
+                <div class="">
+                    <?php comments_template(); ?>
+                </div>
+            </div>
+    </div>
+</div>
+
+
 <main id="content" class="site-content">
     <?php
     if ( have_posts() ) :
@@ -11,20 +58,7 @@
                 <div class="entry-meta">
                     <span class="categories">
                         카테고리:
-                        <?php
-                        $categories = get_the_category();
-                        $category_names = array();
-                        foreach ( $categories as $category ) {
-                            // 자식 카테고리가 있으면 부모 카테고리도 함께 출력
-                            if ( $category->category_parent > 0 ) {
-                                $parent_category = get_category( $category->category_parent );
-                                $category_names[] = $parent_category->name . '>' . $category->name;
-                            } else {
-                                $category_names[] = $category->name;
-                            }
-                        }
-                        echo implode( ', ', $category_names );
-                        ?>
+                        <?php custom_get_meta_category(); ?>
                     </span> |
                     <span class="tags">
                         #태그: <?php the_tags( '', ', ' ); ?>

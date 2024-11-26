@@ -281,11 +281,11 @@ function my_custom_mime_types( $mimes ) {
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
 
 // 에디터 화면에서 카테고리 안 보이게
-function hide_category_metabox() {
-	remove_meta_box('categorydiv', 'post', 'side');
-}
+// function hide_category_metabox() {
+// 	remove_meta_box('categorydiv', 'post', 'side');
+// }
 
-add_action('admin_menu', 'hide_category_metabox');
+// add_action('admin_menu', 'hide_category_metabox');
 
 // 모바일에서 admin bar 숨기기
 function hide_admin_bar_on_mobile() {
@@ -368,3 +368,18 @@ function save_favorite_checkbox($post_id) {
 }
 add_action('save_post', 'save_favorite_checkbox');
 
+// 포스트 메타에서 카테고리 가져오는 함수
+function custom_get_meta_category() {
+    $categories = get_the_category();
+    $category_names = array();
+    foreach ( $categories as $category ) {
+        // 자식 카테고리가 있으면 부모 카테고리도 함께 출력
+        if ( $category->category_parent > 0 ) {
+            $parent_category = get_category( $category->category_parent );
+            $category_names[] = $parent_category->name . '>' . $category->name;
+        } else {
+            $category_names[] = $category->name;
+        }
+    }
+    echo implode( ', ', $category_names );
+}

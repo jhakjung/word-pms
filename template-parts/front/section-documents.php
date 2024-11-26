@@ -13,7 +13,7 @@ $child_categories = get_categories($args);
 // 성과물 섹션 출력 시작
 ?>
 <div class="section-title document"><i class="fa fa-folder" aria-hidden="true"></i> 성과물</div>
-<div class="row row-cols-1 row-cols-md-3 g-2">
+<div class="row row-cols-1 row-cols-md-3 g-2 mb-4">
     <?php
 // 자식 카테고리마다 .card를 출력
     foreach ($child_categories as $category):
@@ -42,5 +42,3 @@ $child_categories = get_categories($args);
     </div>
     <?php endforeach;?>
 </div> <!-- end of 성과물 -->
-
-<hr>

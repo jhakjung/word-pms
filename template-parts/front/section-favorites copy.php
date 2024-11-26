@@ -1,7 +1,31 @@
 <!-- Row 2: Favorite Section -->
 <div class="section-title"> <i class="fa fa-star" aria-hidden="true"></i> 즐겨찾기</div>
 <div class="favoriteList d-flex justify-content-center mb-3 gap-2">
-    <?php
+
+<?php
+$args = array(
+    'post_type' => 'post',
+    'tax_query' => array(
+        array(
+            'taxonomy' => 'favorite',
+            'field'    => 'slug',
+            'terms'    => '즐겨찾기',
+        ),
+    ),
+);
+$query = new WP_Query($args);
+
+if ($query->have_posts()) {
+    while ($query->have_posts()) {
+        $query->the_post();
+        the_title('<h2>', '</h2>');
+    }
+    wp_reset_postdata();
+}
+
+
+
+
 // "즐겨찾기" 카테고리의 슬러그로 게시글을 조회
 $favorite_category = 'favorite'; // "즐겨찾기" 카테고리 슬러그
 $args = [

@@ -1,5 +1,5 @@
 <!-- Row 3: Issue Section -->
-<div class="section-title"><i class="fa fa-info" aria-hidden="true"></i> 이슈</div>
+<div class="section-title"><i class="fa fa-tag" aria-hidden="true"></i> 태그</div>
 <div class="tagsList d-flex flex-wrap gap-2 justify-content-center mb-3">
 <?php
 // 워드프레스 함수로 태그 목록 가져오기

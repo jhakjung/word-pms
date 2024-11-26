@@ -295,3 +295,76 @@ function hide_admin_bar_on_mobile() {
 }
 
 add_action('wp_loaded', 'hide_admin_bar_on_mobile');
+
+// 즐겨찾기 택소노미 추가
+function add_favorites_taxonomy() {
+    register_taxonomy(
+        'favorite', // Taxonomy 이름
+        'post', // Post Type
+        array(
+            'labels' => array(
+                'name' => '즐겨찾기',
+                'singular_name' => '즐겨찾기',
+                'search_items' => '즐겨찾기 검색',
+                'all_items' => '모든 즐겨찾기',
+                'edit_item' => '즐겨찾기 수정',
+                'update_item' => '즐겨찾기 업데이트',
+                'add_new_item' => '새 즐겨찾기 추가',
+                'new_item_name' => '새 즐겨찾기 이름',
+                'menu_name' => '즐겨찾기',
+            ),
+            'hierarchical' => false, // 카테고리처럼 계층적이지 않음
+            'public' => false, // 사용자 정의 관리 화면에 노출되지 않음
+            'show_ui' => false, // 기본 관리 화면 비활성화
+        )
+    );
+}
+add_action('init', 'add_favorites_taxonomy');
+
+// 체크박스 메타박스 표시
+function add_favorite_checkbox_meta_box() {
+    add_meta_box(
+        'favorite_checkbox', // 메타 박스 ID
+        '즐겨찾기', // 메타 박스 제목
+        'render_favorite_checkbox', // 콜백 함수
+        'post', // 대상 포스트 유형
+        'normal', // 위치 (제목 아래)
+        'high' // 우선순위
+    );
+}
+add_action('add_meta_boxes', 'add_favorite_checkbox_meta_box');
+
+// 체크박스 렌더링 함수
+function render_favorite_checkbox($post) {
+    // 기존 즐겨찾기 상태를 가져옴
+    $is_favorite = has_term('즐겨찾기', 'favorite', $post->ID);
+
+    // 체크박스 출력
+    echo '<label>';
+    echo '<input type="checkbox" name="favorite_checkbox" value="1" ' . checked($is_favorite, true, false) . '>';
+    echo ' 즐겨찾기';
+    echo '</label>';
+}
+
+function save_favorite_checkbox($post_id) {
+    // 자동 저장 방지
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // 권한 확인
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // 체크박스 값 확인
+    if (isset($_POST['favorite_checkbox']) && $_POST['favorite_checkbox'] == '1') {
+        // "즐겨찾기" 택소노미 추가
+        wp_set_post_terms($post_id, array('즐겨찾기'), 'favorite', false);
+    } else {
+        // "즐겨찾기" 택소노미 제거
+        wp_remove_object_terms($post_id, '즐겨찾기', 'favorite');
+    }
+}
+add_action('save_post', 'save_favorite_checkbox');
+

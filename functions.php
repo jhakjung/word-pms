@@ -1,5 +1,6 @@
 <?php
 require get_template_directory() . '/inc/post-meta.php';
+require get_template_directory() . '/inc/favorite.php';
 require get_template_directory() . '/inc/taxonomy-group.php';
 require get_template_directory() . '/inc/pagination.php';
 require get_template_directory() . '/inc/comment-template.php';
@@ -325,7 +326,7 @@ add_action('init', 'add_favorites_taxonomy');
 function add_favorite_checkbox_meta_box() {
     add_meta_box(
         'favorite_checkbox', // 메타 박스 ID
-        '즐겨찾기', // 메타 박스 제목
+        '즐겨찾기 등록', // 메타 박스 제목
         'render_favorite_checkbox', // 콜백 함수
         'post', // 대상 포스트 유형
         'normal', // 위치 (제목 아래)

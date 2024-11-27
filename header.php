@@ -55,7 +55,7 @@
                     <?php endif; ?>
 
                     <!-- 작성 버튼 -->
-                        <span class="btn btn-success ms-2">
+                        <span class="btn btn-danger ms-2">
                             <a class="fs-6 text-white" href="<?php echo admin_url('post-new.php'); ?>">작성</a>
                         </span>
 

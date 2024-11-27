@@ -71,7 +71,7 @@ p.comment-form-attachment {
 
 /* 첨부파일 들여쓰기 */
 .content p > a  {
-    color: blue !important;
+    color: var(--bs-blue) !important;
 }
 
 /* 코멘트 등록 버튼을 위로 올리기 */

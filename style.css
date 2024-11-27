@@ -56,13 +56,13 @@ a:hover {
     color: white;
     font-weight: normal;
 }
-.card-header:hover {
-    color:white;
-    background-color: var(--bs-secondary) !important;
-    font-weight: normal;
-}
+// .card-header:hover {
+//     color:white;
+//     background-color: var(--bs-secondary) !important;
+//     font-weight: normal;
+// }
 .badge {
-    font-size: 0.95em;
+    font-size: 0.9em;
     font-weight: 100;
 }
 .badge:hover {

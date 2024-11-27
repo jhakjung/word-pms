@@ -5,25 +5,8 @@
         </div>
         <div class="card-body container">
             <ul class="favorite">
-                <?php
-                $args = array(
-                    'category_name' => 'favorite',
-                    'posts_per_page' => -1,
-                    'orderby' => 'title',
-                );
+                <?php custom_get_favorites(); ?>
 
-                $favorite_query = new WP_Query($args);
-
-                if ($favorite_query->have_posts()) {
-                    while ($favorite_query->have_posts()) {
-                        $favorite_query->the_post(); ?>
-                        <li><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></li>
-                    <?php }
-                    wp_reset_postdata();
-                } else {
-                    echo '';
-                }
-                ?>
             </ul>
         </div>
     </div>

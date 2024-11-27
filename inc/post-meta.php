@@ -1,5 +1,5 @@
 <?php
-// 포스트 메타 category 출력: 카테고리별로 badge 태그
+// (미사용)포스트 메타 category 출력: 카테고리별로 badge 태그
 function custom_get_the_tax_meta($taxonomy, $class) {
 	$terms = get_the_terms(get_the_ID(), $taxonomy);
 	if ($terms) {
@@ -26,7 +26,7 @@ function custom_get_the_tag_meta() {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="badge badge__orange"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+                $tag_links[] = '<span class="badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);
@@ -54,8 +54,8 @@ function custom_get_the_author() {
     $post_author_id = get_post_field('post_author', get_the_ID());
     $author_posts_url = get_author_posts_url($post_author_id);
     $display_name = get_the_author_meta('display_name', $post_author_id);
-    // echo '<a class="author" href="' . esc_url($author_posts_url) . '">' . esc_html($display_name) . '</a></span>';
-    echo $display_name;
+    echo '<span class="badge bg-light-dark"><a href="' . esc_url($author_posts_url) . '">' . esc_html($display_name) . '</a></span>';
+    // echo $display_name;
 }
 
 // 포스트 메타 time 출력
@@ -91,13 +91,13 @@ function custom_get_postmeta_category() {
 
     // 부모 카테고리 먼저 출력
     foreach ( $parent_categories as $parent_category ) {
-        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="badge bg-primary text-white mx-1">' . $parent_category->name . '</span></a>';
+        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="badge badge__blue text-white mx-1">' . $parent_category->name . '</span></a>';
     }
 
     // 자식 카테고리 출력 (부모 카테고리가 출력된 후 추가)
     foreach ( $categories as $category ) {
         if ( $category->category_parent != 0 ) {
-            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="badge bg-primary text-white mx-1">' . $category->name . '</span></a>';
+            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="badge badge__blue text-white mx-1">' . $category->name . '</span></a>';
         }
     }
 

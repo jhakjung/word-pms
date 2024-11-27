@@ -42,7 +42,9 @@ span.badge.badge-danger a {
   color: #fff !important;
   text-decoration: none !important;
 }
-
+span.badge.badge__yellow a {
+    color: var(--bs-gray-800) !important;
+}
 .no-bullet {
     list-style: none;
     padding-left: 0;

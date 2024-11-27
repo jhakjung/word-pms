@@ -10,10 +10,10 @@
     }
 
     &__slug {
-        font-size: 70%;
+        font-size: 55%;
         color: $red;
         opacity: 0.5;
-        font-weight: 300;
+        font-weight: 100;
         float: right;
     }
 

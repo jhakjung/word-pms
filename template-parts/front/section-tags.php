@@ -11,7 +11,7 @@ $tags = get_tags([
 // 태그가 있을 경우 버튼 출력
 if ($tags):
     foreach ($tags as $tag): ?>
-    <a href="<?php echo esc_url( get_term_link( $tag ) ); ?>"><span class="badge badge__blue text-white">#<?php echo $tag->name; ?></span></a>
+    <a href="<?php echo esc_url( get_term_link( $tag ) ); ?>"><span class="badge badge__yellow text-dark">#<?php echo $tag->name; ?></span></a>
     <?php endforeach;
 else: ?>
     <p>태그가 없습니다.</p>

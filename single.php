@@ -3,17 +3,16 @@
 <div class="main container">
 	<div class="row">
 	<?php get_template_part('template-parts/front/section', 'aside'); ?>
-	</div>
-</div>
+
+
 
 <div class="col-lg-9">
     <div class="single-main container">
-        <h3 class="post-title mt-3"><?php the_title(); ?></h3>
+        <h3 class="post-title my-3"><?php the_title(); ?></h3>
 
             <?php // post-meta 부분 불러오기 ?>
             <div class="post-meta d-flex flex-wrap my-2">
-            <span>카테고리<?php custom_get_postmeta_category(); ?></span>
-
+            <span>카테고리<?php custom_get_postmeta_category(); ?>  | </span>
 
             <span class="meta"><i class="fas fa-tag"></i><?php custom_get_the_tax_meta('post_tag', 'badge badge__dark');?></span>
 

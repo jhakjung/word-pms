@@ -102,7 +102,7 @@ function custom_get_postmeta_category() {
     }
 
     // 카테고리 리스트 출력
-    echo implode( '', $category_names ) . " | ";
+    echo implode( '', $category_names );
 }
 
 

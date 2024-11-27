@@ -26,7 +26,7 @@ function custom_get_the_tag_meta() {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="badge badge__yellow"><a class="my_badge" href="' . $tag_link . '">' . $tag_name . '</a></span>';
+                $tag_links[] = '<span class="badge badge__orange"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);
@@ -36,18 +36,18 @@ function custom_get_the_tag_meta() {
 }
 
 // 포스트 메타 issue_state 출력
-function custom_get_the_issue_meta() {
-    $terms = get_the_terms(get_the_ID(), 'issue_state');
-	if ($terms) {
-		$term_name = $terms[0]->name;
-		if ($term_name == "N/A") {
-			echo "-";
-		} else {
-			$term_link = get_term_link($terms[0]);
-			echo '<a class="my_badge" href="' . $term_link . '">' . $term_name . '</a>';
-		}
-	}
-}
+// function custom_get_the_issue_meta() {
+//     $terms = get_the_terms(get_the_ID(), 'issue_state');
+// 	if ($terms) {
+// 		$term_name = $terms[0]->name;
+// 		if ($term_name == "N/A") {
+// 			echo "-";
+// 		} else {
+// 			$term_link = get_term_link($terms[0]);
+// 			echo '<a class="my_badge" href="' . $term_link . '">' . $term_name . '</a>';
+// 		}
+// 	}
+// }
 
 // 포스트 메타 author 출력
 function custom_get_the_author() {
@@ -91,18 +91,18 @@ function custom_get_postmeta_category() {
 
     // 부모 카테고리 먼저 출력
     foreach ( $parent_categories as $parent_category ) {
-        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="badge badge__dark mx-1">' . $parent_category->name . '</span></a>';
+        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="badge bg-primary text-white mx-1">' . $parent_category->name . '</span></a>';
     }
 
     // 자식 카테고리 출력 (부모 카테고리가 출력된 후 추가)
     foreach ( $categories as $category ) {
         if ( $category->category_parent != 0 ) {
-            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="badge badge__dark mx-1">' . $category->name . '</span></a>';
+            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="badge bg-primary text-white mx-1">' . $category->name . '</span></a>';
         }
     }
 
     // 카테고리 리스트 출력
-    echo implode( '', $category_names ) . " | ";
+    echo implode( '', $category_names );
 }
 
 

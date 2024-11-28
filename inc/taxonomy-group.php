@@ -1,4 +1,95 @@
 <?php
+
+// 즐겨찾기 리스트 출력
+function custom_get_favorites() {
+    $favorite_taxonomy = 'favorite'; // 택소노미 이름
+    $favorite_term_slug = '즐겨찾기'; // 즐겨찾기의 슬러그
+
+    $args = [
+        'post_type' => 'post', // 포스트 유형
+        'posts_per_page' => -1, // 모든 게시글 출력
+        'post_status' => 'publish', // 공개된 게시글만
+        'tax_query' => [
+            [
+                'taxonomy' => $favorite_taxonomy, // 택소노미 이름
+                'field'    => 'slug', // 슬러그를 기준으로 검색
+                'terms'    => $favorite_term_slug, // 슬러그 값
+            ],
+        ],
+    ];
+
+    $query = new WP_Query($args);
+
+    // 게시글이 있을 경우 제목 출력
+    if ($query->have_posts()):
+        while ($query->have_posts()): $query->the_post(); ?>
+            <a href="<?php the_permalink(); ?>"><span class="badge bg-green bg-gradient m-1"><?php the_title(); ?></span></a>
+        <?php endwhile;
+        wp_reset_postdata(); // 쿼리 후 글로벌 $post 객체 초기화
+    else: ?>
+        <p>즐겨찾기에 등록된 자료가 없습니다.</p>
+    <?php endif;
+}
+
+// 포스트메타 태그 List 출력
+function custom_get_tags($margin) {
+    $tags = get_the_tags();
+    if ($tags) {
+        $tag_links = array();
+        foreach ($tags as $tag) {
+            if ($tag) {
+                $tag_name = $tag->name;
+                $tag_link = get_tag_link($tag->term_id);
+                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+            }
+        }
+        echo implode(' ', $tag_links);
+    } else {
+        echo "-";
+    }
+}
+
+// 전체 태그 List 출력
+function custom_get_all_tags($margin) {
+    $tags = get_tags([
+        'hide_empty' => false, // 게시글에 사용되지 않은 태그도 포함
+    ]);
+    if ($tags) {
+        $tag_links = array();
+        foreach ($tags as $tag) {
+            if ($tag) {
+                $tag_name = $tag->name;
+                $tag_link = get_tag_link($tag->term_id);
+                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow bg-gradient text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+            }
+        }
+        echo implode(' ', $tag_links);
+    } else {
+        echo "-";
+    }
+}
+
+// 성과물 List 출력
+function custom_get_document_category() {
+    // "document" 카테고리의 자식 카테고리 가져오기
+    $parent_category_id = get_cat_ID('성과물'); // "성과물" 카테고리의 ID
+    $args = [
+        'parent' => $parent_category_id, // 부모 카테고리 ID로 자식 카테고리 가져오기
+        'hide_empty' => false, // 사용되지 않은 카테고리도 포함
+        'orderby' => 'slug', // 슬러그명으로 정렬
+        'order' => 'ASC', // 오름차순 정렬
+    ];
+    $child_categories = get_categories($args);
+
+    // 자식 카테고리마다 .card를 출력
+    foreach ($child_categories as $category) {
+        $category_name = $category->name;
+        $category_link = get_category_link($category->term_id);
+        $category_links[] = '<span class="badge bg-dark bg-gradient m-1"><a href="' . $category_link . '">' . $category_name . '</a></span>';
+    }
+    echo implode(' ', $category_links);
+}
+
 // 택소노미별 리스트를 출력
 function custom_get_tax_list($taxonomy, $class) {
     $hide = true;
@@ -34,35 +125,6 @@ function custom_get_tax_list($taxonomy, $class) {
     }
 }
 
-// 이슈상태 리스트를 출력
-function custom_get_issue_state_list() { ?>
-	<?php
-	$terms = get_terms(array(
-		'taxonomy' => 'issue_state',
-		'hide_empty' => false, // 빈 Term도 출력
-		'orderby' => 'slug',
-		'order' => 'ASC'
-	));
-	foreach ($terms as $term) {
-		if ($term) {
-			$term_name = $term->name;
-            if ($term_name != "N/A") {
-                if ($term_name == "미결") {
-                    $class = "badge badge__darkOrange fs-7 m-1";
-                } elseif ($term_name == "해결") {
-                    $class = "badge badge__green fs-7 m-1";
-                } elseif ($term_name == "종결") {
-                    $class = "badge badge__purple fs-7 m-1";
-                } else {
-                    $class = "badge badge__dark fs-7 m-1";
-                }
-                $term_link = get_term_link($term); ?>
-                <span class="<?php echo $class; ?>"><a class="my_badge" href="<?php echo $term_link; ?>"><?php echo $term_name . '(' . $term->count . ')'; ?></a></span>
-		    <?php }
-	    } ?>
-    <?php }
-}
-
 // 카테고리 archive 페이지로 연결해주는 링크 생성 함수
 function custom_cat_archive_link($category_slug) {
     $category = get_category_by_slug($category_slug);
@@ -78,10 +140,7 @@ function custom_cat_archive_link($category_slug) {
 // Archive title을 출력할 때 괄호를 없애주는 함수
 function custom_get_the_archive_title() {
 	$archive_title = get_the_archive_title();
-	// 현재 페이지가 카테고리 아카이브 페이지인지 확인
 	$archive_title = str_replace(array('[', ']'), '', $archive_title);
-	if (is_tag()) {
-		$archive_title = str_replace('태그', '키워드', $archive_title);
-	}
+
 	return $archive_title;
 }

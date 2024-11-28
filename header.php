@@ -48,9 +48,9 @@
                     <?php endif; ?>
 
                     <!-- 작성 버튼 -->
-                        <span class="btn btn-outline-primary ms-2">
-                            <a class="fs-6 text-primary" href="<?php echo admin_url('post-new.php'); ?>">작성</a>
-                        </span>
+                        <button class="btn btn-outline-primary ms-2">
+                            <a href="<?php echo admin_url('post-new.php'); ?>">작성</a>
+                        </button>
 
                 </div>
 </div>

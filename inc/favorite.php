@@ -22,7 +22,7 @@ function custom_get_favorites() {
     // 게시글이 있을 경우 제목 출력
     if ($query->have_posts()):
         while ($query->have_posts()): $query->the_post(); ?>
-            <a href="<?php the_permalink(); ?>"><span class="badge bg-green"><?php the_title(); ?></span></a>
+            <a href="<?php the_permalink(); ?>"><span class="badge bg-green m-1"><?php the_title(); ?></span></a>
         <?php endwhile;
         wp_reset_postdata(); // 쿼리 후 글로벌 $post 객체 초기화
     else: ?>

@@ -17,8 +17,8 @@ function custom_get_the_tax_meta($taxonomy, $class) {
 	}
 }
 
-// 포스트 메타 keyword(태그) 출력
-function custom_get_the_tag_meta() {
+// 포스트메타 태그 출력
+function custom_get_tags($margin) {
     $tags = get_the_tags();
     if ($tags) {
         $tag_links = array();
@@ -26,7 +26,7 @@ function custom_get_the_tag_meta() {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);
@@ -35,7 +35,49 @@ function custom_get_the_tag_meta() {
     }
 }
 
-// 포스트 메타 issue_state 출력
+// 전체 태그 List 출력
+function custom_get_all_tags($margin) {
+    $tags = get_tags([
+        'hide_empty' => false, // 게시글에 사용되지 않은 태그도 포함
+    ]);
+    if ($tags) {
+        $tag_links = array();
+        foreach ($tags as $tag) {
+            if ($tag) {
+                $tag_name = $tag->name;
+                $tag_link = get_tag_link($tag->term_id);
+                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+            }
+        }
+        echo implode(' ', $tag_links);
+    } else {
+        echo "-";
+    }
+}
+
+// 성과물 단계 출력
+function custom_get_document_category() {
+    // "document" 카테고리의 자식 카테고리 가져오기
+    $parent_category_id = get_cat_ID('성과물'); // "성과물" 카테고리의 ID
+    $args = [
+        'parent' => $parent_category_id, // 부모 카테고리 ID로 자식 카테고리 가져오기
+        'hide_empty' => false, // 사용되지 않은 카테고리도 포함
+        'orderby' => 'slug', // 슬러그명으로 정렬
+        'order' => 'ASC', // 오름차순 정렬
+    ];
+    $child_categories = get_categories($args);
+
+    // 자식 카테고리마다 .card를 출력
+    foreach ($child_categories as $category) {
+        $category_name = $category->name;
+        $category_link = get_category_link($category->term_id);
+        $category_links[] = '<span class="badge bg-dark bg-gradient m-1"><a href="' . $category_link . '">' . $category_name . '</a></span>';
+    }
+    echo implode(' ', $category_links);
+}
+
+
+// (미사용)포스트 메타 issue_state 출력
 // function custom_get_the_issue_meta() {
 //     $terms = get_the_terms(get_the_ID(), 'issue_state');
 // 	if ($terms) {
@@ -66,7 +108,7 @@ function custom_get_the_time() {
 	echo the_time('y-m-d');
 }
 
-// 댓글 수 표시
+// (미사용)댓글 수 표시
 function custom_get_comments_number() {
 	$comment_count = get_comments_number();
 	if ($comment_count > 0) {

@@ -1,0 +1,71 @@
+$blue:    #0d6efd;
+$indigo:  #6610f2;
+$purple:  #6f42c1;
+$pink:    #d63384;
+$red:     #dc3545;
+$orange:  #fd7e14;
+$yellow:  #ffc107;
+$green:   #198754;
+$teal:    #20c997;
+$cyan:    #0dcaf0;
+$white:   #fff;
+$gray-100: #f8f9fa;
+$gray-200: #e9ecef;
+$gray-300: #dee2e6;
+$gray-400: #ced4da;
+$gray-500: #adb5bd;
+$gray-600: #6c757d;
+$gray-700: #495057;
+$gray-800: #343a40;
+$gray-900: #212529;
+$black:    #000;
+$darkOrange: #F95738;
+$beige: #FAF0CA;
+$mainYellow: #F4D35E;
+$mainBlue: #0D3B66;
+$lightOrange: #EE964B;
+$darkOrange: #F95738;
+$primary:       $blue;
+$secondary:     $gray-600;
+$success:       $green;
+$info:          $cyan;
+$warning:       $yellow;
+$danger:        $red;
+$light:         $gray-100;
+$dark:          $gray-900;
+
+/* badge color */
+$my_blue: #0693e3;
+$my_green: #198754;
+$my_dark: #999;
+$my_purple: #9b51e0;
+$my_red: #cf2e2e;
+$my_orange: #fdab14;
+
+
+.blulish-gray {color: #abb8c3;}
+.pale-pink {color: #f78da7;}
+.vivid-red {color: #cf2e2e;}
+.vivid-orange {color: #ff6900;}
+.vivid-amber {color: #fcb900;}
+.vivid-cyan1 {color: #7bdcb5;}
+.vivid-cyan2 {color: #00d084;}
+.pale-cyan-blue {color: #8ed1fc;}
+.vivid-cyan-blue {color: #0693e3;}
+.vivid-purple {color: #9b51e0;}
+.light-dark {color: #999;}
+.bg-blulish-gray {background-color: #abb8c3;}
+.bg-light-dark {background-color: #999;}
+.bg-pale-pink {background-color: #f78da7;}
+.bg-vivid-red {background-color: #cf2e2e;}
+.bg-vivid-orange {background-color: #ff6900;}
+.bg-vivid-amber {background-color: #fcb900;}
+.bg-vivid-cyan1 {background-color: #7bdcb5;}
+.bg-vivid-cyan2 {background-color: #00d084;}
+.bg-pale-cyan-blue {background-color: #8ed1fc;}
+.bg-vivid-cyan-blue {background-color: #0693e3;}
+.bg-vivid-purple {background-color: #9b51e0;}
+.bg-pg-header {
+    background-color: #e39292;
+  }
+

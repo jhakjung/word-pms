@@ -12,7 +12,7 @@
             <?php // post-meta 부분 불러오기 ?>
         <div class="post-meta">
             <span>📁카테고리&nbsp;<?php custom_get_postmeta_category(); ?>&nbsp;&nbsp;</span>
-            <span>🏷️태그&nbsp;<?php custom_get_the_tag_meta(); ?>&nbsp;&nbsp;</span>
+            <span>🏷️태그&nbsp;<?php custom_get_tags("m-0"); ?>&nbsp;&nbsp;</span>
             <span>🧑&nbsp;<?php custom_get_the_author(); ?>&nbsp;</span>
             <span class="float-left"><?php custom_get_the_time(); ?> 작성</span>
         </div>

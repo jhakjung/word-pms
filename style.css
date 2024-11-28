@@ -51,16 +51,7 @@ a {
 a:hover {
     color: inherit;
 }
-.success-bg {
-    background-color: var(--bs-success) !important;
-    color: white;
-    font-weight: normal;
-}
-// .card-header:hover {
-//     color:white;
-//     background-color: var(--bs-secondary) !important;
-//     font-weight: normal;
-// }
+
 .badge {
     font-size: 0.9em;
     font-weight: 100;

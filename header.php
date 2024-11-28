@@ -18,7 +18,7 @@
 
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
-    <nav class="site-header mb-2">
+    <nav class="site-header bg-light border-bottom border-1 bg-gradient mb-2 py-2">
         <div class="container d-flex flex-sm-wrap justify-content-between align-content-center py-3">
             <div class="w-auto float-left">
                 <a class="site-name fs-3 text-dark" href="<?php echo esc_url(site_url('/')); ?>"><?php bloginfo('name'); ?></a>
@@ -28,13 +28,6 @@
                     <?php echo do_shortcode('[ivory-search id="7" title="AJAX Search Form"]'); ?>
             </div>
 
-            <!-- <div class="w-auto float-right">
-                <ul class="navbar-nav d-flex align-items-center">
-                    <li>
-                        <span class="btn btn-success"><a class="fs-6" href="<?php echo admin_url('post-new.php'); ?>">작성</a></span>
-                    </li>
-                </ul>
-            </div> -->
             <div class="w-auto float-right">
                 <div class="d-flex align-items-center">
 
@@ -48,15 +41,15 @@
                         // 관리자이거나 작성자 본인일 경우에만 표시
                         if (current_user_can('administrator') || $current_user_id === $post_author_id) :
                         ?>
-                                <span class="btn btn-dark ms-2">
-                                    <a class="fs-6 text-white" href="<?php echo get_edit_post_link($post->ID); ?>">수정</a>
+                                <span class="btn btn-outline-primary ms-2">
+                                    <a class="fs-6 text-primary" href="<?php echo get_edit_post_link($post->ID); ?>">수정</a>
                                 </span>
                         <?php endif; ?>
                     <?php endif; ?>
 
                     <!-- 작성 버튼 -->
-                        <span class="btn btn-danger ms-2">
-                            <a class="fs-6 text-white" href="<?php echo admin_url('post-new.php'); ?>">작성</a>
+                        <span class="btn btn-outline-primary ms-2">
+                            <a class="fs-6 text-primary" href="<?php echo admin_url('post-new.php'); ?>">작성</a>
                         </span>
 
                 </div>

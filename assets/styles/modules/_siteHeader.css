@@ -1,6 +1,5 @@
 .site-header {
     --bs-navbar-padding-y: 0 !important;
-    background-color: var(--bs-border-color-translucent) !important;
 
     li.active a {
         color: #eee !important;

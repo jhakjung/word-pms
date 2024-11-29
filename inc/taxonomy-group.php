@@ -1,7 +1,7 @@
 <?php
 
 // 즐겨찾기 리스트 출력
-function custom_get_favorites() {
+function custom_get_favorites($class) {
     $favorite_taxonomy = 'favorite'; // 택소노미 이름
     $favorite_term_slug = '즐겨찾기'; // 즐겨찾기의 슬러그
 
@@ -23,7 +23,7 @@ function custom_get_favorites() {
     // 게시글이 있을 경우 제목 출력
     if ($query->have_posts()):
         while ($query->have_posts()): $query->the_post(); ?>
-            <a href="<?php the_permalink(); ?>"><span class="badge bg-green bg-gradient m-1"><?php the_title(); ?></span></a>
+            <a href="<?php the_permalink(); ?>"><span class="<?php echo $class; ?>"><?php the_title(); ?></span></a>
         <?php endwhile;
         wp_reset_postdata(); // 쿼리 후 글로벌 $post 객체 초기화
     else: ?>
@@ -32,7 +32,7 @@ function custom_get_favorites() {
 }
 
 // 포스트메타 태그 List 출력
-function custom_get_tags($margin) {
+function custom_get_tags($class) {
     $tags = get_the_tags();
     if ($tags) {
         $tag_links = array();
@@ -40,7 +40,7 @@ function custom_get_tags($margin) {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+                $tag_links[] = '<span class="' . $class .'"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);
@@ -50,7 +50,7 @@ function custom_get_tags($margin) {
 }
 
 // 전체 태그 List 출력
-function custom_get_all_tags($margin) {
+function custom_get_all_tags($class) {
     $tags = get_tags([
         'hide_empty' => false, // 게시글에 사용되지 않은 태그도 포함
     ]);
@@ -60,7 +60,7 @@ function custom_get_all_tags($margin) {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="' . $margin . ' badge badge__yellow bg-gradient text-dark"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+                $tag_links[] = '<span class="' . $class .'"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);

@@ -1,7 +1,7 @@
 <?php
 
 // 포스트 메타: 카테고리 출력 함수
-function custom_get_postmeta_category() {
+function custom_get_postmeta_category($class = 'badge badge__blue text-white') {
     $categories = get_the_category();
     $category_names = array();
     $parent_categories = array();
@@ -15,19 +15,20 @@ function custom_get_postmeta_category() {
 
     // 부모 카테고리 먼저 출력
     foreach ( $parent_categories as $parent_category ) {
-        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="badge badge__blue text-white mx-1">' . $parent_category->name . '</span></a>';
+        $category_names[] = '<a href="' . get_category_link( $parent_category->term_id ) . '"><span class="' . $class . '">' . $parent_category->name . '</span></a>';
     }
 
     // 자식 카테고리 출력 (부모 카테고리가 출력된 후 추가)
     foreach ( $categories as $category ) {
         if ( $category->category_parent != 0 ) {
-            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="badge badge__blue text-white mx-1">' . $category->name . '</span></a>';
+            $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="' . $class . '">' . $category->name . '</span></a>';
         }
     }
 
     // 카테고리 리스트 출력
-    echo implode( '', $category_names );
+    echo implode(' ', $category_names);  // 태그 간격과 동일하게 공백으로 구분
 }
+
 
 // 포스트 메타: 포스트 슬러그 출력 함수
 function custom_get_postmeta_postslug() {

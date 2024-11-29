@@ -1,5 +1,5 @@
 <div class="col-lg-9">
-    <div class="archive-header fs-3 fw-bold text-secondary text-center mt-3 mb-5">
+    <div class="archive-header fs-3 text-danger text-center mt-3 mb-5">
         <?php
         if (is_home()) {
             $title = "전체 글";
@@ -11,6 +11,6 @@
         }
         // echo "---------- ". $title . " <<<<<<<<<";
         // echo "【 Archive ". $title . " 】";
-        echo "[ 자료목록 ] ". $title;
+        echo "자료목록 ‣ ". $title;
         ?>
     </div>

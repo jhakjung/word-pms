@@ -34,28 +34,25 @@
             </div>
 
             <!-- 버튼 영역 -->
-            <div class="editBtn">
-                <div class="d-flex align-items-center">
-                    <!-- Single 페이지 + 로그인 여부 확인 -->
-                    <?php if (is_singular() && is_user_logged_in()) : ?>
-                        <?php
-                        global $post;
-                        $current_user_id = get_current_user_id(); // 현재 사용자 ID
-                        $post_author_id = $post->post_author; // 게시물 작성자 ID
-                        ?>
-                        <!-- 수정 버튼: 관리자 또는 작성자 본인만 표시 -->
-                        <?php if (current_user_can('administrator') || $current_user_id === $post_author_id) : ?>
-                            <a href="<?php echo get_edit_post_link($post->ID); ?>" class="btn btn-outline-primary ms-2">
-                                수정
-                            </a>
-                        <?php endif; ?>
-                    <?php endif; ?>
+            <div class="d-flex align-items-center">
+                <!-- Single 페이지 + 로그인 여부 확인 -->
+                <?php if (is_singular() && is_user_logged_in()) :
+                global $post;
+                    $current_user_id = get_current_user_id(); // 현재 사용자 ID
+                    $post_author_id = $post->post_author; // 게시물 작성자 ID
 
-                    <!-- 작성 버튼 -->
-                    <a href="<?php echo admin_url('post-new.php'); ?>" class="btn btn-outline-primary ms-2">
-                        작성
-                    </a>
-                </div>
+                    // 작성자 본인일 경우에만 수정 버튼 표시
+                    if ($current_user_id == $post_author_id) : ?>
+                        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="btn btn-outline-primary ms-2">
+                            수정
+                        </a>
+                    <?php endif; ?>
+                <?php endif; ?>
+
+                <!-- 작성 버튼 -->
+                <a href="<?php echo admin_url('post-new.php'); ?>" class="btn btn-outline-primary ms-2">
+                    작성
+                </a>
             </div>
 
         </div>

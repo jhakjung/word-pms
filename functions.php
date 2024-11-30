@@ -234,3 +234,42 @@ function allow_favicon_upload($mime_types)
     return $mime_types;
 }
 add_filter('upload_mimes', 'allow_favicon_upload');
+
+// 자식 카테고리 저장 시 부모 카테고리 자동저장
+function add_parent_category_on_save($post_id) {
+    // 확인: 자동 저장이나 수정일 경우 동작하지 않음
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // 확인: 현재 사용자가 글 편집 권한이 있는지 확인
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // 확인: 게시물 유형이 'post'인지 확인
+    if (get_post_type($post_id) !== 'post') {
+        return;
+    }
+
+    // 현재 글에 지정된 카테고리 가져오기
+    $categories = wp_get_post_categories($post_id);
+
+    // 부모 카테고리를 저장할 배열
+    $parent_categories = [];
+
+    foreach ($categories as $category_id) {
+        $parent_id = get_category($category_id)->parent;
+
+        // 부모 카테고리가 있을 경우 배열에 추가
+        if ($parent_id && !in_array($parent_id, $categories)) {
+            $parent_categories[] = $parent_id;
+        }
+    }
+
+    // 부모 카테고리를 기존 카테고리와 병합하여 저장
+    if (!empty($parent_categories)) {
+        wp_set_post_categories($post_id, array_merge($categories, $parent_categories));
+    }
+}
+add_action('save_post', 'add_parent_category_on_save');

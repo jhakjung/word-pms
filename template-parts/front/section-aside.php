@@ -1,7 +1,7 @@
 <aside class="col-lg-3 aside mr-3">
     <div id="shadow-box" class="card mt-4 mb-3">
-        <div class="card-header card__header">
-            <i class="text-dark text-opacity-50 fas fa-star"></i>&nbsp;&nbsp;즐겨찾기
+        <div class="card-header text-secondary card__header">
+            <i class="fas fa-star"></i>&nbsp;&nbsp;즐겨찾기
         </div>
         <div class="p-3">
             <div class="card__group">
@@ -11,8 +11,8 @@
     </div>
 
     <div id="shadow-box" class="card my-3">
-        <div class="card-header card__header">
-            <i class="text-dark text-opacity-50 fas fa-tag"></i>&nbsp;&nbsp;태그
+        <div class="card-header text-secondary card__header">
+            <i class="fas fa-tag"></i>&nbsp;&nbsp;태그
         </div>
         <div class="p-3">
             <div class="card__group">
@@ -22,8 +22,8 @@
     </div>
 
     <div id="shadow-box" class="card my-3">
-        <div class="card-header card__header">
-        <i class="text-dark text-opacity-50 fas fa-folder"></i>&nbsp;&nbsp;성과물
+        <div class="card-header text-secondary card__header">
+        <i class="fas fa-folder"></i>&nbsp;&nbsp;성과물
         </div>
         <div class="p-3">
             <div class="card__group">

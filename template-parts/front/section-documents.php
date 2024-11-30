@@ -12,10 +12,10 @@ $child_categories = get_categories($args);
 
 // 성과물 섹션 출력 시작
 ?>
-<div class="section-title fs-3 text-black-50 document"><i class="fa fa-folder"></i> 성과물</div>
-<div class="row row-cols-1 row-cols-md-3 g-2 mb-4">
+<div class="section-title fs-4 text-black-50 document text-start"><i class="fa fa-folder"></i> 성과물</div>
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mb-4">
     <?php
-// 자식 카테고리마다 .card를 출력
+    // 자식 카테고리마다 .card를 출력
     foreach ($child_categories as $category):
     // 각 자식 카테고리에서 게시글 리스트 가져오기
         $category_posts = new WP_Query([
@@ -42,3 +42,4 @@ $child_categories = get_categories($args);
     </div>
     <?php endforeach;?>
 </div> <!-- end of 성과물 -->
+

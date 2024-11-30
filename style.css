@@ -10,6 +10,7 @@ Version: 1.0
 .container {
     max-width: 1000px;
 }
+
 .site-name {
     // font-family: 'Gothic A1', sans-serif; /* 가독성 높은 한국어 폰트 */
     // font-family: 'Black Han Sans', sans-serif; /* 가독성 높은 한국어 폰트 */
@@ -17,8 +18,9 @@ Version: 1.0
     font-family: 'Noto Sans KR', sans-serif; /* 가독성 높은 한국어 폰트 */
     font-size: 2.5rem;
     font-weight: 500;
-    color: #2c3e50; /* 진한 네이비 블루 */
-}
+    // color: #2c3e50; /* 진한 네이비 블루 */
+    // color: #6c757d !important;
+  }
 
 .footer {
     text-align: center;
@@ -77,4 +79,21 @@ a:hover {
     // border: 2px solid currentColor;
     // transform: scale(1.08) !important; /* 크기를 5%만 확대 */
 
+}
+
+.pagination .page-link {
+    color: #007bff;
+    border-color: #ddd;
+}
+
+.pagination .page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .active .page-link {
+    background-color: #007bff;
+    border-color: #007bff;
+    color: #fff;
 }

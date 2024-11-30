@@ -9,11 +9,16 @@
         color: var(--bs-gray-800)
     }
 
+    &__archive {
+        font-size: 1.3em;
+        color: $mainBlue;
+    }
+
     &__slug {
-        font-size: 55%;
-        color: $red;
-        opacity: 0.5;
-        font-weight: 100;
+        font-size:  80%;
+        /* color: $red;
+        // opacity: 0.5;
+        // font-weight: 100; */
         float: right;
     }
 
@@ -29,20 +34,10 @@
 }
 
 .post-meta {
-    .meta {
-        color: #ccc;
-        font-size: 0.95rem;
-        padding-right: 7px;
-        margin-bottom: 0px;
 
-        /*
-        .badge a {
-            color: #fff !important;
-            font-size: 0.9rem !important;
-        }
-        */
+    &__archive {
+        font-size: 95% !important;
     }
-
 }
 
 /* Paginateion CSS */

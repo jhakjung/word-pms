@@ -42,7 +42,7 @@ $my_purple: #9b51e0;
 $my_red: #cf2e2e;
 $my_orange: #fdab14;
 
-
+.bg-gray-700 {background-color: #495057; }
 .blulish-gray {color: #abb8c3;}
 .pale-pink {color: #f78da7;}
 .vivid-red {color: #cf2e2e;}
@@ -55,7 +55,7 @@ $my_orange: #fdab14;
 .vivid-purple {color: #9b51e0;}
 .light-dark {color: #999;}
 .bg-blulish-gray {background-color: #abb8c3;}
-.bg-light-dark {background-color: #999;}
+.bg-light-dark {background-color: #495057;}
 .bg-pale-pink {background-color: #f78da7;}
 .bg-vivid-red {background-color: #cf2e2e;}
 .bg-vivid-orange {background-color: #ff6900;}

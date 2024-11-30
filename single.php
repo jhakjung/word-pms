@@ -28,11 +28,11 @@
             <?php endif; ?>
 
             <!-- 컨텐트 내용 -->
-            <div class="content">
+            <div class="content mt-2 pb-4">
                 <?php the_content(); ?>
             </div>
 
-            <hr id="my_hr" class="my-4 hr-1">
+            <!-- <hr id="my_hr"> -->
 
             <!-- 댓글 -->
             <div class="">

@@ -6,18 +6,8 @@ if(post_password_required()) {
 <div class="comments">
 	<div class="row">
 		<div class="w-100 mx-auto p-1">
-			<h4 class="text-center text-secondary mb-5">
-				<i class="fa fa-comments"></i>&nbsp;
-				<?php
-				$comments_number = get_comments_number();
-				if(0 == $comments_number) {
-				echo "0개의 코멘트";
-				} else {
-				printf(_nx( '1개의 코멘트', '%1$s개의 코멘트', $comments_number, 'comments title', 'bestmedical' ), number_format_i18n( $comments_number ));
+			<p class="fs-3 text-center text-primary"><i class="fa fa-comments"></i></p>
 
-				}
-				?>
-			</h4>
 		<!-- <br> -->
 
 		<!-- Comments List: inc폴더의 comment-template.php로 이동 -->
@@ -28,7 +18,7 @@ if(post_password_required()) {
 		bestmedical_comments_pagination();
 		?>
 		<!-- Comments Form -->
-		<div class="media mt-3"> <!-- media-body 클래스부터는 template 파일 -->
+		<div class="media"> <!-- media-body 클래스부터는 template 파일 -->
 			<div class="media-body">
 				<?php comment_form(bestmedical_comments_template()); ?>
 				<?php if(!comments_open() && get_comments_number()) {

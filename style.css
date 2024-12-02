@@ -73,28 +73,24 @@ a:hover {
 .btn {
     transition: all 0.1s ease !important;
 }
-.btn:hover {
-    // background-color: white;
-    color: white !important;
-    // border: 2px solid currentColor;
-    // transform: scale(1.08) !important; /* 크기를 5%만 확대 */
 
-}
 .wp-login-register {
     display: none !important;
 }
 h1.login a {
     font-size: 30px !important;
 }
-
 .docs.card-header {
     transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
     color: white;
+    font-size: 1.15em;
 }
-
 .docs.card-header:hover {
     background-color: #343a40 !important; /* 배경색 변경 (어두운 회색) */
     color: #ffffff !important; /* 텍스트 색상 변경 (흰색) */
     // text-decoration: underline; /* 텍스트 밑줄 추가 */
     cursor: pointer; /* 포인터 커서 */
+}
+.btn-warning:hover {
+    background-color: #fdab14 !important;
 }

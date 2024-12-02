@@ -51,12 +51,12 @@
 
         <!-- 작성 버튼 -->
         <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary">
-            작성
+            자료등록
         </a>
 
         <!-- 로그아웃 버튼 -->
         <a href="<?php echo wp_logout_url(home_url()); ?>" class="text-danger">
-            나가기
+            로그아웃
         </a>
     </div>
 </div>

@@ -328,36 +328,14 @@ function fix_editor_toolbar_and_content() {
 }
 add_action('admin_head', 'fix_editor_toolbar_and_content');
 
-// HTML 필터링 제거 및 텍스트 입력기에서 HTML 지원
-function disable_tinymce_and_allow_html_for_subscriber($default) {
-    if (current_user_can('subscriber')) {
-        // TinyMCE 비활성화
-        add_filter('user_can_richedit', '__return_false', 10);
-
-        // 저장 시 HTML 필터링 제거
-        remove_filter('content_save_pre', 'wp_kses_post');
-        remove_filter('content_filtered_save_pre', 'wp_kses_post');
-
-        // 모든 HTML 태그 허용
-        add_filter('wp_kses_allowed_html', function ($allowed_tags, $context) {
-            return 'post';
-        }, 10, 2);
-
-        // wpautop 필터 제거
-        remove_filter('the_content', 'wpautop');
-        remove_filter('the_excerpt', 'wpautop');
-    }
-    return $default;
-}
-add_filter('user_can_richedit', 'disable_tinymce_and_allow_html_for_subscriber');
-
+// 어드민 환경에서 광고 팝업 제거
 function remove_editor_notices() {
     remove_all_actions('admin_notices'); // 관리자 공지 제거
     remove_all_actions('all_admin_notices'); // 모든 관리자 공지 제거
 }
 add_action('admin_init', 'remove_editor_notices');
 
-
+// 요소 뒤의 텍스트 숨기기
 function hide_text_after_elements() {
     echo '<script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -380,6 +358,30 @@ function hide_text_after_elements() {
     </script>';
 }
 add_action('admin_head', 'hide_text_after_elements');
+
+
+// HTML 필터링 제거 및 텍스트 입력기에서 HTML 지원
+function disable_tinymce_and_allow_html_for_subscriber($default) {
+    if (current_user_can('subscriber')) {
+        // TinyMCE 비활성화
+        add_filter('user_can_richedit', '__return_false', 10);
+
+        // 저장 시 HTML 필터링 제거
+        remove_filter('content_save_pre', 'wp_kses_post');
+        remove_filter('content_filtered_save_pre', 'wp_kses_post');
+
+        // 모든 HTML 태그 허용
+        add_filter('wp_kses_allowed_html', function ($allowed_tags, $context) {
+            return 'post';
+        }, 10, 2);
+
+        // wpautop 필터 제거
+        remove_filter('the_content', 'wpautop');
+        remove_filter('the_excerpt', 'wpautop');
+    }
+    return $default;
+}
+add_filter('user_can_richedit', 'disable_tinymce_and_allow_html_for_subscriber');
 
 // 1. <style> 및 <script> 태그 허용
 function allow_style_and_script_tags($tags, $context) {
@@ -412,4 +414,38 @@ function add_unfiltered_html_capability() {
     }
 }
 add_action('init', 'add_unfiltered_html_capability');
+
+// ************************ //
+// ***** 테이블 삽입 ******* //
+// ************************ //
+
+// '테이블 추가' 버튼 추가
+add_action('media_buttons', 'add_table_insert_button');
+
+function add_table_insert_button() {
+    // '미디어 추가' 버튼 옆에 '테이블 추가' 버튼 생성
+    echo '<button type="button" id="insert_table_button" class="button">테이블 추가</button>';
+}
+
+// 스크립트 로드
+function enqueue_excel_to_editor_script() {
+    // 테이블 추가용 JavaScript
+    wp_enqueue_script(
+        'excel-to-editor-script',
+        get_template_directory_uri() . '/js/excel-to-editor.js', // JS 파일 경로
+        array('jquery'),
+        null,
+        true
+    );
+
+    // XLSX 라이브러리 로드
+    wp_enqueue_script(
+        'xlsx',
+        'https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js', // XLSX 라이브러리
+        array(),
+        null,
+        true
+    );
+}
+add_action('admin_enqueue_scripts', 'enqueue_excel_to_editor_script');
 

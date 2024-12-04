@@ -82,12 +82,13 @@ h1.login a {
 }
 .docs.card-header {
     transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
-    color: white;
-    font-size: 1.15em;
+    // color: white;
+    font-size: 1.1em;
 }
 .docs.card-header:hover {
-    background-color: #343a40 !important; /* 배경색 변경 (어두운 회색) */
-    color: #ffffff !important; /* 텍스트 색상 변경 (흰색) */
+    background-color: #3333 !important; /* 배경색 변경 (어두운 회색) */
+    // background-color: #343a40 !important; /* 배경색 변경 (어두운 회색) */
+    // color: #ffffff !important; /* 텍스트 색상 변경 (흰색) */
     // text-decoration: underline; /* 텍스트 밑줄 추가 */
     cursor: pointer; /* 포인터 커서 */
 }

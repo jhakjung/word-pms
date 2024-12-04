@@ -273,3 +273,5 @@ function add_parent_category_on_save($post_id) {
     }
 }
 add_action('save_post', 'add_parent_category_on_save');
+
+

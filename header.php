@@ -21,10 +21,10 @@
 
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
-<nav class="bg-light border-bottom border-1 bg-gradient mb-1 py-2">
+<nav class="border-bottom border-1 border-secondary mb-2 py-3">
 <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center py-2">
     <!-- 사이트 이름 -->
-    <div class="site-name fs-4 text-primary mb-3 mb-md-0 pr-3">
+    <div class="site-name fs-3 text-dark mb-3 mb-md-0 pr-3">
         <a href="<?php echo esc_url(site_url('/')); ?>"><?php bloginfo('name'); ?></a>
     </div>
 
@@ -42,7 +42,7 @@
             $post_author_id = $post->post_author; // 게시물 작성자 ID
 
             // 작성자 본인일 경우에만 수정 버튼 표시
-            if ($current_user_id == $post_author_id) : ?>
+            if ($current_user_id == $post_author_id || current_user_can('administrator')) : ?>
                 <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-primary">
                     수정
                 </a>

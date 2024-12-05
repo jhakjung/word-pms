@@ -114,6 +114,7 @@ function my_custom_mime_types( $mimes ) {
 	$mimes['dat'] = 'application/wordpad';
 	$mimes['dwg'] = 'application/cad';
 	$mimes['stp'] = 'application/cad';
+    $mimes['ico'] = 'image/vnd.microsoft.icon'; // .ico 파일의 MIME 유형 추가
 
 	// Optional. Remove a mime type. - (선택 사항) mime type 제거
 	unset( $mimes['exe'] );
@@ -122,18 +123,18 @@ function my_custom_mime_types( $mimes ) {
 }
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
 
-
 // 모바일에서 admin bar 숨기기
 function hide_admin_bar_on_mobile() {
     if (wp_is_mobile()) {
         add_filter('show_admin_bar', '__return_false');
     }
 }
+add_action('wp_loaded', 'hide_admin_bar_on_mobile');
 
 // 올바른 위치: init 액션 후에 번역을 로드
-add_action('init', 'custom_load_theme_translations', 10);
-
 function custom_load_theme_translations() {
     load_theme_textdomain('your-theme-textdomain', get_template_directory() . '/languages');
 }
+add_action('init', 'custom_load_theme_translations', 10);
+
 

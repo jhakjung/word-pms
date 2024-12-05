@@ -21,7 +21,7 @@
 
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
-<nav class="border-bottom border-1 border-secondary mb-2 py-3">
+<nav class="siteHeader mb-2 py-3">
 <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center py-2">
     <!-- 사이트 이름 -->
     <div class="site-name fs-3 text-dark mb-3 mb-md-0 pr-3">
@@ -35,29 +35,63 @@
 
     <!-- 버튼 영역 -->
     <div class="d-flex flex-wrap justify-content-end align-items-center gap-3 pl-3">
-        <!-- Single 페이지 + 로그인 여부 확인 -->
-        <?php if (is_singular() && is_user_logged_in()) :
-        global $post;
-            $current_user_id = get_current_user_id(); // 현재 사용자 ID
-            $post_author_id = $post->post_author; // 게시물 작성자 ID
 
-            // 작성자 본인일 경우에만 수정 버튼 표시
-            if ($current_user_id == $post_author_id || current_user_can('administrator')) : ?>
-                <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-primary">
-                    수정
-                </a>
-            <?php endif; ?>
-        <?php endif; ?>
+
+    <?php
+// 포스트 삭제 처리
+if (isset($_POST['delete_post']) && isset($_POST['post_id'])) {
+    // 현재 사용자 ID와 게시물 작성자 ID 확인
+    $current_user_id = get_current_user_id();
+    $post_id = intval($_POST['post_id']);
+    $post_author_id = get_post_field('post_author', $post_id);
+
+    // 게시물 작성자와 현재 사용자가 일치하거나 관리자인 경우 삭제
+    if (($current_user_id == $post_author_id) || current_user_can('administrator')) {
+        wp_delete_post($post_id, true); // 'true'는 영구 삭제
+
+        // return home_url();
+
+        // 리다이렉트 전에 어떤 출력도 없어야 합니다.
+        wp_redirect(home_url()); // 삭제 후 홈페이지로 리다이렉트
+        exit; // 반드시 exit()을 호출하여 리다이렉트 후 스크립트 종료
+    }
+}
+?>
+
+<!-- Single 페이지 + 로그인 여부 확인 -->
+<?php if (is_singular() && is_user_logged_in()) :
+    global $post;
+    $current_user_id = get_current_user_id(); // 현재 사용자 ID
+    $post_author_id = $post->post_author; // 게시물 작성자 ID
+
+    // 작성자 본인일 경우에만 수정 버튼과 삭제 버튼 표시
+    if ($current_user_id == $post_author_id || current_user_can('administrator')) : ?>
+
 
         <!-- 작성 버튼 -->
         <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary">
             자료등록
         </a>
 
+        <!-- 수정 버튼 -->
+        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-danger">
+            수정
+        </a>
+
+        <!-- 삭제 버튼 -->
+        <form action="" method="post" style="display:inline;">
+            <input type="hidden" name="post_id" value="<?php echo $post->ID; ?>">
+            <input type="submit" name="delete_post" value="삭제" class="text-danger border-0 bg-transparent" onclick="return confirm('정말 이 게시물을 삭제하시겠습니까?');" >
+        </form>
+
         <!-- 로그아웃 버튼 -->
         <a href="<?php echo wp_logout_url(home_url()); ?>" class="text-danger">
             로그아웃
         </a>
+
+    <?php endif; ?>
+<?php endif; ?>
+
     </div>
 </div>
 </nav>

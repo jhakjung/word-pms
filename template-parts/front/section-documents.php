@@ -26,7 +26,7 @@ $child_categories = get_categories($args);
     ?>
     <div class="col">
         <div id="" class="card">
-            <a class="docs card-header text-secondary text-center fw-bold bg-light" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
+            <a class="docs card-header text-white text-center" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
             <ul class="list-group list-group-flush">
                 <?php if ($category_posts->have_posts()): ?>
                     <?php while ($category_posts->have_posts()):

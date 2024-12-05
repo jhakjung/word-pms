@@ -274,4 +274,10 @@ function add_parent_category_on_save($post_id) {
 }
 add_action('save_post', 'add_parent_category_on_save');
 
+// 올바른 위치: init 액션 후에 번역을 로드
+add_action('init', 'custom_load_theme_translations', 10);
+
+function custom_load_theme_translations() {
+    load_theme_textdomain('your-theme-textdomain', get_template_directory() . '/languages');
+}
 

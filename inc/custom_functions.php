@@ -282,6 +282,14 @@ function hide_admin_bar_comments()
 }
 add_action('admin_head', 'hide_admin_bar_comments');
 
+function hide_slugdiv_for_subscribers_css() {
+    if (current_user_can('subscriber')) {
+        echo '<style>#slugdiv { display: none !important; }</style>';
+    }
+}
+add_action('admin_head', 'hide_slugdiv_for_subscribers_css');
+
+
 // 태그 메뉴 숨기기
 function remove_specific_submenu_items() {
     // 관리자가 아닌 경우에만 실행
@@ -449,3 +457,9 @@ function enqueue_excel_to_editor_script() {
 }
 add_action('admin_enqueue_scripts', 'enqueue_excel_to_editor_script');
 
+add_filter('the_content', function ($content) {
+    if (strpos($content, '<table') !== false) {
+        remove_filter('the_content', 'wpautop');
+    }
+    return $content;
+}, 9);

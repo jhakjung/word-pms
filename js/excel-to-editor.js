@@ -98,10 +98,12 @@ jQuery(document).ready(function ($) {
 
                 htmlTable += "</tbody></table>";
 
-                // HTML 테이블을 텍스트 입력기에 삽입
-                const textEditor = $("#content"); // WordPress 텍스트 입력기 ID
-                const currentContent = textEditor.val(); // 현재 텍스트 입력기 내용 가져오기
-                textEditor.val(currentContent + "\n" + htmlTable); // 새로운 테이블 추가
+                // HTML 테이블을 에디터에 삽입
+                if (typeof tinymce !== "undefined") {
+                    tinymce.activeEditor.execCommand("mceInsertContent", false, htmlTable);
+                } else {
+                    alert("TinyMCE 편집기를 사용할 수 없습니다!");
+                }
             };
 
             reader.readAsArrayBuffer(file);

@@ -1,5 +1,145 @@
 <?php
 
+// 관리자를 제외하고는 "카테고리" 편집메뉴 No Show
+function hide_category_menu_for_non_admins() {
+    $current_user = wp_get_current_user();
+    $user_roles = $current_user->roles;
+    if (in_array('administrator', $user_roles)) {
+        return;
+    }
+    remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+}
+add_action('admin_menu', 'hide_category_menu_for_non_admins');
+
+// 에디터 화면에서 카테고리 안 보이게
+function hide_category_metabox() {
+	remove_meta_box('categorydiv', 'post', 'side');
+}
+
+add_action('admin_menu', 'hide_category_metabox');
+
+add_action('wp_loaded', 'hide_admin_bar_on_mobile');
+
+// 즐겨찾기 택소노미 추가
+function add_favorites_taxonomy() {
+    register_taxonomy(
+        'favorite', // Taxonomy 이름
+        'post', // Post Type
+        array(
+            'labels' => array(
+                'name' => '즐겨찾기',
+                'singular_name' => '즐겨찾기',
+                'search_items' => '즐겨찾기 검색',
+                'all_items' => '모든 즐겨찾기',
+                'edit_item' => '즐겨찾기 수정',
+                'update_item' => '즐겨찾기 업데이트',
+                'add_new_item' => '새 즐겨찾기 추가',
+                'new_item_name' => '새 즐겨찾기 이름',
+                'menu_name' => '즐겨찾기',
+            ),
+            'hierarchical' => false, // 카테고리처럼 계층적이지 않음
+            'public' => false, // 사용자 정의 관리 화면에 노출되지 않음
+            'show_ui' => false, // 기본 관리 화면 비활성화
+        )
+    );
+}
+add_action('init', 'add_favorites_taxonomy');
+
+// 체크박스 메타박스 표시
+function add_favorite_checkbox_meta_box() {
+    add_meta_box(
+        'favorite_checkbox', // 메타 박스 ID
+        '즐겨찾기 등록', // 메타 박스 제목
+        'render_favorite_checkbox', // 콜백 함수
+        'post', // 대상 포스트 유형
+        'normal', // 위치 (제목 아래)
+        'high' // 우선순위
+    );
+}
+add_action('add_meta_boxes', 'add_favorite_checkbox_meta_box');
+
+// 체크박스 렌더링 함수
+function render_favorite_checkbox($post) {
+    // 기존 즐겨찾기 상태를 가져옴
+    $is_favorite = has_term('즐겨찾기', 'favorite', $post->ID);
+
+    // 체크박스 출력
+    echo '<label>';
+    echo '<input type="checkbox" name="favorite_checkbox" value="1" ' . checked($is_favorite, true, false) . '>';
+    echo ' 즐겨찾기';
+    echo '</label>';
+}
+
+function save_favorite_checkbox($post_id) {
+    // 자동 저장 방지
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // 권한 확인
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // 체크박스 값 확인
+    if (isset($_POST['favorite_checkbox']) && $_POST['favorite_checkbox'] == '1') {
+        // "즐겨찾기" 택소노미 추가
+        wp_set_post_terms($post_id, array('즐겨찾기'), 'favorite', false);
+    } else {
+        // "즐겨찾기" 택소노미 제거
+        wp_remove_object_terms($post_id, '즐겨찾기', 'favorite');
+    }
+}
+add_action('save_post', 'save_favorite_checkbox');
+
+// favicon.ico 업로드 가능하게
+function allow_favicon_upload($mime_types)
+{
+    $mime_types['ico'] = 'image/vnd.microsoft.icon'; // .ico 파일의 MIME 유형 추가
+    return $mime_types;
+}
+add_filter('upload_mimes', 'allow_favicon_upload');
+
+// 자식 카테고리 저장 시 부모 카테고리 자동저장
+function add_parent_category_on_save($post_id) {
+    // 확인: 자동 저장이나 수정일 경우 동작하지 않음
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
+        return;
+    }
+
+    // 확인: 현재 사용자가 글 편집 권한이 있는지 확인
+    if (!current_user_can('edit_post', $post_id)) {
+        return;
+    }
+
+    // 확인: 게시물 유형이 'post'인지 확인
+    if (get_post_type($post_id) !== 'post') {
+        return;
+    }
+
+    // 현재 글에 지정된 카테고리 가져오기
+    $categories = wp_get_post_categories($post_id);
+
+    // 부모 카테고리를 저장할 배열
+    $parent_categories = [];
+
+    foreach ($categories as $category_id) {
+        $parent_id = get_category($category_id)->parent;
+
+        // 부모 카테고리가 있을 경우 배열에 추가
+        if ($parent_id && !in_array($parent_id, $categories)) {
+            $parent_categories[] = $parent_id;
+        }
+    }
+
+    // 부모 카테고리를 기존 카테고리와 병합하여 저장
+    if (!empty($parent_categories)) {
+        wp_set_post_categories($post_id, array_merge($categories, $parent_categories));
+    }
+}
+add_action('save_post', 'add_parent_category_on_save');
+
+
 function redirect_to_login_on_home() {
     // 첫 화면(홈페이지)인지 확인
     if (is_front_page() && !current_user_can('manage_options') && !is_user_logged_in()) {
@@ -130,15 +270,6 @@ function hide_admin_notices() {
 }
 add_action('admin_head', 'hide_admin_notices');
 
-// 2. TinyMCE 비활성화 (텍스트 입력기만 사용)
-function disable_tinymce_for_subscriber($default) {
-    if (current_user_can('subscriber')) {
-        return false;
-    }
-    return $default;
-}
-add_filter('user_can_richedit', 'disable_tinymce_for_subscriber');
-
 // 관리자 화면에서 글 메뉴만 보이게
 function restrict_admin_menu_for_subscribers()
 {
@@ -208,79 +339,39 @@ function change_menu_label_for_subscriber()
 add_action('admin_menu', 'change_menu_label_for_subscriber', 999);
 
 // 미디어 추가 --> 파일 추가
-function customize_editor_for_subscribers()
-{
-    if (!current_user_can('administrator')) {
-        echo '<style>
-            /* 비주얼 탭 숨기기 */
-            #content-tmce, /* 비주얼 탭 버튼 */
-            #wp-content-editor-tools .wp-editor-tabs span { display: none !important; }
+// function customize_editor_for_subscribers()
+// {
+//     if (!current_user_can('administrator')) {
+//         echo '<style>
+//             /* 비주얼 탭 숨기기 */
+//             #content-tmce, /* 비주얼 탭 버튼 */
+//             #wp-content-editor-tools .wp-editor-tabs span { display: none !important; }
 
-            /* 입력 박스 맨 아래 상태 정보 숨기기 */
-            #wp-content-wrap .wp-editor-meta { display: none !important; }
-        </style>';
+//             /* 입력 박스 맨 아래 상태 정보 숨기기 */
+//             #wp-content-wrap .wp-editor-meta { display: none !important; }
+//         </style>';
 
-        echo '<script type="text/javascript">
-            jQuery(document).ready(function($) {
-                /* "미디어 추가" 버튼의 텍스트를 "파일 추가"로 변경 */
-                $("#insert-media-button").attr("title", "파일 추가").text("파일 추가");
+//         echo '<script type="text/javascript">
+//             jQuery(document).ready(function($) {
+//                 /* "미디어 추가" 버튼의 텍스트를 "파일 추가"로 변경 */
+//                 $("#insert-media-button").attr("title", "파일 추가").text("파일 추가");
 
-                /* 텍스트 탭만 활성화 (비주얼 탭 강제 비활성화) */
-                if ($("#content-tmce").hasClass("active")) {
-                    $("#content-tmce").removeClass("active");
-                    $("#content-html").addClass("active");
-                    $("#wp-content-wrap").removeClass("tmce-active").addClass("html-active");
-                }
-            });
+//                 /* 텍스트 탭만 활성화 (비주얼 탭 강제 비활성화) */
+//                 if ($("#content-tmce").hasClass("active")) {
+//                     $("#content-tmce").removeClass("active");
+//                     $("#content-html").addClass("active");
+//                     $("#wp-content-wrap").removeClass("tmce-active").addClass("html-active");
+//                 }
+//             });
 
-        </script>';
+//         </script>';
 
 
-    }
-}
-add_action('admin_head-post.php', 'customize_editor_for_subscribers');
-add_action('admin_head-post-new.php', 'customize_editor_for_subscribers');
+//     }
+// }
+// add_action('admin_head-post.php', 'customize_editor_for_subscribers');
+// add_action('admin_head-post-new.php', 'customize_editor_for_subscribers');
 
-// 불필요한 요소 모두 숨기기
-function hide_admin_bar_comments()
-{
-    if (!current_user_can('administrator')) {
-        echo '<style>
-        #submitdiv .postbox-header,
-        #wp-admin-bar-comments,
-        #wp-admin-bar-new-content,
-        #wp-admin-bar-top-secondary,
-        #wp-admin-bar-llar-root,
-        span.order-higher-indicator,
-        span.order-lower-indicator,
-        span.toggle-indicator,
-        #wpfooter,
-        #ed_toolbar,
-        #ed_toolbar > input,
-        .wp-editor-tabs,
-        .mce-toolbar-grp,
-        #post-status-info,
-        #save-post, /* 임시글로 저장 버튼 숨기기 */
-        #post-preview, /* 미리보기 버튼 숨기기 */
-        .misc-pub-section, /* 상태, 가시성, 즉시발행 숨기기 */
-        #minor-publishing, /* 공개 박스 하단 숨기기 */
-        #contextual-help-link-wrap, /* 도움말 메뉴 */
-        #screen-options-link-wrap, /* 화면 옵션 */
-        #postimagediv, /* 특성이미지 설정 탭 숨기기 */
-        #edit-slug-box, /* 고유주소 편집 라인 숨기기 */
-        #category-add-toggle, /* 새 카테고리 추가 */
-        .categorydiv #category-tabs>li,
-        #tagsdiv-post_tag .tagcloud-link,
-        #toplevel_page_edit-post_type-acf-field-group,
-        #toplevel_page_limit-login-attempts,
-        #toplevel_page_ivory-search,
-        #toplevel_page_members
-        { display: none; }
-        #major-publishing-actions
-        { background: transparent; }</style>';
-    }
-}
-add_action('admin_head', 'hide_admin_bar_comments');
 
 function hide_slugdiv_for_subscribers_css() {
     if (current_user_can('subscriber')) {
@@ -336,12 +427,7 @@ function fix_editor_toolbar_and_content() {
 }
 add_action('admin_head', 'fix_editor_toolbar_and_content');
 
-// 어드민 환경에서 광고 팝업 제거
-function remove_editor_notices() {
-    remove_all_actions('admin_notices'); // 관리자 공지 제거
-    remove_all_actions('all_admin_notices'); // 모든 관리자 공지 제거
-}
-add_action('admin_init', 'remove_editor_notices');
+
 
 // 요소 뒤의 텍스트 숨기기
 function hide_text_after_elements() {
@@ -463,3 +549,21 @@ add_filter('the_content', function ($content) {
     }
     return $content;
 }, 9);
+
+// 구독자는 항상 TinyMCE를 사용할 수 있도록 설정
+function always_enable_tinymce_for_subscribers($default) {
+    if (current_user_can('subscriber')) {
+        return true;  // TinyMCE 활성화
+    }
+    return $default;
+}
+add_filter('user_can_richedit', 'always_enable_tinymce_for_subscribers');
+
+// 편집기 기본값을 TinyMCE로 설정
+function set_default_editor_to_tinymce_for_subscribers($editor) {
+    if (current_user_can('subscriber')) {
+        return 'tinymce';  // 기본 편집기를 TinyMCE로 설정
+    }
+    return $editor;
+}
+add_filter('wp_default_editor', 'set_default_editor_to_tinymce_for_subscribers');

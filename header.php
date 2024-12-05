@@ -67,14 +67,8 @@ if (isset($_POST['delete_post']) && isset($_POST['post_id'])) {
     // 작성자 본인일 경우에만 수정 버튼과 삭제 버튼 표시
     if ($current_user_id == $post_author_id || current_user_can('administrator')) : ?>
 
-
-        <!-- 작성 버튼 -->
-        <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary">
-            자료등록
-        </a>
-
         <!-- 수정 버튼 -->
-        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-danger">
+        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-primary">
             수정
         </a>
 
@@ -84,14 +78,18 @@ if (isset($_POST['delete_post']) && isset($_POST['post_id'])) {
             <input type="submit" name="delete_post" value="삭제" class="text-danger border-0 bg-transparent" onclick="return confirm('정말 이 게시물을 삭제하시겠습니까?');" >
         </form>
 
+    <?php endif; ?>
+<?php endif; ?>
+
+        <!-- 작성 버튼 -->
+        <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary">
+            자료등록
+        </a>
+
         <!-- 로그아웃 버튼 -->
         <a href="<?php echo wp_logout_url(home_url()); ?>" class="text-danger">
             로그아웃
         </a>
-
-    <?php endif; ?>
-<?php endif; ?>
-
     </div>
 </div>
 </nav>

@@ -207,3 +207,16 @@ function set_default_editor_to_tinymce_for_subscribers($editor) {
     return $editor;
 }
 add_filter('wp_default_editor', 'set_default_editor_to_tinymce_for_subscribers');
+
+// <br> 삽입 방지
+add_filter('the_content', function ($content) {
+    if (strpos($content, '<table') !== false) {
+        remove_filter('the_content', 'wpautop');
+    }
+    return $content;
+}, 9);
+
+add_filter('tiny_mce_before_init', function ($settings) {
+    $settings['content_css'] = ''; // TinyMCE 기본 스타일 제거
+    return $settings;
+});

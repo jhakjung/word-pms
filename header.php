@@ -21,7 +21,7 @@
 
 <body <?php body_class(); ?>>
     <!-- Responsive navbar-->
-<nav class="siteHeader mb-2 py-3">
+<nav class="siteHeader mb-2 py-2">
 <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center py-2">
     <!-- 사이트 이름 -->
     <div class="site-name fs-3 text-dark mb-3 mb-md-0 pr-3">

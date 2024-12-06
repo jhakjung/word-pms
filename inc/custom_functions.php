@@ -218,16 +218,15 @@ function enqueue_excel_to_editor_script() {
 }
 add_action('admin_enqueue_scripts', 'enqueue_excel_to_editor_script');
 
-// <br> 삽입 방지
-add_filter('the_content', function ($content) {
-    if (strpos($content, '<table') !== false) {
-        remove_filter('the_content', 'wpautop');
-    }
-    return $content;
-}, 9);
+function enqueue_frontend_filter_script() {
+    wp_enqueue_script(
+        'table-filter-script',
+        get_template_directory_uri() . '/js/table-filter.js', // 위의 필터링 코드 파일 경로
+        array('jquery'),
+        null,
+        true
+    );
+}
+add_action('wp_enqueue_scripts', 'enqueue_frontend_filter_script');
 
-// add_filter('tiny_mce_before_init', function ($settings) {
-//     $settings['content_css'] = ''; // TinyMCE 기본 스타일 제거
-//     return $settings;
-// });
 

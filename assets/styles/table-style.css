@@ -2,51 +2,47 @@
 table.custom-excel-table {
     border-collapse: collapse;
     width: 100%;
-    margin: 5px 0;
-    font-size: 15px;
-    text-align: center;
+    margin: 5px;
+    // font-size: 16px;
+    text-align: left;
+    font-family: 'Times New Roman', serif;
+    // font-family: inherit; /* 에디터 폰트 상속 */
+    color: inherit; /* 에디터 글씨 색상 상속 */
 }
 
-.custom-excel-table th, td {
+.custom-excel-table th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 3px 5px;
+    white-space: nowrap; /* 모든 열 줄바꿈 방지 */
+    text-align: left;
 }
-
+.custom-excel-table td {
+    border: 1px solid #ddd;
+    padding: 3px 5px;
+    white-space: nowrap; /* 모든 열 줄바꿈 방지 */
+    text-align: left;
+}
 .custom-excel-table th {
     background-color: #f9f9f9;
     font-weight: bold;
 }
-
 .custom-excel-table tr:hover {
     background-color: #eaf8e3;
 }
-
-table {
-    border-collapse: collapse;
-    width: 100%;
-    margin: 5px 0;
-    font-size: 16px;
-    text-align: center;
-}
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    white-space: nowrap; /* 모든 열 줄바꿈 방지 */
-}
-th {
-    background-color: #f4f4f4;
-    font-weight: bold;
-}
-tr:nth-child(even) {
+.custom-excel-table tr:nth-child(even) {
     background-color: #f9f9f9;
 }
-tr:hover {
+.custom-excel-table tr:hover {
     background-color: #f1f1f1;
 }
-.filter-input {
+.custom-excel-table .filter-input {
     width: 90%;
     padding: 5px;
+    margin-top: 2px;
     margin-bottom: 5px;
+    font-family: 'Times New Roman', serif;
+    // font-family: inherit; /* 에디터 글씨체 상속 */
+        font-size: inherit; /* 에디터 글씨 크기 상속 */
 }
 
 

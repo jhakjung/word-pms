@@ -15,13 +15,6 @@ jQuery(document).ready(function ($) {
             const reader = new FileReader();
 
             reader.onload = function (event) {
-                // 로딩 상태 표시
-                tinymce.activeEditor.execCommand(
-                    "mceInsertContent",
-                    false,
-                    ""
-                );
-
                 try {
                     const data = new Uint8Array(event.target.result);
                     const workbook = XLSX.read(data, { type: "array" });
@@ -107,20 +100,21 @@ jQuery(document).ready(function ($) {
                     htmlTable += `</tbody>
                         </table>`;
 
-                    // 기존 로딩 메시지 제거 및 최종 HTML 테이블 삽입
-                    tinymce.activeEditor.execCommand(
-                        "mceReplaceContent",
-                        false,
-                        htmlTable
-                    );
+                    // 표 삽입 로직 (재시도 포함)
+                    const insertTable = (content) => {
+                        if (typeof tinymce !== "undefined" && tinymce.activeEditor) {
+                            tinymce.activeEditor.execCommand("mceInsertContent", false, content);
+                        } else {
+                            // TinyMCE 로드 지연 시 재시도
+                            setTimeout(() => insertTable(content), 100);
+                        }
+                    };
+
+                    // 최종 HTML 테이블 삽입
+                    insertTable(htmlTable);
                 } catch (error) {
                     // 에러 발생 시 사용자에게 알림
-                    tinymce.activeEditor.execCommand(
-                        "mceReplaceContent",
-                        false,
-                        "<p>파일 처리 중 오류가 발생했습니다. 다시 시도하세요.</p>"
-                    );
-                    alert("오류: " + error.message);
+                    alert("오류가 발생했습니다. 파일을 다시 확인해주세요.\n" + error.message);
                 }
             };
 

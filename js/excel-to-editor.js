@@ -19,7 +19,7 @@ jQuery(document).ready(function ($) {
                 tinymce.activeEditor.execCommand(
                     "mceInsertContent",
                     false,
-                    // "<p>테이블 로딩 중...</p>"
+                    ""
                 );
 
                 try {
@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
                     const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
                     const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
 
-                    // HTML 테이블 생성
+                    // HTML 테이블 생성 (특정 클래스 'custom-excel-table' 추가)
                     let htmlTable = `
                         <style>
                             table {
@@ -43,7 +43,7 @@ jQuery(document).ready(function ($) {
                             th, td {
                                 border: 1px solid #ddd;
                                 padding: 8px;
-                                white-space: nowrap;  /* 모든 열 줄바꿈 방지 */
+                                white-space: nowrap; /* 모든 열 줄바꿈 방지 */
                             }
                             th {
                                 background-color: #f4f4f4;
@@ -61,7 +61,23 @@ jQuery(document).ready(function ($) {
                                 margin-bottom: 5px;
                             }
                         </style>
-                        <table border="1">
+                        <script>
+                            // 필터링 함수
+                            function filterTable(input, columnIndex) {
+                                const filter = input.value.toLowerCase();
+                                const table = input.closest("table");
+                                const rows = table.querySelectorAll("tbody tr");
+                                rows.forEach(row => {
+                                    const cell = row.cells[columnIndex];
+                                    if (cell && cell.textContent.toLowerCase().includes(filter)) {
+                                        row.style.display = "";
+                                    } else {
+                                        row.style.display = "none";
+                                    }
+                                });
+                            }
+                        </script>
+                        <table class="custom-excel-table">
                             <thead>
                                 <tr>`;
 
@@ -71,11 +87,13 @@ jQuery(document).ready(function ($) {
                         htmlTable += `
                             <th>
                                 ${header || "Column " + (index + 1)}<br>
-                                <input type="text" class="filter-input" placeholder="Filter ${header}">
+                                <input type="text" class="filter-input" onkeyup="filterTable(this, ${index})" placeholder="Filter ${header}">
                             </th>`;
                     });
 
-                    htmlTable += `</tr></thead><tbody>`;
+                    htmlTable += `</tr>
+                            </thead>
+                            <tbody>`;
 
                     // 나머지 행(데이터) 처리
                     jsonData.slice(1).forEach((row) => {
@@ -86,7 +104,8 @@ jQuery(document).ready(function ($) {
                         htmlTable += "</tr>";
                     });
 
-                    htmlTable += "</tbody></table>";
+                    htmlTable += `</tbody>
+                        </table>`;
 
                     // 기존 로딩 메시지 제거 및 최종 HTML 테이블 삽입
                     tinymce.activeEditor.execCommand(

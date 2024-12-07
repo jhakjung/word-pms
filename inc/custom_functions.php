@@ -229,4 +229,24 @@ function enqueue_frontend_filter_script() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_frontend_filter_script');
 
+// wp_kses 필터 제거 (HTML 필터링 비활성화)
+remove_filter('content_save_pre', 'wp_filter_post_kses');
+remove_filter('content_filtered_save_pre', 'wp_filter_post_kses');
+
+// WordPress에서 <style> 태그 허용
+function allow_style_tags($init_array) {
+    if (!empty($init_array['extended_valid_elements'])) {
+        $init_array['extended_valid_elements'] .= ',style[type|media]';
+    } else {
+        $init_array['extended_valid_elements'] = 'style[type|media]';
+    }
+    return $init_array;
+}
+add_filter('tiny_mce_before_init', 'allow_style_tags');
+
+function load_custom_table_styles() {
+    wp_enqueue_style('custom-table-style', get_template_directory_uri() . '/assets/styles/table-style.css');
+}
+add_action('wp_enqueue_scripts', 'load_custom_table_styles');
+
 

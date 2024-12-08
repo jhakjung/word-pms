@@ -35,6 +35,7 @@ function hide_admin_bar_comments()
         #postimagediv, /* 특성이미지 설정 탭 숨기기 */
         #edit-slug-box, /* 고유주소 편집 라인 숨기기 */
         #category-add-toggle, /* 새 카테고리 추가 */
+        .postbox-header .handle-actions.hide-if-no-js,
         #post-status-info, #submitdiv .postbox-header, #wpfooter,
         #wpbody-content .update-nag, #wpbody-content .notice,
         #slugdiv, .notice-error, .notice-success, .notice-warning,
@@ -57,23 +58,6 @@ function hide_admin_bar_comments()
 }
 add_action('admin_head', 'hide_admin_bar_comments');
 
-// 관리자를 제외하고는 "카테고리" 편집메뉴 No Show
-function hide_category_menu_for_non_admins() {
-    $current_user = wp_get_current_user();
-    $user_roles = $current_user->roles;
-    if (in_array('administrator', $user_roles)) {
-        return;
-    }
-    remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
-}
-add_action('admin_menu', 'hide_category_menu_for_non_admins');
-
-// 에디터 화면에서 카테고리 안 보이게
-function hide_category_metabox() {
-	remove_meta_box('categorydiv', 'post', 'side');
-}
-
-add_action('admin_menu', 'hide_category_metabox');
 
 // 관리자 화면에서 글 메뉴만 보이게
 function restrict_admin_menu_for_subscribers()
@@ -93,6 +77,7 @@ function restrict_admin_menu_for_subscribers()
             remove_menu_page('profile.php'); // 프로필 메뉴 숨기기
             remove_menu_page('edit-tags.php?taxonomy=post_tag');
             remove_submenu_page('edit.php', 'order-post-types-post');
+            remove_submenu_page('edit.php', 'to-interface-post');
 
 
             // 2. "메뉴 접기" 제거를 위한 JavaScript 추가

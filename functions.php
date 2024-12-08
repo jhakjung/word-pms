@@ -5,6 +5,7 @@ require get_template_directory() . '/inc/pagination.php';
 require get_template_directory() . '/inc/comment-template.php';
 require get_template_directory() . '/inc/custom_functions.php';
 require get_template_directory() . '/inc/custom_ui_functions.php';
+require get_template_directory() . '/inc/category_functions.php';
 
 // Theme resource FIles
 function enqueue_custom_scripts() {

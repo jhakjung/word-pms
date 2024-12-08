@@ -220,3 +220,25 @@ add_filter('tiny_mce_before_init', function ($settings) {
     $settings['content_css'] = ''; // TinyMCE 기본 스타일 제거
     return $settings;
 });
+
+// Slug 기준으로 카테고리 정렬
+// function sort_acf_category_field_by_slug($field) {
+//     // 모든 카테고리 가져오기
+//     $categories = get_categories(array(
+//         'hide_empty' => false, // 비어 있는 카테고리 포함
+//     ));
+
+//     // slug 기준으로 오름차순 정렬
+//     usort($categories, function($a, $b) {
+//         return strcmp($a->slug, $b->slug); // slug 기준으로 오름차순 정렬
+//     });
+
+//     // ACF 라디오 버튼에 선택 항목 설정
+//     $field['choices'] = [];
+//     foreach ($categories as $category) {
+//         $field['choices'][$category->term_id] = $category->name;  // 카테고리 이름을 선택 항목으로 설정
+//     }
+
+//     return $field;
+// }
+// add_filter('acf/load_field/name=category', 'sort_acf_category_field_by_slug');

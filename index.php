@@ -2,9 +2,9 @@
 
 <div class="main container">
 	<div class="row">
-		<?php get_template_part('template-parts/sections/section', 'aside'); ?>
-		<?php get_template_part('template-parts/sections/section', 'pageHeader'); ?>
-		<?php get_template_part('template-parts/sections/section', 'siteMain'); ?>
+		<?php get_template_part('template-parts/front/section', 'favorites'); ?>
+		<?php get_template_part('template-parts/front/section', 'tags'); ?>
+		<?php get_template_part('template-parts/front/section', 'documents'); ?>
 	</div>
 </div>
 

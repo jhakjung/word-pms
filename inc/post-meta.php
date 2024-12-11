@@ -30,26 +30,50 @@ function custom_get_postmet_parent_category($class = 'badge badge__blue text-whi
 }
 
 // 포스트 메타: 카테고리 출력 함수
-// 포스트 메타: 카테고리 출력 함수
 function custom_get_postmeta_category($class = 'badge badge__blue text-white') {
+    // 포스트에 할당된 카테고리 가져오기
     $categories = get_the_category();
-    $category_names = array();
+    $parent_categories = [];
+    $child_categories = [];
 
-    foreach ( $categories as $category ) {
-        if ( $category->category_parent != 0 ) { // 자식 카테고리만 처리
-            $parent = get_category($category->category_parent);
-
-            // 부모 카테고리가 "documents"인 경우 "성과물: " 추가
-            if ( $parent && $parent->slug === 'documents' ) {
-                $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="' . $class . '">성과물: ' . $category->name . '</span></a>';
-            } else {
-                $category_names[] = '<a href="' . get_category_link( $category->term_id ) . '"><span class="' . $class . '">' . $category->name . '</span></a>';
-            }
+    // 카테고리 배열을 순회하면서 부모와 자식 카테고리 구분
+    foreach ($categories as $category) {
+        if ($category->parent == 0) {
+            // 부모 카테고리일 경우
+            $parent_categories[] = $category;
+        } else {
+            // 자식 카테고리일 경우
+            $child_categories[] = $category;
         }
     }
 
-    // 카테고리 리스트 출력
-    echo implode(' ', $category_names);  // 태그 간격과 동일하게 공백으로 구분
+    // 부모 카테고리와 자식 카테고리를 모두 한 줄에 출력
+    $output = ''; // 출력할 카테고리들 저장 변수
+
+    // 부모 카테고리가 있다면 먼저 출력
+    if (!empty($parent_categories)) {
+        foreach ($parent_categories as $parent) {
+            // 부모 카테고리 출력 (링크와 span 태그로 감싸기)
+            $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($parent->term_id) . '">' . $parent->name . '</a></span> ';
+
+            // 부모 카테고리와 연결된 자식 카테고리 출력
+            foreach ($child_categories as $child) {
+                if ($child->parent == $parent->term_id) {
+                    // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
+                    $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span> ';
+                }
+            }
+        }
+    } else {
+        // 부모 카테고리가 없을 경우 자식 카테고리만 출력
+        foreach ($child_categories as $child) {
+            // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
+            $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span> ';
+        }
+    }
+
+    // 출력된 카테고리들 한 줄로 출력
+    echo rtrim($output); // 끝에 공백 제거
 }
 
 

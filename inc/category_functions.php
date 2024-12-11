@@ -164,126 +164,32 @@ function add_parent_category_on_save($post_id) {
 }
 add_action('save_post', 'add_parent_category_on_save');
 
-// function display_categories_with_parent_and_child() {
-//     $categories = get_the_category();
-//     $parent_categories = [];
-//     $child_categories = [];
+function the_category_linked_title() {
+    // 현재 포스트의 제목 가져오기
+    $post_title = get_the_title();
+    $category_slugs = [];
 
-//     // 카테고리 배열을 순회하면서 부모와 자식 카테고리 구분
-//     foreach ($categories as $category) {
-//         if ($category->parent == 0) {
-//             // 부모 카테고리일 경우
-//             $parent_categories[] = $category;
-//         } else {
-//             // 자식 카테고리일 경우
-//             $child_categories[] = $category;
-//         }
-//     }
-
-//     // 부모 카테고리가 있다면 먼저 출력
-//     if (!empty($parent_categories)) {
-//         foreach ($parent_categories as $parent) {
-//             // 부모 카테고리 출력 (링크 포함)
-//             echo '<a href="' . get_category_link($parent->term_id) . '">' . $parent->name . '</a><br>';
-
-//             // 부모 카테고리와 연결된 자식 카테고리 출력
-//             foreach ($child_categories as $child) {
-//                 if ($child->parent == $parent->term_id) {
-//                     // 자식 카테고리 출력 (링크 포함)
-//                     echo '<a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a><br>';
-//                 }
-//             }
-//         }
-//     } else {
-//         // 부모 카테고리가 없을 경우 자식 카테고리만 출력
-//         foreach ($child_categories as $child) {
-//             // 자식 카테고리 출력 (링크 포함)
-//             echo '<a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a><br>';
-//         }
-//     }
-// }
-// function display_categories_with_parent_and_child($class = 'badge badge__blue text-white') {
-//     // 포스트에 할당된 카테고리 가져오기
-//     $categories = get_the_category();
-//     $parent_categories = [];
-//     $child_categories = [];
-
-//     // 카테고리 배열을 순회하면서 부모와 자식 카테고리 구분
-//     foreach ($categories as $category) {
-//         if ($category->parent == 0) {
-//             // 부모 카테고리일 경우
-//             $parent_categories[] = $category;
-//         } else {
-//             // 자식 카테고리일 경우
-//             $child_categories[] = $category;
-//         }
-//     }
-
-//     // 부모 카테고리가 있다면 먼저 출력
-//     if (!empty($parent_categories)) {
-//         foreach ($parent_categories as $parent) {
-//             // 부모 카테고리 출력 (링크와 span 태그로 감싸기)
-//             echo '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($parent->term_id) . '">' . $parent->name . '</a></span><br>';
-
-//             // 부모 카테고리와 연결된 자식 카테고리 출력
-//             foreach ($child_categories as $child) {
-//                 if ($child->parent == $parent->term_id) {
-//                     // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
-//                     echo '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span>';
-//                 }
-//             }
-//         }
-//     } else {
-//         // 부모 카테고리가 없을 경우 자식 카테고리만 출력
-//         foreach ($child_categories as $child) {
-//             // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
-//             echo '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span>';
-//         }
-//     }
-// }
-
-function display_categories_with_parent_and_child($class = 'badge badge__blue text-white') {
-    // 포스트에 할당된 카테고리 가져오기
+    // 모든 카테고리의 슬러그를 가져옴
     $categories = get_the_category();
-    $parent_categories = [];
-    $child_categories = [];
-
-    // 카테고리 배열을 순회하면서 부모와 자식 카테고리 구분
     foreach ($categories as $category) {
-        if ($category->parent == 0) {
-            // 부모 카테고리일 경우
-            $parent_categories[] = $category;
-        } else {
-            // 자식 카테고리일 경우
-            $child_categories[] = $category;
+        $category_slugs[] = $category->slug;  // 각 카테고리의 슬러그를 배열에 저장
+    }
+
+    // 포스트 제목이 카테고리 슬러그 목록에 존재하는지 확인
+    $category_link = '';
+    foreach ($category_slugs as $slug) {
+        if (stripos($post_title, $slug) !== false) {  // 포스트 제목에 카테고리 슬러그가 포함되었는지 체크
+            // 해당 슬러그를 가진 카테고리 링크로 리다이렉트
+            $category_link = get_category_link(get_category_by_slug($slug)->term_id);
+            break;
         }
     }
 
-    // 부모 카테고리와 자식 카테고리를 모두 한 줄에 출력
-    $output = ''; // 출력할 카테고리들 저장 변수
-
-    // 부모 카테고리가 있다면 먼저 출력
-    if (!empty($parent_categories)) {
-        foreach ($parent_categories as $parent) {
-            // 부모 카테고리 출력 (링크와 span 태그로 감싸기)
-            $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($parent->term_id) . '">' . $parent->name . '</a></span> ';
-
-            // 부모 카테고리와 연결된 자식 카테고리 출력
-            foreach ($child_categories as $child) {
-                if ($child->parent == $parent->term_id) {
-                    // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
-                    $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span> ';
-                }
-            }
-        }
+    // 제목 클릭 시 리다이렉트 처리
+    if (!empty($category_link)) {
+        echo '<a href="' . esc_url($category_link) . '">' . get_the_title() . '</a>';
     } else {
-        // 부모 카테고리가 없을 경우 자식 카테고리만 출력
-        foreach ($child_categories as $child) {
-            // 자식 카테고리 출력 (링크와 span 태그로 감싸기)
-            $output .= '<span class="' . esc_attr($class) . '"><a href="' . get_category_link($child->term_id) . '">' . $child->name . '</a></span> ';
-        }
+        // 기본적으로 제목만 출력
+        echo get_the_title();
     }
-
-    // 출력된 카테고리들 한 줄로 출력
-    echo rtrim($output); // 끝에 공백 제거
 }

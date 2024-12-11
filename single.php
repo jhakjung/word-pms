@@ -20,6 +20,8 @@
         <hr>
 
         <div class="post-content mt-1 px-1">
+        <?php display_parent_and_child_category(); ?>
+
             <!-- 요약글 -->
             <?php if (has_excerpt()) : ?>
                 <div class="excerpt border py-2 px-3 mb-3 bg-warning bg-opacity-10">

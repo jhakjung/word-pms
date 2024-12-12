@@ -36,6 +36,7 @@ function hide_admin_bar_comments()
         #edit-slug-box, /* 고유주소 편집 라인 숨기기 */
         #category-add-toggle, /* 새 카테고리 추가 */
         .postbox-header .handle-actions.hide-if-no-js,
+        div#local-storage-notice.notice.is-dismissible,
         #post-status-info, #submitdiv .postbox-header, #wpfooter,
         #wpbody-content .update-nag, #wpbody-content .notice,
         #slugdiv, .notice-error, .notice-success, .notice-warning,
@@ -132,3 +133,17 @@ function remove_specific_submenu_items() {
     }
 }
 add_action('admin_menu', 'remove_specific_submenu_items', 999);
+
+function disable_local_storage_notice($notices) {
+    if (isset($notices['local_storage_notice'])) {
+        unset($notices['local_storage_notice']);
+    }
+    return $notices;
+}
+add_filter('admin_notices', 'disable_local_storage_notice', 10, 1);
+
+function remove_local_storage_notice() {
+    // wp_localize_script로 전달된 데이터에서 알림을 제거
+    wp_deregister_script('autosave');
+}
+add_action('admin_enqueue_scripts', 'remove_local_storage_notice');

@@ -42,7 +42,7 @@ add_action('init', 'add_post_capabilities_to_subscriber');
 function add_favorites_taxonomy() {
     register_taxonomy(
         'favorite', // Taxonomy 이름
-        'post', // Post Type
+        array('post', 'page'), // Post Type
         array(
             'labels' => array(
                 'name' => '즐겨찾기',
@@ -69,7 +69,7 @@ function add_favorite_checkbox_meta_box() {
         'favorite_checkbox', // 메타 박스 ID
         '즐겨찾기 등록', // 메타 박스 제목
         'render_favorite_checkbox', // 콜백 함수
-        'post', // 대상 포스트 유형
+        array('post', 'page'), // 대상 포스트 유형
         'normal', // 위치 (제목 아래)
         'high' // 우선순위
     );

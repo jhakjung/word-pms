@@ -6,7 +6,7 @@ function custom_get_favorites($class) {
     $favorite_term_slug = '즐겨찾기'; // 즐겨찾기의 슬러그
 
     $args = [
-        'post_type' => 'post', // 포스트 유형
+        'post_type' => array('post', 'page'), // 포스트 유형
         'posts_per_page' => -1, // 모든 게시글 출력
         'post_status' => 'publish', // 공개된 게시글만
         'tax_query' => [

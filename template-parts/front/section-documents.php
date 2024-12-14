@@ -26,7 +26,7 @@ $child_categories = get_categories($args);
     ?>
     <div class="col">
         <div id="" class="card">
-            <a class="docs card-header text-white text-center" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
+            <a class="docs card-header bg-gray-600 text-white text-center" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
             <ul class="list-group list-group-flush">
                 <?php if ($category_posts->have_posts()): ?>
                     <?php while ($category_posts->have_posts()):
@@ -35,7 +35,7 @@ $child_categories = get_categories($args);
                     <?php endwhile;
                     wp_reset_postdata(); // 쿼리 후 데이터 초기화
                     else: ?>
-                        <li class="list-group-item">등록된 문서가 없습니다.</li>
+                        <li class="list-group-item my-list-group-item1">자료 없음</li>
                 <?php endif;?>
             </ul>
         </div>

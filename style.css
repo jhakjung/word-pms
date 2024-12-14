@@ -7,6 +7,7 @@ Version: 1.0
 // @import url('https://fonts.googleapis.com/css?family=Song+Myung:400');
 // @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans:400');
 // @import url('https://fonts.googleapis.com/css?family=Gothic+A1:100,600,700');
+
 .container {
     max-width: 1000px;
 }
@@ -85,8 +86,9 @@ h1.login a {
 .docs.card-header {
     // transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
     // color: white;
+    background-color: #555 !important;
     font-size: 1.1em;
-    background-color: #777;
+    // background-color: #777;
 }
 .docs.card-header:hover {
     background-color: #555 !important; /* 배경색 변경 (어두운 회색) */
@@ -116,4 +118,57 @@ h1.login a {
 .sectionHeader {
     color: #b589a7;
 }
+
+:root {
+    --custom-color-1: #ff5733; /* 커스텀 색상 1 */
+    --custom-color-2: #33c1ff; /* 커스텀 색상 2 */
+    --custom-gray-100: #f8f9fa;
+    --custom-gray-200: #e9ecef;
+    --custom-gray-300: #dee2e6;
+    --custom-gray-400: #ced4da;
+    --custom-gray-500: #adb5bd;
+    --custom-gray-600: #6c757d;
+    --custom-gray-700: #495057;
+    --custom-gray-800: #343a40;
+    --custom-gray-900: #212529;
+  }
+
+  .bg-gray-400 {
+    background-color: var(--custom-gray-400);
+  }
+
+  .bg-gray-500 {
+    color: var(--custom-gray-500);
+  }
+
+  .bg-gray-600 {
+    color: var(--custom-gray-600);
+  }
+
+  .bg-gray-700 {
+    color: var(--custom-gray-700);
+  }
+
+  .text-darkgray {
+    color: #555;
+  }
+  .text-gray-400 {
+    color: var(--custom-gray-400);
+  }
+
+  .text-gray-500 {
+    color: var(--custom-gray-500);
+  }
+
+  .text-gray-600 {
+    color: var(--custom-gray-600);
+  }
+
+  .text-gray-700 {
+    color: var(--custom-gray-700);
+  }
+
+  .text-darkgray {
+    color: #555;
+  }
 

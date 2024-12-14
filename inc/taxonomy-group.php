@@ -85,7 +85,7 @@ function custom_get_document_category() {
     foreach ($child_categories as $category) {
         $category_name = $category->name;
         $category_link = get_category_link($category->term_id);
-        $category_links[] = '<span class="badge bg-dark bg-gradient m-1"><a href="' . $category_link . '">' . $category_name . '</a></span>';
+        $category_links[] = '<span class="badge bg-darkgray bg-gradient m-1"><a href="' . $category_link . '">' . $category_name . '</a></span>';
     }
     echo implode(' ', $category_links);
 }

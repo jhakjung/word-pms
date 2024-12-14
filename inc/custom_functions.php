@@ -178,4 +178,29 @@ function load_custom_table_styles() {
 }
 add_action('wp_enqueue_scripts', 'load_custom_table_styles');
 
+function redirect_to_post_after_save($post_id) {
+    // 자동 저장일 때는 리디렉션하지 않음
+    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+
+    // 새 글 작성 중에는 리디렉션하지 않도록
+    if (isset($_POST['post_status']) && $_POST['post_status'] == 'auto-draft') {
+        return;
+    }
+
+    // 관리 화면에서 새 글을 작성할 때는 리디렉션하지 않도록
+    if (isset($_GET['action']) && $_GET['action'] == 'edit') {
+        return; // 수정 모드일 때만 리디렉션
+    }
+
+    // 포스트가 정상적으로 저장되었을 때만
+    if (get_post_type($post_id) == 'post') {
+        // 리디렉션 URL을 포스트 편집 페이지로 설정
+        $edit_url = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
+        wp_redirect($edit_url); // 편집 페이지로 리디렉션
+        exit;
+    }
+}
+add_action('save_post', 'redirect_to_post_after_save');
+
+
 

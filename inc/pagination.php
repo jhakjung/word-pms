@@ -1,6 +1,11 @@
 <?php
 // Bootstrap4 Styled Pagination
 function custom_pagination($pages = '', $range = 5) {
+	 // 홈 페이지일 경우, 페이지네비게이션을 표시하지 않음
+	 if (is_front_page()) {
+        return;
+    }
+
 	$showitems = ($range * 2) + 1;
 	global $paged;
 	if(empty($paged)) $paged = 1;

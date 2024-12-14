@@ -164,7 +164,7 @@ function add_parent_category_on_save($post_id) {
 }
 add_action('save_post', 'add_parent_category_on_save');
 
-// function display_categories_with_parent_and_child() {
+// function displayYYYY_categories_with_parent_and_child() {
 //     $categories = get_the_category();
 //     $parent_categories = [];
 //     $child_categories = [];
@@ -292,22 +292,25 @@ function redirect_page_to_category_archive() {
     // 현재 페이지가 '미분류' 또는 '이슈' 제목을 가진 페이지인 경우
     if (is_page()) {
         $page_title = get_the_title();
+        $category_link = get_category_link(get_category_by_slug($page_title)->term_id);
+        wp_redirect($category_link);
+        exit; // 리다이렉트 후 코드 실행 중지
 
         // 제목이 "미분류"인 경우
-        if ($page_title === '미분류') {
-            // "미분류" 카테고리 아카이브 링크로 리다이렉트
-            $category_link = get_category_link(get_category_by_slug('uncategorized')->term_id);
-            wp_redirect($category_link);
-            exit; // 리다이렉트 후 코드 실행 중지
-        }
+        // if ($page_title === '미분류') {
+        //     // "미분류" 카테고리 아카이브 링크로 리다이렉트
+        //     $category_link = get_category_link(get_category_by_slug('uncategorized')->term_id);
+        //     wp_redirect($category_link);
+        //     exit; // 리다이렉트 후 코드 실행 중지
+        // }
 
-        // 제목이 "이슈"인 경우
-        if ($page_title === '이슈') {
-            // "이슈" 카테고리 아카이브 링크로 리다이렉트
-            $category_link = get_category_link(get_category_by_slug('issue')->term_id);
-            wp_redirect($category_link);
-            exit; // 리다이렉트 후 코드 실행 중지
-        }
+        // // 제목이 "이슈"인 경우
+        // if ($page_title === '이슈') {
+        //     // "이슈" 카테고리 아카이브 링크로 리다이렉트
+        //     $category_link = get_category_link(get_category_by_slug('issue')->term_id);
+        //     wp_redirect($category_link);
+        //     exit; // 리다이렉트 후 코드 실행 중지
+        // }
     }
 }
 add_action('template_redirect', 'redirect_page_to_category_archive');

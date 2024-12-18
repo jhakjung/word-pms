@@ -4,8 +4,8 @@ require get_template_directory() . '/inc/taxonomy-group.php';
 require get_template_directory() . '/inc/pagination.php';
 require get_template_directory() . '/inc/comment-template.php';
 require get_template_directory() . '/inc/custom_functions.php';
-require get_template_directory() . '/inc/custom_ui_functions.php';
-require get_template_directory() . '/inc/category_functions.php';
+// require get_template_directory() . '/inc/custom_ui_functions.php';
+// require get_template_directory() . '/inc/category_functions.php';
 
 // Theme resource FIles
 function enqueue_custom_scripts() {
@@ -137,35 +137,3 @@ function custom_load_theme_translations() {
     load_theme_textdomain('your-theme-textdomain', get_template_directory() . '/languages');
 }
 add_action('init', 'custom_load_theme_translations', 10);
-
-// 자동 리다이렉션 관련
-// function redirect_to_post_after_save($post_id) {
-//     // 자동 저장일 때는 리디렉션하지 않음
-//     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-
-//     // 포스트가 휴지통에 있을 경우 리디렉션하지 않도록
-//     if ('trash' === get_post_status($post_id)) {
-//         return;
-//     }
-
-//     // 새 글 작성 중에는 리디렉션하지 않도록
-//     if (isset($_POST['post_status']) && $_POST['post_status'] == 'auto-draft') {
-//         return;
-//     }
-
-//     // 관리 화면에서 새 글을 작성할 때는 리디렉션하지 않도록
-//     if (isset($_GET['action']) && $_GET['action'] == 'edit') {
-//         return; // 수정 모드일 때만 리디렉션
-//     }
-
-//     // 포스트가 정상적으로 저장되었을 때만
-//     if (get_post_type($post_id) == 'post') {
-//         // 리디렉션 URL을 포스트 편집 페이지로 설정
-//         $edit_url = get_admin_url(null, 'post.php?post=' . $post_id . '&action=edit');
-//         wp_redirect($edit_url); // 편집 페이지로 리디렉션
-//         exit;
-//     }
-// }
-// add_action('save_post', 'redirect_to_post_after_save');
-
-

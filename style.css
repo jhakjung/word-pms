@@ -5,7 +5,7 @@ Version: 1.0
 */
 
 // @import url('https://fonts.googleapis.com/css?family=Song+Myung:400');
-// @import url('https://fonts.googleapis.com/css?family=Black+Han+Sans:400');
+@import url('https://fonts.googleapis.com/css?family=Black+Han+Sans:400');
 // @import url('https://fonts.googleapis.com/css?family=Gothic+A1:100,600,700');
 
 .container {
@@ -14,12 +14,12 @@ Version: 1.0
 
 .site-name {
     // font-family: 'Gothic A1', sans-serif; /* 가독성 높은 한국어 폰트 */
-    // font-family: 'Black Han Sans', sans-serif; /* 가독성 높은 한국어 폰트 */
+    font-family: 'Black Han Sans', sans-serif; /* 가독성 높은 한국어 폰트 */
     // font-family: 'Song Myung', sans-serif; /* 가독성 높은 한국어 폰트 */
     // font-family: 'Noto Sans KR', sans-serif; /* 가독성 높은 한국어 폰트 */
-    font-family: 'Times New Roman', serif;
+    // font-family: 'Times New Roman', serif;
     font-size: 2.5rem;
-    font-weight: 600;
+    font-weight: 400;
     // color: #2c3e50; /* 진한 네이비 블루 */
     // color: #6c757d !important;
   }
@@ -147,6 +147,10 @@ h1.login a {
 
   .bg-gray-700 {
     color: var(--custom-gray-700);
+  }
+
+  .bg-darkgray {
+    background-color: #555;
   }
 
   .text-darkgray {

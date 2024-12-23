@@ -559,13 +559,32 @@ function redirect_page_to_category_archive() {
 }
 add_action('template_redirect', 'redirect_page_to_category_archive');
 
+// 암호 자료 표시
 function custom_protected_title($title) {
-    if ((is_singular() || is_front_page() || is_archive()) && post_password_required() && is_user_logged_in()) {
+    // "보호된 글: "로 시작하는 경우
+    if (strpos($title, '보호된 글: ') === 0) {
+        // "보호된 글: "을 제거하고 " 🔒"을 추가
         $title = preg_replace('/^보호된 글: /', '', $title);
-        $title .= ' 🔒';
+        $title .= ' 🔒'; // " 🔒" 추가
     }
     return $title;
 }
 add_filter('the_title', 'custom_protected_title');
 
+// 포스트 삭제 시 미디어 파일도 삭제
+function delete_attached_media_on_post_delete($post_id) {
+    // 삭제된 포스트가 실제 포스트일 때만 실행
+    if (get_post_type($post_id) != 'post') {
+        return;
+    }
+
+    // 포스트에 첨부된 미디어 파일을 가져옵니다.
+    $attachments = get_attached_media('', $post_id);
+
+    // 첨부된 미디어 파일을 삭제합니다.
+    foreach ($attachments as $attachment) {
+        wp_delete_attachment($attachment->ID, true); // 두 번째 인자를 'true'로 설정하여 실제 파일을 삭제
+    }
+}
+add_action('before_delete_post', 'delete_attached_media_on_post_delete');
 

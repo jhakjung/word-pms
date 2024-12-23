@@ -14,7 +14,7 @@ $child_categories = get_categories($args);
 ?>
 <div class="section-title fs-4 document text-start"><i class="fa fa-folder"></i> 성과물</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mb-4">
-    <?php
+<?php
     // 자식 카테고리마다 .card를 출력
     foreach ($child_categories as $category):
     // 각 자식 카테고리에서 게시글 리스트 가져오기
@@ -22,6 +22,8 @@ $child_categories = get_categories($args);
             'cat' => $category->term_id, // 해당 카테고리의 게시글
             'posts_per_page' => -1, // 모든 게시글 출력
             'post_status' => 'publish', // 공개된 게시글만
+            'orderby' => 'name', // slug 기준으로 정렬
+            'order' => 'ASC', // 오름차순 정렬
         ]);
     ?>
     <div class="col">
@@ -41,5 +43,6 @@ $child_categories = get_categories($args);
         </div>
     </div>
     <?php endforeach;?>
+
 </div> <!-- end of 성과물 -->
 

@@ -12,7 +12,7 @@
 
     <div id="shadow-box" class="card my-3">
         <div class="card-header text-secondary card__header">
-            <i class="fas fa-tag"></i>&nbsp;&nbsp;키워드
+            <i class="fas fa-tag"></i>&nbsp;&nbsp;태그
         </div>
         <div class="p-3">
             <div class="card__group">

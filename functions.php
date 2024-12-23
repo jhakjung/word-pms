@@ -116,6 +116,8 @@ function my_custom_mime_types( $mimes ) {
 	$mimes['dwg'] = 'application/cad';
 	$mimes['stp'] = 'application/cad';
     $mimes['ico'] = 'image/vnd.microsoft.icon'; // .ico 파일의 MIME 유형 추가
+    $mimes['ppt'] = 'application/vnd.ms-powerpoint';
+    $mimes['pptx'] = 'application/vnd.ms-powerpoint';
 
 	// Optional. Remove a mime type. - (선택 사항) mime type 제거
 	unset( $mimes['exe'] );

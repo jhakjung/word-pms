@@ -48,10 +48,6 @@ p.form-submit {
     margin-top: 0.25rem !important;
 }
 
-.btn.btn-sm:hover {
-    background-color:$my_purple !important;
-}
-
 /* 설명하는 부분이 박스에 너무 붙어있음 */
 p.comment-form-attachment {
     margin: 10px 0 0 0 !important;

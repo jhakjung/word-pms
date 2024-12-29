@@ -117,7 +117,9 @@ function my_custom_mime_types( $mimes ) {
 	$mimes['stp'] = 'application/cad';
     $mimes['ico'] = 'image/vnd.microsoft.icon'; // .ico 파일의 MIME 유형 추가
     $mimes['ppt'] = 'application/vnd.ms-powerpoint';
-    $mimes['pptx'] = 'application/vnd.ms-powerpoint';
+
+    // 수정된 pptx MIME 타입
+    $mimes['pptx'] = 'application/vnd.openxmlformats-officedocument.presentationml.presentation';
 
 	// Optional. Remove a mime type. - (선택 사항) mime type 제거
 	unset( $mimes['exe'] );
@@ -125,6 +127,7 @@ function my_custom_mime_types( $mimes ) {
 	return $mimes;
 }
 add_filter( 'upload_mimes', 'my_custom_mime_types' );
+
 
 // 모바일에서 admin bar 숨기기
 function hide_admin_bar_on_mobile() {

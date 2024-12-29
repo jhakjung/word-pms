@@ -12,7 +12,7 @@ $child_categories = get_categories($args);
 
 // 성과물 섹션 출력 시작
 ?>
-<div class="section-title fs-4 document text-start"><i class="fa fa-folder"></i> 성과물</div>
+<div class="section-title fs-4 document text-center"><i class="fa fa-folder"></i> 성과물&nbsp; |&nbsp;  <i class="fas fa-exclamation-circle"></i> 이슈/기타문서/자료실</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mb-4">
 <?php
     // 자식 카테고리마다 .card를 출력
@@ -22,13 +22,13 @@ $child_categories = get_categories($args);
             'cat' => $category->term_id, // 해당 카테고리의 게시글
             'posts_per_page' => -1, // 모든 게시글 출력
             'post_status' => 'publish', // 공개된 게시글만
-            'orderby' => 'name', // slug 기준으로 정렬
+            'orderby' => 'date', // slug 기준으로 정렬
             'order' => 'ASC', // 오름차순 정렬
         ]);
     ?>
     <div class="col">
         <div id="" class="card">
-            <a class="docs card-header bg-gray-600 text-white text-center" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
+            <a class="docs card-header bg-dark bg-gradient text-white text-center" href="<?php echo get_category_link($category->term_id); ?>"><?php echo esc_html($category->name); ?></a>
             <ul class="list-group list-group-flush">
                 <?php if ($category_posts->have_posts()): ?>
                     <?php while ($category_posts->have_posts()):
@@ -37,7 +37,7 @@ $child_categories = get_categories($args);
                     <?php endwhile;
                     wp_reset_postdata(); // 쿼리 후 데이터 초기화
                     else: ?>
-                        <li class="list-group-item my-list-group-item1">자료 없음</li>
+                        <li class="list-group-item my-list-group-item1 text-gray-500">자료 없음</li>
                 <?php endif;?>
             </ul>
         </div>

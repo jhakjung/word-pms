@@ -5,7 +5,7 @@
         </div>
         <div class="p-3">
             <div class="card__group">
-                <?php custom_get_favorites("badge bg-green bg-gradient m-1"); ?>
+                <?php custom_get_favorites("badge badge__blue bg-gradient m-1"); ?>
             </div>
         </div>
     </div>

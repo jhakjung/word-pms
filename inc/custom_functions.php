@@ -241,18 +241,17 @@ add_action('admin_head', 'change_insert_media_button_text');
 
 function hide_admin_bar_comments()
 {
-    /*post-preview, /* 미리보기 버튼 숨기기 */
-    /*.misc-pub-section, /* 상태, 가시성, 즉시발행 숨기기 */
-
-
+        /*post-preview, /* 미리보기 버튼 숨기기 */
+        /*.misc-pub-section, /* 상태, 가시성, 즉시발행 숨기기 */
         #minor-publishing, /* 공개 박스 하단 숨기기 */
     if(current_user_can('subscriber') || current_user_can('contributor')) {
         echo '<style>
-#save-post, /* 임시글로 저장 버튼 숨기기 */
-.misc-pub-section.misc-pub-post-status, /* 상태: 임시글 편집 */
-.misc-pub-section.curtime.misc-pub-curtime, /* 즉시 발행 편집 */
-        #contextual-help-link-wrap, /* 도움말 메뉴 */
         #screen-options-link-wrap, /* 화면 옵션 */
+        #save-post, /* 임시글로 저장 버튼 숨기기 */
+        .misc-pub-section.misc-pub-post-status, /* 상태: 임시글 편집 */
+        .misc-pub-section.curtime.misc-pub-curtime, /* 즉시 발행 편집 */
+        #contextual-help-link-wrap, /* 도움말 메뉴 */
+        #postexcerpt.postbox, /* 요약글 입력 */
         #postimagediv, /* 특성이미지 설정 탭 숨기기 */
         #edit-slug-box, /* 고유주소 편집 라인 숨기기 */
         #category-add-toggle, /* 새 카테고리 추가 */
@@ -548,13 +547,28 @@ function display_categories_with_parent_and_child($class = 'badge badge__blue te
     echo rtrim($output); // 끝에 공백 제거
 }
 
+// 현재 페이지의 제목이 카테고리 이름인 경우 archive 리다이렉션
 function redirect_page_to_category_archive() {
-    // 현재 페이지가 '미분류' 또는 '이슈' 제목을 가진 페이지인 경우
+    // 현재 페이지의 제목이 카테고리 이름인 경우
     if (is_page()) {
         $page_title = get_the_title();
-        $category_link = get_category_link(get_category_by_slug($page_title)->term_id);
-        wp_redirect($category_link);
-        exit; // 리다이렉트 후 코드 실행 중지
+
+        // 카테고리 이름을 기준으로 카테고리 정보 가져오기
+        $categories = get_categories([
+            'hide_empty' => false, // 사용되지 않은 카테고리도 포함
+            'name' => $page_title, // 카테고리 이름으로 검색
+        ]);
+
+        // 카테고리가 존재하는지 확인
+        if ($categories && !empty($categories)) {
+            $category = $categories[0]; // 첫 번째 카테고리 (이름이 일치하는 카테고리)
+            $category_link = get_category_link($category->term_id); // 해당 카테고리의 아카이브 링크
+            wp_redirect($category_link);
+            exit; // 리다이렉트 후 코드 실행 중지
+        } else {
+            // 카테고리를 찾을 수 없으면 "페이지가 없습니다." 출력
+            wp_die('페이지가 없습니다.');
+        }
     }
 }
 add_action('template_redirect', 'redirect_page_to_category_archive');
@@ -563,9 +577,12 @@ add_action('template_redirect', 'redirect_page_to_category_archive');
 function custom_protected_title($title) {
     // "보호된 글: "로 시작하는 경우
     if (strpos($title, '보호된 글: ') === 0) {
+        $lock = '<i class="fa fa-lock"></i>';
         // "보호된 글: "을 제거하고 " 🔒"을 추가
         $title = preg_replace('/^보호된 글: /', '', $title);
-        $title .= ' 🔒'; // " 🔒" 추가
+        $title .= ' 🔒';
+        // $title .= ' '.$lock;
+
     }
     return $title;
 }
@@ -587,4 +604,24 @@ function delete_attached_media_on_post_delete($post_id) {
     }
 }
 add_action('before_delete_post', 'delete_attached_media_on_post_delete');
+
+// 태그 리스트 표출 최적화
+function add_acf_custom_styles_admin() {
+    echo '<style>
+        #keyword .acf-taxonomy-field .categorychecklist-holder {
+            display: flex;              /* 플렉스박스를 사용하여 항목들을 한 줄로 나열 */
+            flex-wrap: wrap;            /* 항목들이 박스를 벗어나면 자동으로 줄바꿈 */
+            gap: 10px;                  /* 항목 간의 간격을 설정 */
+            max-height: none !important; /* 최대 높이를 설정하여 내용이 박스를 넘지 않게 설정 */
+        }
+
+        /* 각 리스트 항목을 인라인 블록으로 설정 */
+        #keyword .acf-taxonomy-field .categorychecklist-holder li {
+            display: inline-block;      /* 각 항목을 한 줄에 나열되도록 설정 */
+            margin-right: 10px;         /* 항목 간의 간격을 설정 */
+            white-space: nowrap;        /* 줄바꿈을 하지 않도록 설정 */
+        }
+    </style>';
+}
+add_action('acf/input/admin_enqueue_scripts', 'add_acf_custom_styles_admin');
 

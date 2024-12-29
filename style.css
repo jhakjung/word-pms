@@ -86,12 +86,13 @@ h1.login a {
 .docs.card-header {
     // transition: background-color 0.3s ease, color 0.3s ease; /* 부드러운 전환 효과 */
     // color: white;
-    background-color: #555 !important;
+    // background-color: #555 !important;
     font-size: 1.1em;
+    padding: 3px !important;
     // background-color: #777;
 }
 .docs.card-header:hover {
-    background-color: #555 !important; /* 배경색 변경 (어두운 회색) */
+    // background-color: #ccc !important; /* 배경색 변경 (어두운 회색) */
     // background-color: #343a40 !important; /* 배경색 변경 (어두운 회색) */
     // color: #ffffff !important; /* 텍스트 색상 변경 (흰색) */
     // text-decoration: underline; /* 텍스트 밑줄 추가 */
@@ -148,9 +149,23 @@ h1.login a {
   .bg-gray-700 {
     color: var(--custom-gray-700);
   }
-
   .bg-darkgray {
     background-color: #555;
+  }
+  .bg-green {
+    background-color: #00d084;
+  }
+  .bg-issue {
+    background-color:  #ff6a0096;
+  }
+  .bg-etc {
+    background-color: #8ed1fc;
+  }
+  .bg-lib {
+    background-color: #7bdcb5;
+  }
+  .bg-ddd {
+    background-color: #ccc;
   }
 
   .text-darkgray {

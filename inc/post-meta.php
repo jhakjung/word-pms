@@ -1,7 +1,7 @@
 <?php
 
 // 포스트 메타: 카테고리 출력 함수
-function custom_get_postmet_parent_category($class = 'badge badge__blue text-white') {
+function custom_get_postmet_parent_category($class = 'badge bg-green') {
     $categories = get_the_category();
     $category_names = array();
     $parent_categories = array();
@@ -30,7 +30,7 @@ function custom_get_postmet_parent_category($class = 'badge badge__blue text-whi
 }
 
 // 포스트 메타: 카테고리 출력 함수
-function custom_get_postmeta_category($class = 'badge badge__blue text-white') {
+function custom_get_postmeta_category($class = 'badge bg-green') {
     // 포스트에 할당된 카테고리 가져오기
     $categories = get_the_category();
     $parent_categories = [];

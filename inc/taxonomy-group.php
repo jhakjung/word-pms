@@ -51,16 +51,28 @@ function custom_get_tags($class) {
 
 // 전체 태그 List 출력
 function custom_get_all_tags($class) {
+    // 태그를 사용된 횟수(count) 기준으로 가져오기
     $tags = get_tags([
-        'hide_empty' => false, // 게시글에 사용되지 않은 태그도 포함
+        'hide_empty' => true,  // 게시글에 사용된 태그만 포함 (사용되지 않은 태그는 제외)
     ]);
+
+    // 디버깅: 태그 리스트 출력
+    // echo '<pre>';
+    // print_r($tags);
+    // echo '</pre>';
+
+    // 태그를 count 기준으로 내림차순으로 정렬
+    usort($tags, function($a, $b) {
+        return $b->count - $a->count; // 내림차순 정렬 (많이 사용된 태그가 앞에 오도록)
+    });
+
     if ($tags) {
         $tag_links = array();
         foreach ($tags as $tag) {
             if ($tag) {
                 $tag_name = $tag->name;
                 $tag_link = get_tag_link($tag->term_id);
-                $tag_links[] = '<span class="' . $class .'"><a href="' . $tag_link . '">' ."#". $tag_name . '</a></span>';
+                $tag_links[] = '<span class="' . esc_attr($class) .'"><a href="' . esc_url($tag_link) . '">' . "#" . esc_html($tag_name) . '</a></span>';
             }
         }
         echo implode(' ', $tag_links);
@@ -68,6 +80,8 @@ function custom_get_all_tags($class) {
         echo "-";
     }
 }
+
+
 
 // 성과물 List 출력
 function custom_get_document_category() {

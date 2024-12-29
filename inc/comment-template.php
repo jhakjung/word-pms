@@ -66,7 +66,7 @@ function bestmedical_comments_template() {
 
   $args   = array(
     'class_form'  => 'form',
-    'class_submit'  => 'btn btn-outline-primary text-primary',
+    'class_submit'  => 'btn btn-primary btn-sm',
     // 'title_reply_before'  => '<h4 class="d-none text-center mt-2">',
     // 'title_reply_after'   => '</h4> <span class="float-left mt-1"> <div class="avatar">' . $current_user . '</div></span><div class="media-body my-3">',
     'must_log_in'  => $must_log_in,
@@ -75,7 +75,7 @@ function bestmedical_comments_template() {
         'author'  => '<div class="row d-none"><div class="col-md-6"><div class="form-group"><label>' . esc_html__('이름', 'bestmedical') . ($req ? '<span class="required">*</span>' : '') . '</label><input type="text" name="author" class="form-control" id="author"' . $aria_req . '></div></div>',
         'email'  => '<div class="col-md-6 d-none"><div class="form-group"><label>' . esc_html__('이메일', 'bestmedical') . ($req ? '<span class="required">*</span>' : '') . '</label><input type="email" name="email" class="form-control" id="email"' . $aria_req . '></div></div></div>',
       )),
-    'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true" placeholder="진행 히스토리를 남겨주세요. (※ 대댓글 가능)"></textarea></div></div>',
+    'comment_field' => '<div class="form-group"><textarea name="comment" id="comment" class="form-control" rows="5" aria-required="true" placeholder="메일내용 요약 등 관련 이슈의 진행 히스토리를 남겨주세요. (※ RE:코멘트 클릭 후 입력하면 대댓글로 등록됨)"></textarea></div></div>',
     'label_submit' => '코멘트 등록',
   );
 

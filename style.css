@@ -191,3 +191,17 @@ h1.login a {
     color: #555;
   }
 
+/* 댓글에 첨부된 이미지 폭 조절 */
+.dco-attachment-gallery p {
+  width: 40% !important;
+}
+
+
+@media (max-width: 768px) { /* 화면 너비가 768px 이하일 때 */
+    .mobile-hide {
+        display: none !important; /* 요소 숨기기 */
+    }
+    .mobile-sm {
+      font-size: 1.2em !important;
+    }
+}

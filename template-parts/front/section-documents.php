@@ -12,7 +12,7 @@ $child_categories = get_categories($args);
 
 // 성과물 섹션 출력 시작
 ?>
-<div class="section-title fs-4 document text-center"><i class="fa fa-folder"></i> 성과물&nbsp; |&nbsp;  <i class="fas fa-exclamation-circle"></i> 이슈/기타문서/자료실</div>
+<div class="section-title fs-4 document text-center mobile-sm"><i class="fa fa-folder"></i> 성과물&nbsp; |&nbsp;  <i class="fas fa-exclamation-circle"></i> 이슈/기타문서/자료실</div>
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mb-4">
 <?php
     // 자식 카테고리마다 .card를 출력

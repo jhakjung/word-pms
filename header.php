@@ -68,28 +68,29 @@ if (isset($_POST['delete_post']) && isset($_POST['post_id'])) {
     if ($current_user_id == $post_author_id || current_user_can('administrator')) : ?>
 
         <!-- 수정 버튼 -->
-        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-primary">
+        <a href="<?php echo get_edit_post_link($post->ID); ?>" class="text-primary mobile-hide">
             수정
         </a>
 
         <!-- 삭제 버튼 -->
         <form action="" method="post" style="display:inline;">
             <input type="hidden" name="post_id" value="<?php echo $post->ID; ?>">
-            <input type="submit" name="delete_post" value="삭제" class="text-danger border-0 bg-transparent" onclick="return confirm('정말 이 게시물을 삭제하시겠습니까?');" >
+            <input type="submit" name="delete_post" value="삭제" class="text-danger border-0 bg-transparent mobile-hide" onclick="return confirm('정말 이 게시물을 삭제하시겠습니까?');" >
         </form>
 
     <?php endif; ?>
 <?php endif; ?>
 
         <!-- 작성 버튼 -->
-        <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary">
+        <a href="<?php echo admin_url('post-new.php'); ?>" class="text-primary mobile-hide">
             자료등록
         </a>
 
         <!-- 로그아웃 버튼 -->
-        <a href="<?php echo wp_logout_url(home_url()); ?>" class="text-danger">
+        <a href="<?php echo wp_logout_url(home_url()); ?>" class="text-danger mobile-hide">
             로그아웃
         </a>
+
     </div>
 </div>
 </nav>

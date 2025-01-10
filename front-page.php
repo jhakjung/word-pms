@@ -2,10 +2,10 @@
 
 <div class="main container">
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-5">
 			<?php get_template_part('template-parts/front/section', 'favorites'); ?>
 		</div>
-		<div class="col-lg-8">
+		<div class="col-lg-7">
 			<?php get_template_part('template-parts/front/section', 'tags'); ?>
 		</div>
 	</div>

@@ -29,7 +29,7 @@ foreach ($target_category_slugs as $slug):
 endforeach;
 ?>
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-2 mb-4">
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 g-2 mb-4">
 <!-- <div class="row g-2 mb-4"> -->
     <?php
     // 카테고리 정보가 있으면 출력

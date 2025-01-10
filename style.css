@@ -1,5 +1,5 @@
 /*
-Theme Name: wr20(2411)
+Theme Name: 위례(2025.1)
 Author: JHAK
 Version: 1.0
 */
@@ -204,4 +204,8 @@ h1.login a {
     .mobile-sm {
       font-size: 1.2em !important;
     }
+}
+
+span.badge.badge__yellow {
+  margin-bottom: 5px !important;
 }
